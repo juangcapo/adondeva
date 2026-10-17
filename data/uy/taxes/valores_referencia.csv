@@ -1,0 +1,5 @@
+unidad,nombre,valor,moneda,vigencia,fuente
+BPC,Base de Prestaciones y Contribuciones,6864,UYU,2026,https://www.bps.gub.uy/16815/valores.html
+SMN,Salario mínimo nacional,25383,UYU,2026,https://www.bps.gub.uy/16815/valores.html
+UR,Unidad Reajustable,1940.77,UYU,oct-2026,https://www.bps.gub.uy/16815/valores.html
+UI,Unidad Indexada,6.6676,UYU,oct-2026,https://www.bps.gub.uy/16815/valores.html

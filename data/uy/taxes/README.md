@@ -28,6 +28,8 @@ Rate file columns, one row per rate, bracket or fixed amount:
 | `confianza` | `oficial` (law, decree, Diario Oficial or agency page), `guia_oficial` (Uruguay XXI investor guide, June 2026), `secundaria` (press, private guide or academic history, verify), `sin_datos` |
 | `fuente` | URL the value came from |
 
+`valores_referencia.csv` holds the current BPC, UR, UI and minimum wage, used to turn BPC brackets into pesos. `python3 myrmidon.py tax ACCION MONTO` (sueldo, compra, importar, alquiler) computes a breakdown from these files.
+
 The rate files are generated: edit `RATES` in `build_rates.py` (national and other levels) or `departamental_data.py` (departments) and run `python3 build_rates.py`. Do not edit the CSVs by hand, they are overwritten.
 
 Departmental coverage. Sources are the Diario Oficial texts of each department's budgets (2001 to 2026, saved in `departamental/raw/`) and, for Maldonado, its online Texto Ordenado de Tributos (TOTIDEM). Many departments set rates in decades-old ordinances and their budgets only change some articles, so a row's `vigencia` says since when it applies and amounts in "UYU de 20xx" are nominal values of that year that the department adjusts by IPC or UR.
