@@ -1,2 +1,4 @@
 departamento,condicion,base,desde,hasta,unidad_tramo,tasa_pct,monto,unidad_monto,vigencia,confianza,fuente,notas
-,sin datos,,,,,,,,,sin_datos,,figura en el boletín DGI 2023 con recaudación 0
+,adquisición de inmuebles rurales por sociedades y demás contribuyentes de los literales A a D,valor real catastral,,,,5,,,desde 2007,oficial,https://uruguay.justia.com/nacionales/leyes/ley-18064-nov-27-2006/gdoc/,destino Instituto Nacional de Colonización; el boletín DGI 2023 muestra recaudación 0
+,herederos y legatarios en línea recta,valor real catastral,,,,4,,,desde 2007,oficial,https://uruguay.justia.com/nacionales/leyes/ley-18064-nov-27-2006/gdoc/,
+,personas físicas en las condiciones del art. 5,,,,,0,,,,oficial,https://uruguay.justia.com/nacionales/leyes/ley-18064-nov-27-2006/gdoc/,no gravadas

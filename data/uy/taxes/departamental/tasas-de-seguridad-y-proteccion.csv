@@ -1,2 +1,3 @@
 departamento,condicion,base,desde,hasta,unidad_tramo,tasa_pct,monto,unidad_monto,vigencia,confianza,fuente,notas
-,sin datos,,,,,,,,,sin_datos,,cada intendencia fija sus alícuotas; sin datos todavía
+Montevideo,Montevideo: rifas y similares,boletos vendidos,,,,5,,,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/06/documentos.pdf,sin exoneraciones
+Montevideo,Montevideo: sorteos y promociones con premios de más de 100 UR,valor de los premios con IVA,,,,5,,,2024,guia_oficial,https://tramites.montevideo.gub.uy/tramites-y-tributos/autorizacion/realizar-sorteos-y-promociones-para-premios-superiores-a-100-ur,más garantía de 20%

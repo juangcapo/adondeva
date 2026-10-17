@@ -1,9 +1,34 @@
 departamento,condicion,base,desde,hasta,unidad_tramo,tasa_pct,monto,unidad_monto,vigencia,confianza,fuente,notas
+Maldonado,Maldonado: inspección de espacios comunes,,,,,,0.1,UR por m² (tope 100 UR),2026-2030,oficial,https://digesto.maldonado.gub.uy/detalle-volumen/13,
+Maldonado,Maldonado: tasa de conservación de pavimento,,,,,,1525,UYU mínimo anual (valores 2021),desde 2022,oficial,https://digesto.maldonado.gub.uy/detalle-volumen/13,
+Maldonado,Maldonado: fraccionamiento con excepción a la ordenanza / urbanización con calles nuevas,,,,,,+10% por lote / +25%,sobre la tasa base,2026-2030,oficial,https://digesto.maldonado.gub.uy/detalle-volumen/13,
 Maldonado,Maldonado: tasa de conservación de pavimento,,,,,,2046,UYU mínimo anual,2026,secundaria,https://www.revistacero.com.uy/ajustan-la-contribucion-inmobiliaria-y-tributos-asociados-en-maldonado-regiran-desde-enero-de-2026/,
+Colonia,Colonia: revisión de planos: hasta 500 m² / 501 a 1.000 m² / más de 1.000 m²,,,,,,1.901 / 3.802 / 15.208,UYU de 2011,desde 2012 (Dec. 013/2011),oficial,https://www.impo.com.uy/diariooficial/2011/08/29/documentos.pdf,
+Colonia,Colonia: derechos de edificación vivienda modesta / económica / mediana / confortable,,,,,,13 / 26 / 53 / 80,UYU de 2011 por m²,desde 2012 (Dec. 013/2011),oficial,https://www.impo.com.uy/diariooficial/2011/08/29/documentos.pdf,"locales comerciales 26, depósitos 14"
+Colonia,Colonia: regularización de obra sin permiso,tasas de planos y edificación,,,,50,,,desde 2021,oficial,https://www.impo.com.uy/diariooficial/2021/12/24/documentos.pdf,recargo
+Colonia,Colonia: fraccionamientos: servicio / por solar / por hectárea,,,,,,153 / 123 / 187,UYU de 2011,desde 2012 (Dec. 013/2011),oficial,https://www.impo.com.uy/diariooficial/2011/08/29/documentos.pdf,
+Rivera,Rivera: tasa de conservación de pavimento: frente a hormigón,,,,,,130,UYU de 2016 por metro de frente al año,desde 2016,oficial,https://www.impo.com.uy/diariooficial/2016/05/27/documentos.pdf,
+Rivera,Rivera: tasa de conservación de pavimento: frente a carpeta asfáltica,,,,,,70,UYU de 2016 por metro de frente al año,desde 2016,oficial,https://www.impo.com.uy/diariooficial/2016/05/27/documentos.pdf,
+Rivera,Rivera: tasa de conservación de pavimento: frente a tratamiento bituminoso,,,,,,70,UYU de 2016 por metro de frente al año,desde 2016,oficial,https://www.impo.com.uy/diariooficial/2016/05/27/documentos.pdf,
+Rivera,Rivera: tasa de conservación de pavimento: frente a empedrado,,,,,,65,UYU de 2016 por metro de frente al año,desde 2016,oficial,https://www.impo.com.uy/diariooficial/2016/05/27/documentos.pdf,
+Soriano,Soriano: inspecciones de Arquitectura: suelo urbano / suburbano y rural,,,,,,"0,5 / 1",UR por inspección,desde 2011,oficial,https://www.impo.com.uy/diariooficial/2011/07/21/documentos.pdf,
+Soriano,Soriano: fraccionamientos urbanos: 2-9 / 10-19 / 20-49 / 50-99 / 100+ solares,,,,,,"6 / 15 / 26,5 / 49,7 / 85",UR,desde 2011,oficial,https://www.impo.com.uy/diariooficial/2011/07/21/documentos.pdf,"suburbano × 0,75; rural 1 UR por fracción; PH × 1,5"
+Durazno,Durazno: tasa de conservación de pavimento: frente a hormigón,,,,,,800,UYU de 2016 anuales,desde 2017,oficial,https://www.impo.com.uy/diariooficial/2016/08/04/documentos.pdf,
+Durazno,Durazno: tasa de conservación de pavimento: frente a carpeta asfáltica,,,,,,500,UYU de 2016 anuales,desde 2017,oficial,https://www.impo.com.uy/diariooficial/2016/08/04/documentos.pdf,
+Durazno,Durazno: tasa de conservación de pavimento: frente a tratamiento bituminoso,,,,,,360,UYU de 2016 anuales,desde 2017,oficial,https://www.impo.com.uy/diariooficial/2016/08/04/documentos.pdf,
+Durazno,Durazno: tasa de conservación de pavimento: frente a balasto,,,,,,0,UYU de 2016 anuales,desde 2017,oficial,https://www.impo.com.uy/diariooficial/2016/08/04/documentos.pdf,
+Tacuarembó,Tacuarembó: examen de planos,valor de tasación de la obra,,,,0.04,,,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/06/12/documentos.pdf,0.4 por mil
+Tacuarembó,Tacuarembó: estudio urbanístico,valor de tasación de la obra,,,,0.02,,,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/06/12/documentos.pdf,0.2 por mil
+Tacuarembó,Tacuarembó: autorización para edificar o regularizar,valor de tasación de la obra,,,,0.2,,,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/06/12/documentos.pdf,2 por mil
+Tacuarembó,"Tacuarembó: puertas, ventanas o portones al frente / refacción de frentes / muro al frente",,,,,,150 por abertura / 30 por m² / 30 por m,UI,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/06/12/documentos.pdf,
+Tacuarembó,Tacuarembó: barreras de obra,,,,,,60,UI por metro lineal al mes,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/06/12/documentos.pdf,
+Tacuarembó,Tacuarembó: fraccionamiento hasta 5 fracciones,valor imponible,,,,1,,,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/09/08/documentos.pdf,más de 5: 300 UI adicionales por solar
 Rocha,Rocha: reparación de pavimento: hormigón armado,,,,,,4 + 15 por m²,UR,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/04/10/documentos.pdf,
 Rocha,Rocha: reparación de pavimento: adoquín,,,,,,4 + 10 por m²,UR,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/04/10/documentos.pdf,
 Rocha,Rocha: reparación de pavimento: bituminoso,,,,,,4 + 4 por m²,UR,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/04/10/documentos.pdf,
 Rocha,Rocha: reparación de pavimento: balasto,,,,,,4 + 1 por m²,UR,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/04/10/documentos.pdf,
+Durazno,Durazno: estudio de planos sin permiso simultáneo,avaluación de la obra,,,,0.2,500,UYU de 2001 mínimo,desde 2002 (Dec. 1664/2001),oficial,https://www.impo.com.uy/diariooficial/2001/12/26/documentos.pdf,
+Durazno,Durazno: fraccionamiento: inicio / por fracción / amanzanamiento,,,,,,500 / 40 / 1.000,UYU de 2001,desde 2002 (Dec. 1664/2001),oficial,https://www.impo.com.uy/diariooficial/2001/12/26/documentos.pdf,
 Río Negro,Río Negro: inspección técnica de obras,,,,,,1,UR por inspección,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/03/documentos.pdf,"obras menores 0,3 UR; anticipo de estudio técnico 0,04 UR por m²"
 Artigas,Artigas: estudio y aprobación de planos de obra nueva o ampliación,metro cuadrado,,,,,0.1,UR por m²,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/27/documentos.pdf,"regularización 0,20; reforma 0,03 a 0,23 UR por m²"
 Artigas,Artigas: habilitación de obra / demolición / plano de ajuste,,,,,,1 / 1 / 2,UR,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/27/documentos.pdf,

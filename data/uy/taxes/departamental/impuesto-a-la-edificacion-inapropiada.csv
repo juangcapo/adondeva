@@ -1,10 +1,15 @@
 departamento,condicion,base,desde,hasta,unidad_tramo,tasa_pct,monto,unidad_monto,vigencia,confianza,fuente,notas
+Maldonado,Maldonado: construcciones sin permiso o en contravención,,,,,,,,2026-2030,oficial,https://digesto.maldonado.gub.uy/detalle-volumen/13,1/5 anual y acumulativo; al regularizar las tasas se multiplican de 1 a 10 veces según avance
+Colonia,Colonia: edificación antihigiénica o inhabitable,,,,,,2,UR por metro de frente al año,desde 2012 (Dec. 013/2011),oficial,https://www.impo.com.uy/diariooficial/2011/08/29/documentos.pdf,
+Colonia,Colonia: frentes sin vereda en calles con cuneta,,,,,,0.5,UR por metro de frente al año,desde 2012 (Dec. 013/2011),oficial,https://www.impo.com.uy/diariooficial/2011/08/29/documentos.pdf,
+Rivera,Rivera: edificación inapropiada,,,,,,,,desde 2001,oficial,https://www.impo.com.uy/diariooficial/2000/12/21/documentos.pdf,mismas alícuotas que los baldíos
 Rocha,Rocha: a) sin permiso de construcción o contenedores no autorizados,,,,,,20,UR anuales por edificación,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/04/10/documentos.pdf,
 Rocha,Rocha: b) permiso con observaciones sin resolver,,,,,,10,UR anuales por edificación,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/04/10/documentos.pdf,15 UR desde el cuarto ejercicio y 20 UR desde el quinto
 Rocha,Rocha: c) construcción donde no se autoriza edificar,,,,,,30,UR anuales por edificación,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/04/10/documentos.pdf,
 Rocha,Rocha: d y e) fincas ruinosas o actividades sin viabilidad de uso,,,,,,35,UR anuales por edificación,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/04/10/documentos.pdf,
 Rocha,Rocha: f) construcciones paralizadas con deterioro,,,,,,40,UR anuales por edificación,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/04/10/documentos.pdf,
 Rocha,Rocha: construcciones en áreas protegidas o zonas fiscales,,,,,,60,UR anuales por edificación,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/04/10/documentos.pdf,15 UR en las zonas fiscales de Aguas Dulces y Valizas
+Durazno,"Durazno: edificación inapropiada, ruinosa, clausurada, tapiada o inconclusa",Contribución Inmobiliaria urbana,,,,150,,,desde 2002 (Dec. 1664/2001),oficial,https://www.impo.com.uy/diariooficial/2001/12/26/documentos.pdf,
 Río Negro,Río Negro: Fray Bentos y Young zona 1,valor imponible de la contribución urbana,,,,2,,,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/03/documentos.pdf,falta de veredas o de conexión a saneamiento: 50% de las alícuotas de baldío
 Río Negro,Río Negro: Fray Bentos y Young zona 2,valor imponible de la contribución urbana,,,,1.5,,,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/03/documentos.pdf,falta de veredas o de conexión a saneamiento: 50% de las alícuotas de baldío
 Río Negro,Río Negro: Fray Bentos y Young zona 3,valor imponible de la contribución urbana,,,,1,,,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/03/documentos.pdf,falta de veredas o de conexión a saneamiento: 50% de las alícuotas de baldío

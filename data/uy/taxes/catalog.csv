@@ -14,7 +14,7 @@ nacional,DGI,Impuesto de Control de las Sociedades Anónimas,ICOSA,impuesto,vige
 nacional,DGI,Impuesto de Enseñanza Primaria,IEP,impuesto,vigente,si,inmuebles urbanos/suburbanos y rurales; destino ANEP,nacional/impuesto-de-ensenanza-primaria.csv
 nacional,DGI,Impuesto Mínimo Complementario Doméstico,IMCD,impuesto,vigente,si,"Pilar 2 OCDE; Ley 20.446, desde 2026",nacional/impuesto-minimo-complementario-domestico.csv
 nacional,DGI,Impuesto a las Trasmisiones Patrimoniales,ITP,impuesto,vigente,si,inmuebles,nacional/impuesto-a-las-trasmisiones-patrimoniales.csv
-nacional,DGI,Adicional del Impuesto a las Trasmisiones Patrimoniales,,impuesto,vigente,si,figura en el boletín DGI 2023 con recaudación 0,nacional/adicional-del-impuesto-a-las-trasmisiones-patrimoniales.csv
+nacional,DGI,Adicional del Impuesto a las Trasmisiones Patrimoniales,,impuesto,vigente,si,inmuebles rurales; destino Instituto Nacional de Colonización (Ley 18.064),nacional/adicional-del-impuesto-a-las-trasmisiones-patrimoniales.csv
 nacional,DGI,Impuesto a la Apuesta,IA,impuesto,vigente,si,máquinas electrónicas de casinos y salas (Ley 19.535),nacional/impuesto-a-la-apuesta.csv
 nacional,DGI,Impuesto a los Ingresos de las Entidades Aseguradoras,IIEA,impuesto,vigente,si,"""Ingresos sobre Compañías de Seguros"" en el boletín DGI",nacional/impuesto-a-los-ingresos-de-las-entidades-aseguradoras.csv
 nacional,DGI,Impuestos para el Fondo de Inspección Sanitaria,FIS,impuesto,vigente,si,"exportación de animales en pie y carne, carne para consumo interno (Ley 13.892 art. 421)",nacional/impuestos-para-el-fondo-de-inspeccion-sanitaria.csv
@@ -115,3 +115,15 @@ departamental,Intendencias,Impuesto a la circulación de vehículos extranjeros,
 departamental,Intendencias,Tasa de preservación ambiental,,tasa,vigente,si,visitantes de áreas protegidas,departamental/tasa-de-preservacion-ambiental.csv
 departamental,Intendencias,Tasa de uso de terminales de pasajeros,,tasa,vigente,si,se cobra con el pasaje,departamental/tasa-de-uso-de-terminales-de-pasajeros.csv
 departamental,Intendencias,Tasa de habilitación comercial,,tasa,vigente,si,habilitación y control de comercios,departamental/tasa-de-habilitacion-comercial.csv
+organismos,Fondo Nacional de Música,Fondo Nacional de Música,,contribución especial,vigente,si,Ley 16.624 (1994),organismos/fondo-nacional-de-musica.csv
+organismos,Fondo Nacional de Teatro,Fondo Nacional de Teatro,,contribución especial,vigente,si,Ley 17.741 (2004),organismos/fondo-nacional-de-teatro.csv
+organismos,INAVI,Tasa de promoción y control vitivinícola,,tasa,vigente,si,Ley 15.903 art. 149 (texto de la Ley 16.757),organismos/tasa-de-promocion-y-control-vitivinicola.csv
+organismos,ANP,Tasa al transporte marítimo y fluvial de pasajeros,,tasa,vigente,si,Ley 18.057 (2006),organismos/tasa-al-transporte-maritimo-y-fluvial-de-pasajeros.csv
+aduana,MGAP/MEF,Fondo de Financiamiento y Recomposición de la Actividad Arrocera,,retención,vigente,si,Ley 17.663 (2003); vigencia a verificar,aduana/fondo-de-financiamiento-y-recomposicion-de-la-actividad-arrocera.csv
+organismos,"INAU, Comisión Honoraria de Lucha Antituberculosa, MSP",Retenciones sobre entradas a bailes,,tasa,vigente,si,se retienen junto con el impuesto departamental a espectáculos,organismos/retenciones-sobre-entradas-a-bailes.csv
+departamental,intendencias,Tasa de promoción turística,,tasa,vigente,si,por persona y noche en hoteles (Colonia y otros),departamental/tasa-de-promocion-turistica.csv
+departamental,intendencias,Ocupación de espacios públicos,,precio,vigente,si,"quioscos, ferias, mesas y sillas, veredas ocupadas por obras",departamental/ocupacion-de-espacios-publicos.csv
+departamental,intendencias,Impuesto a la venta de carne,,impuesto,derogado,si,"Canelones, Ordenanza 4152 (1973); derogado en 2026",departamental/impuesto-a-la-venta-de-carne.csv
+departamental,intendencias,Tasa de caminería rural,,precio,vigente,si,vehículos de carga pesada en caminería departamental (Durazno y otros),departamental/tasa-de-camineria-rural.csv
+departamental,intendencias,Tasa forestal,,tasa,vigente,si,padrones forestados (Maldonado),departamental/tasa-forestal.csv
+departamental,intendencias,Impuesto a la extracción de materiales,,impuesto,vigente,si,canteras y areneras (Maldonado y otros),departamental/impuesto-a-la-extraccion-de-materiales.csv

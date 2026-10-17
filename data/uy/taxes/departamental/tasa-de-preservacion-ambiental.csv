@@ -1,2 +1,7 @@
 departamento,condicion,base,desde,hasta,unidad_tramo,tasa_pct,monto,unidad_monto,vigencia,confianza,fuente,notas
 Rocha,"Rocha: visitantes de áreas protegidas (Cabo Polonio, Isla del Padre, Bañado de los Indios)",,,,,,0.05,UR por visitante,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/04/10/documentos.pdf,
+Durazno,"Durazno: tasa de desarrollo urbanístico y medio ambiente (baldíos o sin luz), zona 1",,,,,,70,UYU de 2001 mensuales,desde 2002 (Dec. 1664/2001),oficial,https://www.impo.com.uy/diariooficial/2001/12/26/documentos.pdf,
+Durazno,"Durazno: tasa de desarrollo urbanístico y medio ambiente (baldíos o sin luz), zona 2",,,,,,70,UYU de 2001 mensuales,desde 2002 (Dec. 1664/2001),oficial,https://www.impo.com.uy/diariooficial/2001/12/26/documentos.pdf,
+Durazno,"Durazno: tasa de desarrollo urbanístico y medio ambiente (baldíos o sin luz), zona 3",,,,,,40,UYU de 2001 mensuales,desde 2002 (Dec. 1664/2001),oficial,https://www.impo.com.uy/diariooficial/2001/12/26/documentos.pdf,
+Durazno,"Durazno: tasa de desarrollo urbanístico y medio ambiente (baldíos o sin luz), zona 4",,,,,,25,UYU de 2001 mensuales,desde 2002 (Dec. 1664/2001),oficial,https://www.impo.com.uy/diariooficial/2001/12/26/documentos.pdf,
+Durazno,"Durazno: tasa de desarrollo urbanístico y medio ambiente (baldíos o sin luz), zona 5",,,,,,15,UYU de 2001 mensuales,desde 2002 (Dec. 1664/2001),oficial,https://www.impo.com.uy/diariooficial/2001/12/26/documentos.pdf,

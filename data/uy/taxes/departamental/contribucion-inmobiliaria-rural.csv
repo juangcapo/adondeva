@@ -1,3 +1,6 @@
 departamento,condicion,base,desde,hasta,unidad_tramo,tasa_pct,monto,unidad_monto,vigencia,confianza,fuente,notas
+Montevideo,"Montevideo: subsidio a jubilados y pensionistas, vivienda única, ingresos hasta 5 BPC y valor hasta 500.000 UI",,,,,-100,,,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/06/documentos.pdf,50% si el valor supera el tope hasta en 50%
+Canelones,Canelones: multa por mora rural: hasta 5 días hábiles / hasta 90 días / más de 90 días,,,,,,5% / 10% / 20%,del tributo,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/06/23/documentos.pdf,
+Maldonado,Maldonado: propietarios que explotan hasta 1.000 ha CONEAT 100,alícuota de la Ley 15.809 art. 652,,,,-18,,,2026-2030,oficial,https://digesto.maldonado.gub.uy/detalle-volumen/13,
 Rocha,Rocha: alícuota fijada por ley nacional (Ley 9.189),valor real catastral,,,,,,,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/04/10/documentos.pdf,recauda la intendencia
 Río Negro,Río Negro: alícuota fijada por ley nacional,valor real catastral,,,,,,,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/03/documentos.pdf,enclaves rurales categorizados como suburbanos pagan la rural más 20%

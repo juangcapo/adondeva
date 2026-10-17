@@ -1,0 +1,3 @@
+departamento,condicion,base,desde,hasta,unidad_tramo,tasa_pct,monto,unidad_monto,vigencia,confianza,fuente,notas
+,boletas de circulación de vinos nacionales e importados,litro de vino,,,,,0.31,"UYU por litro (valor 1996, ajuste semestral por IPC)",desde 1996,oficial,https://uruguay.justia.com/nacionales/leyes/ley-16757-jun-26-1996/gdoc/,
+,subproductos de la uva,litro o kilo,,,,,0.31,"UYU (valor 1996, ajuste por IPC)",desde 1996,oficial,https://uruguay.justia.com/nacionales/leyes/ley-16757-jun-26-1996/gdoc/,

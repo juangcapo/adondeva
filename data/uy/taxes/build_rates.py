@@ -101,6 +101,13 @@ S = {
     "LEY18876": "https://impo.com.uy/bases/leyes/18876-2011",
     "BPS_PPL": "https://www.bps.gub.uy/19831/nuevo-regimen-de-aportes-para-emprendimientos-productivos-de-personas-privadas-de-libertad.html",
     "DEC122_2025": "https://www.impo.com.uy/bases/decretos/122-2025/1",
+    "LEY18064": "https://uruguay.justia.com/nacionales/leyes/ley-18064-nov-27-2006/gdoc/",
+    "LEY16624": "https://uruguay.justia.com/nacionales/leyes/ley-16624-nov-10-1994/gdoc/",
+    "LEY17741": "https://uruguay.justia.com/nacionales/leyes/ley-17741-jan-10-2004/gdoc/",
+    "LEY16757": "https://uruguay.justia.com/nacionales/leyes/ley-16757-jun-26-1996/gdoc/",
+    "LEY18057": "https://uruguay.justia.com/nacionales/leyes/ley-18057-nov-20-2006/gdoc/",
+    "LEY17663": "https://uruguay.justia.com/nacionales/leyes/ley-17663-jul-11-2003/gdoc/",
+    "MVD_BAILES": "https://tramites.montevideo.gub.uy/tramites-y-tributos/solicitud/declaracion-de-espectaculos-publicos",
     "MEF_IRAE_ANT": "https://www.gub.uy/ministerio-economia-finanzas/sites/ministerio-economia-finanzas/files/2026-01/Decreto%2030_12_25%20mef_230.pdf",
 }
 
@@ -301,7 +308,35 @@ RATES["Impuesto a las Trasmisiones Patrimoniales"] = [
     r("transferencia sin contraprestación: beneficiario", base="valor real catastral", tasa=4, vigencia=V26, confianza=G, src="UXXI"),
     r("herencia en línea recta ascendente o descendente", base="valor real catastral", tasa=3, vigencia=V26, confianza=G, src="UXXI"),
 ]
-RATES["Adicional del Impuesto a las Trasmisiones Patrimoniales"] = nodata("figura en el boletín DGI 2023 con recaudación 0")
+RATES["Adicional del Impuesto a las Trasmisiones Patrimoniales"] = [
+    r("adquisición de inmuebles rurales por sociedades y demás contribuyentes de los literales A a D", base="valor real catastral", tasa=5, vigencia="desde 2007", src="LEY18064", notas="destino Instituto Nacional de Colonización; el boletín DGI 2023 muestra recaudación 0"),
+    r("herederos y legatarios en línea recta", base="valor real catastral", tasa=4, vigencia="desde 2007", src="LEY18064"),
+    r("personas físicas en las condiciones del art. 5", tasa=0, src="LEY18064", notas="no gravadas"),
+]
+RATES["Fondo Nacional de Música"] = [
+    r("espectáculos de conjuntos musicales extranjeros", base="total recaudado", tasa=5, vigencia="desde 1994", src="LEY16624"),
+    r("ídem, complementados por un espectáculo nacional", base="total recaudado", tasa=3, vigencia="desde 1994", src="LEY16624"),
+]
+RATES["Fondo Nacional de Teatro"] = [
+    r("espectáculos de elencos nacionales", base="total recaudado", tasa=1, vigencia="desde 2004", src="LEY17741"),
+    r("espectáculos de elencos extranjeros", base="total recaudado", tasa=5, vigencia="desde 2004", src="LEY17741"),
+    r("espectáculos de elencos mixtos", base="total recaudado", tasa=3, vigencia="desde 2004", src="LEY17741"),
+]
+RATES["Tasa de promoción y control vitivinícola"] = [
+    r("boletas de circulación de vinos nacionales e importados", base="litro de vino", monto=0.31, unidad_monto="UYU por litro (valor 1996, ajuste semestral por IPC)", vigencia="desde 1996", src="LEY16757"),
+    r("subproductos de la uva", base="litro o kilo", monto=0.31, unidad_monto="UYU (valor 1996, ajuste por IPC)", vigencia="desde 1996", src="LEY16757"),
+]
+RATES["Tasa al transporte marítimo y fluvial de pasajeros"] = [
+    r("pasajeros entre puertos uruguayos y argentinos (tope legal)", base="precio del pasaje", tasa=2, vigencia="desde 2006", src="LEY18057", notas="destino autoridad portuaria; exentos menores de 10 años"),
+]
+RATES["Fondo de Financiamiento y Recomposición de la Actividad Arrocera"] = [
+    r("exportaciones de arroz y derivados", base="valor FOB", tasa=5, vigencia="desde 2003", src="LEY17663", notas="retención; vigencia actual no verificada"),
+]
+RATES["Retenciones sobre entradas a bailes"] = [
+    r("INAU", base="valor de la entrada", tasa=1, vigencia="2025", confianza=G, src="MVD_BAILES"),
+    r("Comisión Honoraria de Lucha Antituberculosa", base="valor de la entrada", tasa=5, vigencia="2025", confianza=G, src="MVD_BAILES"),
+    r("Ministerio de Salud Pública", base="valor de la entrada", tasa=3, vigencia="2025", confianza=G, src="MVD_BAILES"),
+]
 RATES["Impuesto a la Apuesta"] = [
     r("apuestas en máquinas electrónicas de casinos y salas", base="monto apostado", tasa=0.75, vigencia="desde ago-2025", src="DO_20250820", notas="Dec. 167/025; contribuyente el apostador, retiene la sala"),
     r("régimen anterior", base="monto apostado", tasa=0.75, vigencia="2018-2025", confianza=SEC, src="DEC359", notas="Dec. 359/017"),
@@ -699,7 +734,12 @@ RATES["Impuesto Adicional a las Retribuciones Personales"] = [
     r("sector público, más de 20 SMN", base="retribución", tasa=4, vigencia="2002-2004", notas="sube hasta 7%", **_H),
     r("resto, más de 25 SMN", base="retribución", tasa=3, vigencia="2002-2004", notas="sube 1% cada 5 SMN hasta 6%", **_H),
 ]
-RATES["Impuesto a los Ingresos de las Compañías de Seguros"] = nodata("reemplazado en 2001 por el IIEA (Ley 17.296); tasas no encontradas")
+RATES["Impuesto a los Ingresos de las Compañías de Seguros"] = [
+    r("compañías con dirección y capital en el exterior: ramos generales", base="ingresos brutos por primas", tasa=7, vigencia="hasta 2001 (T.O. 1987 Título 6)", **_H),
+    r("ídem: seguros marítimos / vida", base="ingresos brutos por primas", monto="4% / 2%", vigencia="hasta 2001", **_H),
+    r("compañías con dirección y capital en el país: ramos generales", base="ingresos brutos por primas", tasa=5, vigencia="hasta 2001", **_H),
+    r("ídem: seguros marítimos / vida", base="ingresos brutos por primas", monto="2% / 0,5%", vigencia="hasta 2001", notas="reemplazado por el IIEA (Ley 17.296)", **_H),
+]
 RATES["Recargos a la importación"] = nodata("Impuesto Aduanero Único y recargos, unificados en la Tasa Global Arancelaria (Decreto 85/991); tasas históricas no encontradas")
 
 DEPARTAMENTAL_SIN_DATOS = "cada intendencia fija sus alícuotas; sin datos todavía"

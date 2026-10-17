@@ -12,7 +12,7 @@ Each catalog entry has one rate file (named in the `archivo` column), in a folde
 | `seguridad_social/` | BPS contributions, sector funds and the independent pension funds |
 | `departamental/` | Intendencia taxes and fees, with one row per department and rate |
 | `derogados/` | Repealed taxes with their historical rates |
-| `departamental/raw/presupuestos_2026/` | Text of the 2026-2030 departmental budgets published in the Diario Oficial, the source of the departmental rows |
+| `departamental/raw/` | Source texts of the departmental rows: 2026-2030 budgets and older budgets, decrees and texts ordenados |
 
 Rate file columns, one row per rate, bracket or fixed amount:
 
@@ -30,4 +30,12 @@ Rate file columns, one row per rate, bracket or fixed amount:
 
 The rate files are generated: edit `RATES` in `build_rates.py` (national and other levels) or `departamental_data.py` (departments) and run `python3 build_rates.py`. Do not edit the CSVs by hand, they are overwritten.
 
-Departmental coverage: full or main taxes for Rocha, Río Negro, Artigas and Paysandú; partial for Montevideo, Durazno, Cerro Largo and Florida (their 2026 budgets only change some articles of older norms); third-party ranges for Canelones, Colonia and Maldonado. Salto, San José, Soriano, Treinta y Tres, Lavalleja, Flores, Rivera and Tacuarembó did not publish their tax texts in the 2026 Diario Oficial and are still missing.
+Departmental coverage. Sources are the Diario Oficial texts of each department's budgets (2001 to 2026, saved in `departamental/raw/`) and, for Maldonado, its online Texto Ordenado de Tributos (TOTIDEM). Many departments set rates in decades-old ordinances and their budgets only change some articles, so a row's `vigencia` says since when it applies and amounts in "UYU de 20xx" are nominal values of that year that the department adjusts by IPC or UR.
+
+| Department | Coverage |
+|---|---|
+| Montevideo, Rocha, Río Negro, Artigas, Paysandú, Colonia, Durazno, Rivera, Maldonado | property tax rates or scale plus most other tributes |
+| Tacuarembó, Soriano, Canelones, Treinta y Tres, Salto, Cerro Largo, Florida, Flores | some tributes; the general property tax scale is not in any published text found |
+| San José, Lavalleja | no rates found: their budgets in the Diario Oficial only list revenue amounts |
+
+`departamental/raw/presupuestos_2026/` has the 2026-2030 budget texts; `departamental/raw/normas/` has the tax articles extracted from older budgets and decrees, one file per source with its URL on the first line.
