@@ -34,8 +34,8 @@ Departmental coverage. Sources are the Diario Oficial texts of each department's
 
 | Department | Coverage |
 |---|---|
-| Montevideo, Rocha, Río Negro, Artigas, Paysandú, Colonia, Durazno, Rivera, Maldonado | property tax rates or scale plus most other tributes |
-| Tacuarembó, Soriano, Canelones, Treinta y Tres, Salto, Cerro Largo, Florida, Flores | some tributes; the general property tax scale is not in any published text found |
-| San José, Lavalleja | no rates found: their budgets in the Diario Oficial only list revenue amounts |
+| Montevideo, Rocha, Río Negro, Artigas, Paysandú, Colonia, Durazno, Rivera, Maldonado, Salto, Soriano | property tax rates or scale plus most other tributes |
+| Tacuarembó, Canelones, Treinta y Tres, Lavalleja, Cerro Largo, Florida, Flores | some tributes; the general property tax scale is not in any published text found (Canelones has only a third-party range) |
+| San José | no rates found: its budgets in the Diario Oficial (2006, 2011, 2016, 2021, 2026) only list revenue amounts |
 
 `departamental/raw/presupuestos_2026/` has the 2026-2030 budget texts; `departamental/raw/normas/` has the tax articles extracted from older budgets and decrees, one file per source with its URL on the first line.
