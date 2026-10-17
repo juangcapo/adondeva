@@ -1,0 +1,3 @@
+condicion,base,desde,hasta,unidad_tramo,tasa_pct,monto,unidad_monto,vigencia,confianza,fuente,notas
+"envíos de hasta 20 kg y factura de hasta USD 800, opcional",valor facturado o declarado,,,,60,20,USD mínimo por envío,desde 23/3/2026,oficial,https://medios.presidencia.gub.uy/legal/2026/decretos/03/mef_297.pdf,sustituye aranceles y tributos internos; comparación con 2024 en ../aranceles/regimen-envios/
+régimen anterior: envíos de hasta USD 200,valor facturado o declarado,,,,60,10,USD mínimo por envío,2016 a 22/3/2026,oficial,https://www.aduanas.gub.uy/innovaportal/v/14924/3/innova.front/a-partir-del-1%C2%B0-de-enero-se-modifica-el-regimen-para-compras-en-el-exterior.html,Decreto 356/014 modificado; ver ../aranceles/regimen-envios/

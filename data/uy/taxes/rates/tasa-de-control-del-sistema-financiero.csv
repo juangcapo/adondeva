@@ -1,0 +1,2 @@
+condicion,base,desde,hasta,unidad_tramo,tasa_pct,monto,unidad_monto,vigencia,confianza,fuente,notas
+entidades supervisadas por el BCU: tope legal,"promedio anual de activos o comisiones, según el sujeto",,,,0.2,,,,oficial,https://www.bcu.gub.uy/Leyes%20y%20Decretos/ernp18083.pdf,"2 por mil como máximo (Ley 18.083); alícuotas por tipo de entidad en el Dec. 795/008, no disponible; en 2025 el BCU propuso modificarla"

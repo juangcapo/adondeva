@@ -1,0 +1,4 @@
+condicion,base,desde,hasta,unidad_tramo,tasa_pct,monto,unidad_monto,vigencia,confianza,fuente,notas
+jubilatorio personal,remuneración gravada,,,,15,,,2026,oficial,https://www.bps.gub.uy/835/tasas.html,
+jubilatorio patronal,remuneración gravada,,,,7.5,,,2026,oficial,https://www.bps.gub.uy/835/tasas.html,
+"FONASA, FRL y fondo social",remuneración gravada,,,,,,,2026,oficial,https://www.bps.gub.uy/835/tasas.html,mismas tasas del régimen general; ver sus archivos

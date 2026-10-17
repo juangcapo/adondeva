@@ -1,0 +1,108 @@
+nivel,recauda,nombre,sigla,tipo,estado,verificado,notas,archivo
+nacional,DGI,Impuesto al Valor Agregado,IVA,impuesto,vigente,si,"tasa básica, tasa mínima e IVA mínimo (pequeñas empresas); también en importación vía DNA y compras en el exterior",rates/impuesto-al-valor-agregado.csv
+nacional,DGI,Impuesto Específico Interno,IMESI,impuesto,vigente,si,"rubros: combustibles, emisiones CO2, grasas y lubricantes, tabacos, bebidas alcohólicas, bebidas sin alcohol, cerveza, vinos, vehículos, perfumería y cosmética",rates/impuesto-especifico-interno.csv
+nacional,DGI,Impuesto a las Rentas de las Actividades Económicas,IRAE,impuesto,vigente,si,incluye régimen de pequeña empresa (literal E),rates/impuesto-a-las-rentas-de-las-actividades-economicas.csv
+nacional,DGI,Impuesto a la Renta de las Personas Físicas,IRPF,impuesto,vigente,si,"Categoría I (capital, incrementos patrimoniales, premios de juegos) y Categoría II (trabajo dependiente e independiente)",rates/impuesto-a-la-renta-de-las-personas-fisicas.csv
+nacional,DGI,Impuesto a las Rentas de los No Residentes,IRNR,impuesto,vigente,si,personas físicas y empresas,rates/impuesto-a-las-rentas-de-los-no-residentes.csv
+nacional,DGI,Impuesto de Asistencia a la Seguridad Social,IASS,impuesto,vigente,si,sobre jubilaciones y pensiones,rates/impuesto-de-asistencia-a-la-seguridad-social.csv
+nacional,DGI,Impuesto a la Enajenación de Bienes Agropecuarios,IMEBA,impuesto,vigente,si,,rates/impuesto-a-la-enajenacion-de-bienes-agropecuarios.csv
+nacional,DGI,Adicional IMEBA (MEVIR),,impuesto,vigente,si,destino MEVIR,rates/adicional-imeba-mevir.csv
+nacional,DGI,Adicional IMEBA (INIA),,impuesto,vigente,si,destino INIA,rates/adicional-imeba-inia.csv
+nacional,DGI,Impuesto al Patrimonio,IP,impuesto,vigente,si,"personas jurídicas, personas físicas y explotaciones agropecuarias",rates/impuesto-al-patrimonio.csv
+nacional,DGI,Sobretasa del Impuesto al Patrimonio,,impuesto,vigente,si,,rates/sobretasa-del-impuesto-al-patrimonio.csv
+nacional,DGI,Impuesto de Control de las Sociedades Anónimas,ICOSA,impuesto,vigente,si,,rates/impuesto-de-control-de-las-sociedades-anonimas.csv
+nacional,DGI,Impuesto de Enseñanza Primaria,IEP,impuesto,vigente,si,inmuebles urbanos/suburbanos y rurales; destino ANEP,rates/impuesto-de-ensenanza-primaria.csv
+nacional,DGI,Impuesto Mínimo Complementario Doméstico,IMCD,impuesto,vigente,si,"Pilar 2 OCDE; Ley 20.446, desde 2026",rates/impuesto-minimo-complementario-domestico.csv
+nacional,DGI,Impuesto a las Trasmisiones Patrimoniales,ITP,impuesto,vigente,si,inmuebles,rates/impuesto-a-las-trasmisiones-patrimoniales.csv
+nacional,DGI,Adicional del Impuesto a las Trasmisiones Patrimoniales,,impuesto,vigente,si,figura en el boletín DGI 2023 con recaudación 0,rates/adicional-del-impuesto-a-las-trasmisiones-patrimoniales.csv
+nacional,DGI,Impuesto a la Apuesta,IA,impuesto,vigente,si,máquinas electrónicas de casinos y salas (Ley 19.535),rates/impuesto-a-la-apuesta.csv
+nacional,DGI,Impuesto a los Ingresos de las Entidades Aseguradoras,IIEA,impuesto,vigente,si,"""Ingresos sobre Compañías de Seguros"" en el boletín DGI",rates/impuesto-a-los-ingresos-de-las-entidades-aseguradoras.csv
+nacional,DGI,Impuestos para el Fondo de Inspección Sanitaria,FIS,impuesto,vigente,si,"exportación de animales en pie y carne, carne para consumo interno (Ley 13.892 art. 421)",rates/impuestos-para-el-fondo-de-inspeccion-sanitaria.csv
+nacional,DGI,Detracciones a la exportación,,impuesto,vigente,si,figura en el boletín DGI 2023; productos alcanzados a verificar,rates/detracciones-a-la-exportacion.csv
+nacional,DGI/BPS,Monotributo,,aporte unificado,vigente,si,sustituye aportes de seguridad social e impuestos nacionales,rates/monotributo.csv
+nacional,DGI/BPS,Monotributo Social MIDES,,aporte unificado,vigente,si,,rates/monotributo-social-mides.csv
+nacional,DGI/BPS,Aporte Social Único de Personas Privadas de Libertad,PPL,aporte unificado,vigente,si,,rates/aporte-social-unico-de-personas-privadas-de-libertad.csv
+aduana,DNA,Tasa Global Arancelaria (Arancel Externo Común),TGA,impuesto,vigente,si,0% intrazona Mercosur,rates/tasa-global-arancelaria-arancel-externo-comun.csv
+aduana,DNA,Recargos a la importación,,impuesto,a verificar,no,,rates/recargos-a-la-importacion.csv
+aduana,DNA,Tasa Consular,,tasa,vigente,si,"base y alícuota según la fuente (CIF o FOB, 2%)",rates/tasa-consular.csv
+aduana,DNA,Tasa por Servicios Preferenciales,,tasa,vigente,si,"0,2% del CIF con tope US$ 50",rates/tasa-por-servicios-preferenciales.csv
+aduana,DNA,Tasa de Inspección No Intrusiva,,tasa,vigente,si,"hasta 85 UI por DUA, desde 2/10/2024 (Decreto 235/024)",rates/tasa-de-inspeccion-no-intrusiva.csv
+aduana,DNA,Tasa de Servicios Aduaneros / servicios extraordinarios,,tasa,a verificar,no,,rates/tasa-de-servicios-aduaneros-servicios-extraordinarios.csv
+aduana,DNA,IVA a la importación,,impuesto,vigente,si,es el IVA de DGI recaudado por DNA,rates/iva-a-la-importacion.csv
+aduana,DNA,IMESI a la importación,,impuesto,vigente,si,es el IMESI de DGI recaudado por DNA,rates/imesi-a-la-importacion.csv
+aduana,BROU,Prestación para el LATU sobre exportaciones no tradicionales,,tasa,vigente,si,2 por mil del valor en aduana (Ley 20.446),rates/prestacion-para-el-latu-sobre-exportaciones-no-tradicionales.csv
+aduana,DNA,Tributo único a envíos postales y express,,impuesto,vigente,si,"opcional para envíos de hasta USD 800 (Ley 20.446, Dec. 50/026)",rates/tributo-unico-a-envios-postales-y-express.csv
+seguridad_social,BPS,Aportes jubilatorios personales,,contribución especial,vigente,si,,rates/aportes-jubilatorios-personales.csv
+seguridad_social,BPS,Aportes jubilatorios patronales,,contribución especial,vigente,si,,rates/aportes-jubilatorios-patronales.csv
+seguridad_social,BPS,Aportes por servicios bonificados,,contribución especial,vigente,si,,rates/aportes-por-servicios-bonificados.csv
+seguridad_social,BPS,Aportes al FONASA (personal y patronal),FONASA,contribución especial,vigente,si,incluye Complemento de Cuota Mutual,rates/aportes-al-fonasa-personal-y-patronal.csv
+seguridad_social,BPS,Fondo de Reconversión Laboral,FRL,contribución especial,vigente,si,,rates/fondo-de-reconversion-laboral.csv
+seguridad_social,BPS,Fondo de Garantía de Créditos Laborales,FGCL,contribución especial,vigente,si,,rates/fondo-de-garantia-de-creditos-laborales.csv
+seguridad_social,BPS,Aporte Unificado de la Construcción,,contribución especial,vigente,si,,rates/aporte-unificado-de-la-construccion.csv
+seguridad_social,BPS,Aporte a la Caja de Profesionales sobre obras de construcción,,contribución especial,vigente,si,Ley 17.738; se paga con el aporte unificado,rates/aporte-a-la-caja-de-profesionales-sobre-obras-de-construccion.csv
+seguridad_social,BPS,Fondo de Cesantía y Retiro de la Construcción,,contribución especial,vigente,si,fondo sectorial recaudado por BPS,rates/fondo-de-cesantia-y-retiro-de-la-construccion.csv
+seguridad_social,BPS,Fondo Social de la Construcción,,contribución especial,vigente,si,fondo sectorial recaudado por BPS,rates/fondo-social-de-la-construccion.csv
+seguridad_social,BPS,Fondo Social de Vivienda de la Construcción,,contribución especial,vigente,si,fondo sectorial recaudado por BPS,rates/fondo-social-de-vivienda-de-la-construccion.csv
+seguridad_social,BPS,Fondo de la Industria Gráfica,,contribución especial,vigente,si,fondo sectorial recaudado por BPS,rates/fondo-de-la-industria-grafica.csv
+seguridad_social,BPS,Fondo Social Metalúrgico,,contribución especial,vigente,si,fondo sectorial recaudado por BPS,rates/fondo-social-metalurgico.csv
+seguridad_social,BPS,Fondo Social del Trabajo Doméstico,,contribución especial,vigente,si,fondo sectorial recaudado por BPS,rates/fondo-social-del-trabajo-domestico.csv
+seguridad_social,BPS,Aporte rural (contribución patronal rural),,contribución especial,vigente,si,,rates/aporte-rural-contribucion-patronal-rural.csv
+seguridad_social,BPS,Impuesto MEVIR rural (BPS),,impuesto,vigente,si,empresas rurales con más de 500 ha CONEAT,rates/impuesto-mevir-rural-bps.csv
+seguridad_social,BPS,Aportes del servicio doméstico,,contribución especial,vigente,si,,rates/aportes-del-servicio-domestico.csv
+seguridad_social,CJPPU,Aportes a la Caja de Profesionales Universitarios,,contribución especial,vigente,si,,rates/aportes-a-la-caja-de-profesionales-universitarios.csv
+seguridad_social,CJPPU,Timbre Profesional,,tasa,vigente,no,,rates/timbre-profesional.csv
+seguridad_social,Caja Notarial,Aportes a la Caja Notarial,,contribución especial,vigente,no,,rates/aportes-a-la-caja-notarial.csv
+seguridad_social,Caja Bancaria,Aportes a la Caja Bancaria,,contribución especial,vigente,si,,rates/aportes-a-la-caja-bancaria.csv
+seguridad_social,Servicio de Retiros y Pensiones de las FFAA,Aportes militares,,contribución especial,vigente,no,,rates/aportes-militares.csv
+seguridad_social,Dirección Nacional de Asistencia y Seguridad Social Policial,Aportes policiales,,contribución especial,vigente,si,,rates/aportes-policiales.csv
+seguridad_social,Fondo de Solidaridad,Aporte al Fondo de Solidaridad,,contribución especial,vigente,si,egresados de la educación terciaria pública,rates/aporte-al-fondo-de-solidaridad.csv
+seguridad_social,Fondo de Solidaridad,Adicional del Fondo de Solidaridad,,contribución especial,vigente,si,,rates/adicional-del-fondo-de-solidaridad.csv
+nacional,URSEC,Tasa de Control del Marco Regulatorio de Comunicaciones,,tasa,vigente,si,3 por mil de los ingresos brutos (Ley 17.820),rates/tasa-de-control-del-marco-regulatorio-de-comunicaciones.csv
+nacional,URSEA,Tasa de Control del Marco Regulatorio de Energía y Agua,,tasa,vigente,si,Ley 17.598,rates/tasa-de-control-del-marco-regulatorio-de-energia-y-agua.csv
+nacional,BCU,Tasa de control del sistema financiero,,tasa,vigente,si,,rates/tasa-de-control-del-sistema-financiero.csv
+nacional,INAC,"Prestación INAC del 0,7% sobre carnes",,tasa,vigente,si,Decreto-ley 15.605,rates/prestacion-inac-del-0-7-sobre-carnes.csv
+nacional,INAC,Tasa de Control de Faena (INAC),,tasa,vigente,si,Dec. 364/003,rates/tasa-de-control-de-faena-inac.csv
+nacional,"aeropuertos (Puerta del Sur, Punta del Este)",Tasa de embarque aeroportuaria,,tasa,vigente,si,,rates/tasa-de-embarque-aeroportuaria.csv
+nacional,DGR,Tasas registrales,,tasa,a verificar,no,,rates/tasas-registrales.csv
+departamental,Intendencias,Contribución Inmobiliaria Urbana y Suburbana,,impuesto,vigente,si,,rates/contribucion-inmobiliaria-urbana-y-suburbana.csv
+departamental,Intendencias,Contribución Inmobiliaria Rural,,impuesto,vigente,si,,rates/contribucion-inmobiliaria-rural.csv
+departamental,Intendencias,Adicionales municipales a la Contribución Inmobiliaria,,impuesto,vigente,si,p. ej. adicional del 100% por vivienda deshabitada en Montevideo,rates/adicionales-municipales-a-la-contribucion-inmobiliaria.csv
+departamental,Intendencias,Impuesto General Municipal,,impuesto,vigente,si,,rates/impuesto-general-municipal.csv
+departamental,Intendencias,Impuesto a los Terrenos Baldíos,,impuesto,vigente,si,,rates/impuesto-a-los-terrenos-baldios.csv
+departamental,Intendencias,Impuesto a la Edificación Inapropiada,,impuesto,vigente,si,,rates/impuesto-a-la-edificacion-inapropiada.csv
+departamental,Intendencias,Impuesto de puerta,,impuesto,vigente,si,,rates/impuesto-de-puerta.csv
+departamental,Intendencias,Impuesto de alumbrado público,,impuesto,vigente,si,,rates/impuesto-de-alumbrado-publico.csv
+departamental,Intendencias (SUCIVE),Patente de Rodados,,impuesto,vigente,si,,rates/patente-de-rodados.csv
+departamental,Intendencias,Impuesto a los espectáculos públicos,,impuesto,vigente,si,,rates/impuesto-a-los-espectaculos-publicos.csv
+departamental,Intendencias,Impuesto a las competencias hípicas y venta y remate de boletos,,impuesto,vigente,si,,rates/impuesto-a-las-competencias-hipicas-y-venta-y-remate-de-boletos.csv
+departamental,Intendencias,Impuesto a los Remates (Ley 12.700),,impuesto,vigente,si,,rates/impuesto-a-los-remates-ley-12-700.csv
+departamental,Intendencias,Impuesto a los avisos y propaganda,,impuesto,vigente,si,,rates/impuesto-a-los-avisos-y-propaganda.csv
+departamental,Intendencias,Tasa General Municipal,,tasa,vigente,si,"""tributos domiciliarios"" en Montevideo",rates/tasa-general-municipal.csv
+departamental,Intendencias,Tasa Bromatológica,,tasa,vigente,si,,rates/tasa-bromatologica.csv
+departamental,Intendencias,Tasas de higiene,,tasa,vigente,si,"desinfección y desratización, inspección veterinaria, contralor de leche, servicio de faena, casas de huéspedes, salubridad comercial e industrial",rates/tasas-de-higiene.csv
+departamental,Intendencias,Tasas de tránsito,,tasa,vigente,si,"chapas de matrícula, libretas de conducir, examen médico y de conductores, inspección de vehículos, transferencia de vehículos, taxímetros, emisión mecanizada",rates/tasas-de-transito.csv
+departamental,Intendencias,Tasas de arquitectura,,tasa,vigente,si,"permiso de edificación, contralor de obras, habilitación de planos, fraccionamientos, conservación de pavimento, corte de pavimento, propiedad horizontal, inmuebles en arrendamiento",rates/tasas-de-arquitectura.csv
+departamental,Intendencias,Tasas de necrópolis,,tasa,vigente,si,"derechos de necrópolis, conservación y vigilancia, inhumación y depósito",rates/tasas-de-necropolis.csv
+departamental,Intendencias,Tasas de seguridad y protección,,tasa,vigente,si,"rifas y sorteos, ómnibus interdepartamentales, inspección de instalaciones industriales, tanques de nafta, registro de gravámenes de inmuebles",rates/tasas-de-seguridad-y-proteccion.csv
+departamental,Intendencias,Tasas administrativas,,tasa,vigente,si,"certificados y testimonios, timbres y sellados municipales, firma de testimonios del Registro Civil",rates/tasas-administrativas.csv
+departamental,Intendencia de Montevideo,Tasa de saneamiento,,tasa,vigente,no,,rates/tasa-de-saneamiento.csv
+departamental,Intendencias,Contribución por mejoras,,contribución especial,vigente,si,"pavimento, obras por convenios vecinales",rates/contribucion-por-mejoras.csv
+departamental,Intendencias,Guías de propiedad y tránsito de semovientes,,tasa,vigente,no,"OTU agrupa ""remates y semovientes"" entre los principales ingresos departamentales",rates/guias-de-propiedad-y-transito-de-semovientes.csv
+departamental,Intendencia de Montevideo,Tasa de Inflamables,,tasa,derogado,si,declarada inconstitucional por la SCJ en 2023,rates/tasa-de-inflamables.csv
+derogado,DGI,Impuesto a las Rentas de la Industria y Comercio,IRIC,impuesto,derogado,si,reemplazado por IRAE en 2007,rates/impuesto-a-las-rentas-de-la-industria-y-comercio.csv
+derogado,DGI,Impuesto a las Retribuciones Personales,IRP,impuesto,derogado,si,Ley 18.083 (2007),rates/impuesto-a-las-retribuciones-personales.csv
+derogado,DGI,Impuesto de Contribución al Financiamiento de la Seguridad Social,COFIS,impuesto,derogado,si,Ley 18.083 (2007),rates/impuesto-de-contribucion-al-financiamiento-de-la-seguridad-social.csv
+derogado,DGI,Impuesto a los Activos de las Empresas Bancarias,IMABA,impuesto,derogado,si,Ley 18.083 (2007),rates/impuesto-a-los-activos-de-las-empresas-bancarias.csv
+derogado,DGI,Impuesto de Control del Sistema Financiero,ICOSIFI,impuesto,derogado,si,Ley 18.083 (2007),rates/impuesto-de-control-del-sistema-financiero.csv
+derogado,DGI,Impuesto Específico a los Servicios de Salud,IMESSA,impuesto,derogado,si,Ley 18.083 (2007),rates/impuesto-especifico-a-los-servicios-de-salud.csv
+derogado,DGI,Impuesto a las Pequeñas Empresas,IPEQUE,impuesto,derogado,si,Ley 18.083 (2007),rates/impuesto-a-las-pequenas-empresas.csv
+derogado,DGI,Impuesto a las Comisiones,ICOM,impuesto,derogado,si,Ley 18.083 (2007),rates/impuesto-a-las-comisiones.csv
+derogado,DGI,Impuesto a las Telecomunicaciones,ITEL,impuesto,derogado,si,Ley 18.083 (2007),rates/impuesto-a-las-telecomunicaciones.csv
+derogado,DGI,Impuesto a las Tarjetas de Crédito,ITC,impuesto,derogado,si,Ley 18.083 (2007),rates/impuesto-a-las-tarjetas-de-credito.csv
+derogado,DGI,Impuesto a las Ventas Forzadas,IVF,impuesto,derogado,si,Ley 18.083 (2007),rates/impuesto-a-las-ventas-forzadas.csv
+derogado,DGI,Impuesto a las Rentas Agropecuarias,IRA,impuesto,derogado,si,Ley 18.083 (2007),rates/impuesto-a-las-rentas-agropecuarias.csv
+derogado,DGI,Impuesto a las Cesiones de Derechos sobre Deportistas,,impuesto,derogado,si,Ley 18.083 (2007),rates/impuesto-a-las-cesiones-de-derechos-sobre-deportistas.csv
+derogado,DGI,Impuesto a la Compraventa de Bienes Muebles en Remate Público,,impuesto,derogado,si,Ley 18.083 (2007),rates/impuesto-a-la-compraventa-de-bienes-muebles-en-remate-publico.csv
+derogado,DGI,"Impuesto a los Concursos, Sorteos y Competencias",ICSC,impuesto,derogado,si,Ley 18.083 (2007),rates/impuesto-a-los-concursos-sorteos-y-competencias.csv
+derogado,DGI,Impuesto a la Compra de Moneda Extranjera,,impuesto,derogado,si,Ley 18.083 art. 2 facultó su derogación (Decreto 340/007),rates/impuesto-a-la-compra-de-moneda-extranjera.csv
+derogado,DGI,Impuesto a la Concentración de Inmuebles Rurales,ICIR,impuesto,derogado,no,"Ley 18.876 (2011), declarado inconstitucional",rates/impuesto-a-la-concentracion-de-inmuebles-rurales.csv

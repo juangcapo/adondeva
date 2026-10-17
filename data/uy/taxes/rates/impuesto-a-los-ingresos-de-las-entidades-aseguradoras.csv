@@ -1,0 +1,4 @@
+condicion,base,desde,hasta,unidad_tramo,tasa_pct,monto,unidad_monto,vigencia,confianza,fuente,notas
+"seguros generales, incendio y vehículos",ingresos brutos por primas,,,,7,,,2026,oficial,https://impo.com.uy/bases/decretos/255-2025,
+seguros de vida,ingresos brutos por primas,,,,0,,,2026,oficial,https://impo.com.uy/bases/decretos/255-2025,
+aseguradora no autorizada a operar en el país,tasa del ramo,,,,40,,,2026,oficial,https://impo.com.uy/bases/decretos/255-2025,incremento porcentual sobre la tasa del ramo

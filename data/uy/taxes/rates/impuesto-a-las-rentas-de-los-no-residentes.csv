@@ -1,0 +1,8 @@
+condicion,base,desde,hasta,unidad_tramo,tasa_pct,monto,unidad_monto,vigencia,confianza,fuente,notas
+dividendos de contribuyentes de IRAE (incluye fictos),dividendo,,,,7,,,2026,guia_oficial,https://www.uruguayxxi.gub.uy/es/quiero-invertir/guias-inversor/sistema-tributario-2026/descarga/,
+intereses de depósitos y títulos: misma tabla por moneda y plazo que IRPF Categoría I,intereses,0.5,12,% (rango),,,,2026,guia_oficial,https://www.uruguayxxi.gub.uy/es/quiero-invertir/guias-inversor/sistema-tributario-2026/descarga/,
+entidades de países de baja o nula tributación: rentas de inmuebles en Uruguay,renta,,,,30.25,,,2026,guia_oficial,https://www.uruguayxxi.gub.uy/es/quiero-invertir/guias-inversor/sistema-tributario-2026/descarga/,
+entidades de países de baja o nula tributación: restantes rentas (salvo dividendos),renta,,,,25,,,2026,guia_oficial,https://www.uruguayxxi.gub.uy/es/quiero-invertir/guias-inversor/sistema-tributario-2026/descarga/,
+restantes rentas,renta,,,,12,,,2026,guia_oficial,https://www.uruguayxxi.gub.uy/es/quiero-invertir/guias-inversor/sistema-tributario-2026/descarga/,
+trabajadores extranjeros de zona franca o régimen de talento calificado (opción),rentas del trabajo dependiente,,,,12,,,2026,guia_oficial,https://www.uruguayxxi.gub.uy/es/quiero-invertir/guias-inversor/sistema-tributario-2026/descarga/,sustituye IRPF y aportes a la seguridad social
+exoneración de transmisiones chicas,precio de cada operación,,30000,UI,0,,,2026,guia_oficial,https://www.uruguayxxi.gub.uy/es/quiero-invertir/guias-inversor/sistema-tributario-2026/descarga/,y la suma anual hasta 90.000 UI

@@ -1,0 +1,9 @@
+condicion,base,desde,hasta,unidad_tramo,tasa_pct,monto,unidad_monto,vigencia,confianza,fuente,notas
+Montevideo: escala progresiva,valor imponible 2026,0,992630,UYU,0.25,,,2026,oficial,https://tramites.montevideo.gub.uy/sites/tramites.montevideo.gub.uy/files/tributos/documentos/2026_Calculo_Contribucio%CC%81n_Inmobiliaria.pdf,
+Montevideo: escala progresiva,valor imponible 2026,992630,2481576,UYU,0.75,,,2026,oficial,https://tramites.montevideo.gub.uy/sites/tramites.montevideo.gub.uy/files/tributos/documentos/2026_Calculo_Contribucio%CC%81n_Inmobiliaria.pdf,
+Montevideo: escala progresiva,valor imponible 2026,2481576,4963144,UYU,1,,,2026,oficial,https://tramites.montevideo.gub.uy/sites/tramites.montevideo.gub.uy/files/tributos/documentos/2026_Calculo_Contribucio%CC%81n_Inmobiliaria.pdf,
+Montevideo: escala progresiva,valor imponible 2026,4963144,8551753,UYU,1.2,,,2026,oficial,https://tramites.montevideo.gub.uy/sites/tramites.montevideo.gub.uy/files/tributos/documentos/2026_Calculo_Contribucio%CC%81n_Inmobiliaria.pdf,
+Montevideo: escala progresiva,valor imponible 2026,8551753,17103509,UYU,1.65,,,2026,oficial,https://tramites.montevideo.gub.uy/sites/tramites.montevideo.gub.uy/files/tributos/documentos/2026_Calculo_Contribucio%CC%81n_Inmobiliaria.pdf,
+Montevideo: escala progresiva,valor imponible 2026,17103509,,UYU,1.8,,,2026,oficial,https://tramites.montevideo.gub.uy/sites/tramites.montevideo.gub.uy/files/tributos/documentos/2026_Calculo_Contribucio%CC%81n_Inmobiliaria.pdf,
+Montevideo: primer tramo para inmuebles con valor imponible menor a $2.481.577,valor imponible 2026,0,992630,UYU,0.18,,,2026,oficial,https://tramites.montevideo.gub.uy/sites/tramites.montevideo.gub.uy/files/tributos/documentos/2026_Calculo_Contribucio%CC%81n_Inmobiliaria.pdf,"en lugar de 0,25%"
+demás departamentos,,,,,,,,,sin_datos,,cada intendencia fija sus alícuotas

@@ -1,0 +1,4 @@
+condicion,base,desde,hasta,unidad_tramo,tasa_pct,monto,unidad_monto,vigencia,confianza,fuente,notas
+patronal de retiro,partidas gravadas,,,,19.5,,,desde 2009,oficial,https://uruguay.justia.com/nacionales/leyes/ley-18405-oct-24-2008/gdoc/,
+personal de retiro,partidas gravadas,,,,15,,,desde 2009,oficial,https://uruguay.justia.com/nacionales/leyes/ley-18405-oct-24-2008/gdoc/,
+contribución especial por servicios bonificados (Ministerio del Interior),partidas gravadas,,,,,,,desde 2009,sin_datos,https://uruguay.justia.com/nacionales/leyes/ley-18405-oct-24-2008/gdoc/,tasa fijada por el Poder Ejecutivo

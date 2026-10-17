@@ -20,10 +20,12 @@ import xml.etree.ElementTree as ET
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
-OPP_DETAIL = ROOT / "opp" / "credito-presupuestal"
-OPP_HIST = ROOT / "opp" / "historico" / "Ejecucion Presupuestal 1961-2010_PTO NACIONAL.csv"
-MEF_RC = ROOT / "mef" / "rendicion-cuentas"
-IPC_ANUAL = ROOT / "inflation" / "ine-ipc" / "ipc_anual.csv"
+# Each country's data lives under data/<ISO 3166-1 alpha-2 code>/.
+UY = ROOT / "data" / "uy"
+OPP_DETAIL = UY / "opp" / "credito-presupuestal"
+OPP_HIST = UY / "opp" / "historico" / "Ejecucion Presupuestal 1961-2010_PTO NACIONAL.csv"
+MEF_RC = UY / "mef" / "rendicion-cuentas"
+IPC_ANUAL = UY / "inflation" / "ine-ipc" / "ipc_anual.csv"
 CACHE = ROOT / ".cache" / "totals.json"
 
 # MEF counts this funding source; OPP leaves it out. Excluded by default so years compare.

@@ -1,0 +1,8 @@
+condicion,base,desde,hasta,unidad_tramo,tasa_pct,monto,unidad_monto,vigencia,confianza,fuente,notas
+construcción: contribuciones patronales a la seguridad social,remuneración gravada del personal de obra,,,,9,,,2026,oficial,https://www.bps.gub.uy/837/aportacion-construccion.html,
+construcción: contribuciones personales a la seguridad social,remuneración gravada del personal de obra,,,,17.9,,,2026,oficial,https://www.bps.gub.uy/837/aportacion-construccion.html,
+construcción: cargas salariales,remuneración gravada del personal de obra,,,,29.9,,,2026,oficial,https://www.bps.gub.uy/837/aportacion-construccion.html,
+construcción: Seguro Nacional de Salud,remuneración gravada del personal de obra,,,,9,,,2026,oficial,https://www.bps.gub.uy/837/aportacion-construccion.html,
+construcción: seguro de accidentes BSE,remuneración gravada del personal de obra,,,,6,,,2026,oficial,https://www.bps.gub.uy/837/aportacion-construccion.html,
+construcción: total aporte unificado,remuneración gravada del personal de obra,,,,71.8,,,2026,oficial,https://www.bps.gub.uy/837/aportacion-construccion.html,
+"partidas del art. 167 Ley 16.713 (alimentación, salud, seguros, transporte)",partidas,,,,7.5,,,2026,oficial,https://www.bps.gub.uy/837/aportacion-construccion.html,fuera del aporte unificado

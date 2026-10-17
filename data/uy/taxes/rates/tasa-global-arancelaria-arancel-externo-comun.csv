@@ -1,0 +1,3 @@
+condicion,base,desde,hasta,unidad_tramo,tasa_pct,monto,unidad_monto,vigencia,confianza,fuente,notas
+importaciones desde el Mercosur,valor en aduana (CIF),,,,0,,,2026,oficial,https://www.aduanas.gub.uy/innovaportal/v/8915/3/innova.front/decreto-n%C2%B0-426_011.html,
+importaciones extrazona: según posición arancelaria,valor en aduana (CIF),0,35,% (rango),,,,feb-2025,oficial,https://www.gub.uy/ministerio-economia-finanzas/nomenclatura-aranceles-uruguay-0,tasa por código de 10 dígitos en ../aranceles/arancel.csv

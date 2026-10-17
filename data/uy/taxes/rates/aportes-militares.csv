@@ -1,0 +1,4 @@
+condicion,base,desde,hasta,unidad_tramo,tasa_pct,monto,unidad_monto,vigencia,confianza,fuente,notas
+patronal,remuneración gravada,,,,19.5,,,desde 2019,oficial,https://impo.com.uy/bases/leyes-originales/19695-2018,
+"personal, en actividad",remuneración gravada,,,,15,,,desde 2019,oficial,https://impo.com.uy/bases/leyes-originales/19695-2018,
+"personal, retirados y reformados hasta 36 años de montepío",haber de retiro,,,,13,,,desde 2019,oficial,https://impo.com.uy/bases/decretos/161-2019,

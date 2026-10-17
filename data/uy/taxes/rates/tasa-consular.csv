@@ -1,0 +1,4 @@
+condicion,base,desde,hasta,unidad_tramo,tasa_pct,monto,unidad_monto,vigencia,confianza,fuente,notas
+importaciones extrazona de bienes de consumo,valor CIF,,,,5,,,desde 2018,secundaria,https://www.autoblog.com.uy/2017/10/que-es-la-tasa-consular-y-por-que-los.html,"0% para bienes de capital, petróleo crudo y admisión temporaria"
+importaciones desde el Mercosur,valor CIF,,,,3,,,desde 2018,secundaria,https://www.autoblog.com.uy/2017/10/que-es-la-tasa-consular-y-por-que-los.html,
+dato discrepante en guía de 2026,valor FOB,,,,2,,,2026,secundaria,https://yo-facturo.com/blog/como-importar-a-uruguay/,contradice la fila anterior; verificar con la DNA

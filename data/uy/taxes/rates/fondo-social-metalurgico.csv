@@ -1,0 +1,3 @@
+condicion,base,desde,hasta,unidad_tramo,tasa_pct,monto,unidad_monto,vigencia,confianza,fuente,notas
+"patronal, subgrupos del grupo 8",remuneración gravada,,,,0.86,,,desde 2017,oficial,https://www.bps.gub.uy/12129/fondo-social-metalurgico-fosmetal.html,
+personal,remuneración gravada,,,,0.39,,,desde 2017,oficial,https://www.bps.gub.uy/12129/fondo-social-metalurgico-fosmetal.html,

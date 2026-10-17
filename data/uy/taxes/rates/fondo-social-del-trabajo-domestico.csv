@@ -1,0 +1,3 @@
+condicion,base,desde,hasta,unidad_tramo,tasa_pct,monto,unidad_monto,vigencia,confianza,fuente,notas
+patronal (voluntario),remuneración gravada,,,,0.03,,,desde 2016,oficial,https://www.bps.gub.uy/10960/fondo-social-trabajo-domestico.html,
+personal (voluntario),remuneración gravada,,,,0.03,,,desde 2016,oficial,https://www.bps.gub.uy/10960/fondo-social-trabajo-domestico.html,

@@ -1,0 +1,4 @@
+condicion,base,desde,hasta,unidad_tramo,tasa_pct,monto,unidad_monto,vigencia,confianza,fuente,notas
+patronal,remuneración,,,,5,,,2026,oficial,https://www.bps.gub.uy/10316/fondo-de-cesantia-y-retiro-de-la-construccion-focer.html,"5% o 0,5% según la situación del trabajador"
+"patronal, caso reducido",remuneración,,,,0.5,,,2026,oficial,https://www.bps.gub.uy/10316/fondo-de-cesantia-y-retiro-de-la-construccion-focer.html,
+personal,remuneración,,,,0.5,,,2026,oficial,https://www.bps.gub.uy/10316/fondo-de-cesantia-y-retiro-de-la-construccion-focer.html,según modalidad de trabajo

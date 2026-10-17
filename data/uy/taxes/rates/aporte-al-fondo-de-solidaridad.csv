@@ -1,0 +1,10 @@
+condicion,base,desde,hasta,unidad_tramo,tasa_pct,monto,unidad_monto,vigencia,confianza,fuente,notas
+"categoría 1: 0,5 BPC anuales (cuota mensual)",,,,,,286,UYU mensuales,2026,oficial,https://www.bps.gub.uy/23860/2026---comunicado-r-5---valores-escalas-irpf-2026.html,
+categoría 2: 1 BPC anual (cuota mensual),,,,,,572,UYU mensuales,2026,oficial,https://www.bps.gub.uy/23860/2026---comunicado-r-5---valores-escalas-irpf-2026.html,
+categoría 3: 2 BPC anuales (cuota mensual),,,,,,1144,UYU mensuales,2026,oficial,https://www.bps.gub.uy/23860/2026---comunicado-r-5---valores-escalas-irpf-2026.html,
+categoría 4: 1 BPC más adicional de 5/6 BPC anuales (cuota mensual),,,,,,1049,UYU mensuales,2026,oficial,https://www.bps.gub.uy/23860/2026---comunicado-r-5---valores-escalas-irpf-2026.html,incluye el adicional
+categoría 5: 2 BPC más adicional de 5/6 BPC anuales (cuota mensual),,,,,,1621,UYU mensuales,2026,oficial,https://www.bps.gub.uy/23860/2026---comunicado-r-5---valores-escalas-irpf-2026.html,incluye el adicional
+"carreras de menos de 4 años, 5 a 9 años desde el egreso",,,,,,0.5,BPC anuales,,oficial,https://impo.com.uy/bases/leyes/16524-1994/3,
+"carreras de menos de 4 años, 10 o más años desde el egreso",,,,,,1,BPC anuales,,oficial,https://impo.com.uy/bases/leyes/16524-1994/3,
+"carreras de 4 años o más, 5 a 9 años desde el egreso",,,,,,1,BPC anuales,,oficial,https://impo.com.uy/bases/leyes/16524-1994/3,
+"carreras de 4 años o más, 10 o más años desde el egreso",,,,,,2,BPC anuales,,oficial,https://impo.com.uy/bases/leyes/16524-1994/3,
