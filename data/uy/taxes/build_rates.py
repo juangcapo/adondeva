@@ -108,6 +108,10 @@ S = {
     "LEY18057": "https://uruguay.justia.com/nacionales/leyes/ley-18057-nov-20-2006/gdoc/",
     "LEY17663": "https://uruguay.justia.com/nacionales/leyes/ley-17663-jul-11-2003/gdoc/",
     "MVD_BAILES": "https://tramites.montevideo.gub.uy/tramites-y-tributos/solicitud/declaracion-de-espectaculos-publicos",
+    "DGR_INSC": "https://www.gub.uy/tramites/inscripcion-actos-negocios-juridicos-decisiones-autoridades-competentes-sujetas-ley-publicidad-registral",
+    "DGR_CERT": "https://www.gub.uy/tramites/certificados-informacion-inmuebles",
+    "DNA_EXTRA": "https://www.aduanas.gub.uy/innovaportal/v/2772/8/innova.front/tasa-por-servicios-extraordinarios.html",
+    "DEC305_986": "https://www.impo.com.uy/bases/decretos/305-1986",
     "MEF_IRAE_ANT": "https://www.gub.uy/ministerio-economia-finanzas/sites/ministerio-economia-finanzas/files/2026-01/Decreto%2030_12_25%20mef_230.pdf",
 }
 
@@ -331,6 +335,17 @@ RATES["Tasa al transporte marítimo y fluvial de pasajeros"] = [
 ]
 RATES["Fondo de Financiamiento y Recomposición de la Actividad Arrocera"] = [
     r("exportaciones de arroz y derivados", base="valor FOB", tasa=5, vigencia="desde 2003", src="LEY17663", notas="retención; vigencia actual no verificada"),
+]
+RATES["Tasas registrales"] = [
+    r("inscripción de cada acto o contrato (trámite común)", monto=3, unidad_monto="UR", vigencia="2026", confianza=G, src="DGR_INSC", notas="se paga con e-timbre"),
+    r("inscripción urgente (solo Registro Mobiliario)", monto=3812, unidad_monto="UYU", vigencia="2026", confianza=G, src="DGR_INSC"),
+    r("certificado de información de inmuebles (común)", monto=1.5, unidad_monto="UR", vigencia="2026", confianza=G, src="DGR_CERT", notas="la página muestra $1.265, valor desactualizado de la UR"),
+    r("certificado urgente / segunda ampliación / consulta directa", monto="3.812 / 0,5 UR / 3.041", unidad_monto="UYU salvo indicación", vigencia="2026", confianza=G, src="DGR_CERT"),
+]
+RATES["Tasa de Servicios Aduaneros / servicios extraordinarios"] = [
+    r("permiso de importación (servicio permanente y extraordinario)", monto="escala", unidad_monto="por permiso", vigencia="2026", confianza=G, src="DNA_EXTRA",
+      notas="la escala no se publica; la Ley 15.809 deja la tarifa al Poder Ejecutivo"),
+    r("servicios fuera del horario habitual, por hora de funcionario", monto=260, unidad_monto="N$ por hora (1986)", vigencia="1986", src="DEC305_986", notas="valor histórico en nuevos pesos"),
 ]
 RATES["Retenciones sobre entradas a bailes"] = [
     r("INAU", base="valor de la entrada", tasa=1, vigencia="2025", confianza=G, src="MVD_BAILES"),

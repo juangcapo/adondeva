@@ -1,5 +1,6 @@
 departamento,condicion,base,desde,hasta,unidad_tramo,tasa_pct,monto,unidad_monto,vigencia,confianza,fuente,notas
 Maldonado,Maldonado: obras de mejora urbanas: frentistas,,0,80,% del costo,,,,2026-2030,oficial,https://digesto.maldonado.gub.uy/detalle-volumen/13,"hasta 100% en algunos casos; pavimento a pedido: frentistas 60% o más, no frentistas hasta 40%"
+Soriano,Soriano: obras que aumentan más de 20% el valor del suelo,mayor valor,0,50,% del mayor valor,,,,desde 2006 (RIM),oficial,https://www.impo.com.uy/diariooficial/2006/06/22/documentos.pdf,hasta 10 cuotas anuales
 Durazno,Durazno: obras que benefician solo a frentistas / también a no frentistas,,,,,,30% / 20%,del costo de la obra,desde 2016,oficial,https://www.impo.com.uy/diariooficial/2016/08/04/documentos.pdf,
 Flores,Flores: mayor aprovechamiento (edificar sobre el coeficiente básico),mayor valor,0,50,% de contrapartida,,,,desde 2016,oficial,https://www.impo.com.uy/diariooficial/2016/06/27/documentos.pdf,
 Rocha,Rocha: obras públicas departamentales,costo de la obra prorrateado,,,,,,,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/04/10/documentos.pdf,no puede superar la contribución inmobiliaria del inmueble; hasta 30 años

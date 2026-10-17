@@ -22,6 +22,7 @@ DEPT_SOURCES = {
     "Treinta y Tres": ("https://www.impo.com.uy/diariooficial/2026/09/10/documentos.pdf", "Decreto 08/2001 (alumbrado) republicado en 2026"),
     "Salto": ("https://www.impo.com.uy/diariooficial/2011/05/24/documentos.pdf", "Presupuesto Quinquenal 2011-2015"),
     "Flores": ("https://www.impo.com.uy/diariooficial/2026/07/23/documentos.pdf", "Decreto 1.167/2026, Presupuesto Quinquenal 2026-2030"),
+    "Lavalleja": ("https://www.impo.com.uy/diariooficial/2006/11/20/documentos.pdf", "Presupuesto Quinquenal 2006-2010 (sobre los Decretos 2100/2001 y 761/90)"),
     "Florida": ("https://www.impo.com.uy/diariooficial/2026/09/03/documentos.pdf", "Presupuesto Quinquenal 2026-2030"),
 }
 
@@ -76,6 +77,11 @@ def rows(r):
         notas="se presume por consumo de luz y agua 98% menor al promedio de 5 años")
     add(M, CIU, "padrones pasados de rural a suburbano que mantienen uso productivo (facultad)", desde=0, hasta=100, unidad_tramo="% de exoneración", fuente=M26)
     add(M, CIR, "subsidio a jubilados y pensionistas, vivienda única, ingresos hasta 5 BPC y valor hasta 500.000 UI", tasa=-100, fuente=M26, notas="50% si el valor supera el tope hasta en 50%")
+    MS, V01 = "https://montevideo.gub.uy/sites/default/files/documentos/decreto_29434_saneamiento_1.pdf", "desde 2001 (Dec. 29.434)"
+    add(M, "Tasa de saneamiento", "tarifa de saneamiento: cargo fijo por unidad ocupacional", monto=9.52, unidad_monto="UYU de 2001 mensuales (ajuste por IPC)", vigencia=V01, fuente=MS)
+    add(M, "Tasa de saneamiento", "tarifa de saneamiento: cargo variable", base="m³ de agua consumida (85% se considera vertido)", monto=5.34, unidad_monto="UYU de 2001 por m³", vigencia=V01, fuente=MS)
+    add(M, "Tasa de saneamiento", "hogares de menor valor imponible, consumo hasta 12 m³", base="cargo variable", tasa=-74, vigencia=V01, fuente=MS)
+    add(M, "Tasa de saneamiento", "industria, comercio e instituciones: excedente de 1.000 a 3.000 m³ / más de 3.000 m³", monto="-35% / -50%", unidad_monto="sobre el cargo variable", vigencia=V01, fuente=MS)
     for c, rate in [("general y deporte profesional", 10), ("deporte no profesional", 5), ("competiciones hípicas", 5), ("aparatos mecánicos o eléctricos", 3),
                     ("artistas internacionales fuera del MERCOSUR", 8), ("festivales sin 70% de artistas nacionales", 6)]:
         add(M, ESPEC, c, base="precio de la entrada sin impuestos nacionales", tasa=rate, fuente=M26)
@@ -225,7 +231,19 @@ def rows(r):
 
     # --- Soriano: Recopilación Impositiva Municipal (RIM), changes of 2011 and 2016 ------------------------------
     So, S16 = "Soriano", do("2016-06-16")
-    add(So, CIU, "escala de tasas progresivas de la RIM", notas="la escala no se publicó en los presupuestos 2011/2016/2026")
+    S06, V06 = do("2006-06-22"), "desde 2006 (RIM)"
+    cuts = [100000, 200000, 300000, 500000, 850000, 1350000, 1850000, 2600000, 3350000, 4350000, 5500000]
+    for i, rate in enumerate([0.26, 0.30, 0.34, 0.38, 0.50, 0.60, 0.75, 1.00, 1.25, 1.50, 1.75, 2.00]):
+        add(So, CIU, f"escala progresiva, tramo {i + 1}", base="valor real de Catastro", desde=([0] + cuts)[i], hasta=(cuts + [""])[i], unidad_tramo="UYU de 2006 (se ajustan con el valor real)",
+            tasa=rate, vigencia=V06, fuente=S06, notas="tasas progresivas por tramos")
+    add(So, CIU, "mínimo por padrón", monto=218, unidad_monto="UYU de 2006", vigencia=V06, fuente=S06)
+    add(So, CIU, "multa por no pago en fecha", tasa=1, unidad_tramo="", vigencia=V06, fuente=S06, notas="1% por día, tope 20%, más recargo mensual")
+    for z, m in [(1, 22.30), (2, 46.20), (3, 63.90), (4, 77.20)]:
+        add(So, ALUM, f"tasa de alumbrado público, radio {z}", monto=m, unidad_monto="UYU de 2006 por metro de frente", vigencia=V06, fuente=S06, notas="se ajusta para cubrir 80% del costo del servicio")
+    for z, m in [(1, 1314.20), (2, 699.80), (3, 221.90)]:
+        add(So, "Tasa General Municipal", f"tasa de salubridad y limpieza, radio {z}", monto=m, unidad_monto="UYU de 2006 anuales", vigencia=V06, fuente=S06)
+    add(So, MEJ, "obras que aumentan más de 20% el valor del suelo", base="mayor valor", desde=0, hasta=50, unidad_tramo="% del mayor valor", vigencia=V06, fuente=S06, notas="hasta 10 cuotas anuales")
+    add(So, TRAN, "certificado de antecedentes de licencia de conducir", monto=0.5, unidad_monto="UR", vigencia=V06, fuente=S06)
     add(So, CIU, "cooperativas de vivienda y grupos habitacionales BHU/ANV sin escriturar", base="valor real catastral", tasa=0.6, vigencia="desde 2011")
     add(So, CIU, "padrones que pasan de rurales a urbanos o suburbanos por el plan de ordenamiento", base="valor real catastral", tasa=0.6, vigencia="desde 2017", fuente=S16)
     add(So, CIU, "ídem con emprendimiento de al menos 10 personas", base="valor real catastral", tasa=0.3, vigencia="desde 2017", fuente=S16)
@@ -272,6 +290,7 @@ def rows(r):
     add(Ta, ADM, "valorado departamental por gestión", monto=100, unidad_monto="UYU de 2016 (ajuste anual por IPC)", vigencia="desde 2016", fuente=T16)
     add(Ta, TRAN, "afectación de vehículo a remise", base="valor del vehículo 0 km con IMESI e IVA", tasa=10, vigencia="desde 2016", fuente=T16)
     add(Ta, PAT, "bonificación adicional a ciclomotores sin multas", tasa=-10, vigencia="desde 2011", fuente=do("2011-08-22"))
+    add(Ta, "Impuesto a las competencias hípicas y venta y remate de boletos", "competencias con apuestas mutuas", base="monto bruto apostado sin impuestos nacionales", tasa=5, vigencia="desde 2006", fuente=do("2006-08-11"))
 
     # --- Treinta y Tres --------------------------------------------------------------------------------------
     Tt = "Treinta y Tres"
@@ -282,16 +301,40 @@ def rows(r):
 
     # --- Salto ------------------------------------------------------------------------------------------------
     Sa = "Salto"
-    add(Sa, CIU, "escala por franjas del Decreto 6.109/01", notas="la escala no se publicó en los presupuestos 2011/2021/2026")
+    S02, V02 = do("2002-01-10"), "desde 2002 (Dec. 6.109/01)"
+    for i, (d, h, rate) in enumerate([(0, 100000, 0.3), (100000, 160000, 0.4), (160000, 220000, 0.5), (220000, 280000, 0.6), (280000, "", 0.7)]):
+        add(Sa, CIU, f"zonas urbanas, suburbanas y de huertos, franja {i + 1}", base="valor real", desde=d, hasta=h, unidad_tramo="UYU de 2002 (se ajusta con el valor real)", tasa=rate,
+            vigencia=V02, fuente=S02, notas="cada padrón tributa la alícuota de su franja")
+    add(Sa, CIU, "cooperativas de vivienda (Ley 13.728)", base="valor real", tasa=0.3, vigencia=V02, fuente=S02)
+    add(Sa, CIU, "mínimo anual", monto=90, unidad_monto="UYU de 2002 (ajuste por IPC)", vigencia=V02, fuente=S02)
+    for n, rate in [("cuatro servicios", 6), ("tres servicios", 4), ("dos servicios", 2), ("un servicio", 1), ("sin servicios", 0.5)]:
+        add(Sa, BALD, f"baldíos con {n} (alumbrado, saneamiento, cordón cuneta, pavimento)", base="valor real", tasa=rate, vigencia=V02, fuente=S02)
+    add(Sa, EDIF, "zona céntrica: construcciones que valen menos del 50% del terreno", notas="paga las tasas del impuesto al baldío", vigencia=V02, fuente=S02)
+    add(Sa, ADIC, "adicional de recolección y barrido", notas="monto no publicado", vigencia=V02, fuente=S02)
+    add(Sa, PAT, "buen pagador", tasa=-10, vigencia="desde 2001", fuente=S02, notas="más 15% por pago contado en enero de 2002")
     add(Sa, CIU, "buen pagador / dos años o más", monto="-10% / -12%", unidad_monto="descuento", vigencia="2021-2025", fuente=do("2020-12-31"))
     for c, m in [("más de 200 m²", 860), ("30 a 200 m²", 573), ("hasta 30 m²", 287)]:
         add(Sa, HIG, f"inspección de condiciones higiénicas de locales de alimentos: {c}", monto=m, unidad_monto="UYU de 2011", vigencia="desde 2011")
 
     # --- Flores ---------------------------------------------------------------------------------------------
     Fl = "Flores"
+    add(Fl, CIU, "buen pagador", desde=5, hasta=10, unidad_tramo="% de descuento (sube 1 punto por año)", vigencia="desde 2007", fuente=do("2006-05-31"))
     add(Fl, CIU, "jubilados y pensionistas con hasta 4 BPC, vivienda única: valor real mayor a $1.000.000", tasa=-50, vigencia="desde 2027", notas="tramos menores con bonificación mayor")
     add(Fl, CIU, "inmuebles con grado de protección patrimonial 2 / 3 / 4 en el Área Central de Trinidad", monto="-25% / -50% / -100%", unidad_monto="exoneración", vigencia="desde 2016", fuente=do("2016-06-27"))
     add(Fl, MEJ, "mayor aprovechamiento (edificar sobre el coeficiente básico)", base="mayor valor", desde=0, hasta=50, unidad_tramo="% de contrapartida", vigencia="desde 2016", fuente=do("2016-06-27"))
+
+    # --- Lavalleja: Presupuesto 2006-2010 and Decreto 2100/2001 ---------------------------------------------------
+    La, L01, V06 = "Lavalleja", do("2001-06-13"), "desde 2006"
+    add(La, CIU, "monto imponible: 50% del valor real de Catastro (tope: 5 veces el de 2000)", vigencia=V06, notas="la alícuota no figura en los presupuestos publicados")
+    add(La, ADM, "tasa de actualización de la propiedad inmueble, por padrón", monto=0.4, unidad_monto="UR anuales", vigencia=V06)
+    add(La, TRAN, "registro de automotores, por vehículo", monto=0.4, unidad_monto="UR anuales", vigencia=V06)
+    add(La, ADM, "derecho de expedición de recaudos / completo administrativo por escrito", monto="0,15 / 0,25", unidad_monto="UR", vigencia=V06, notas="exentos recaudos menores a 0,25 UR")
+    add(La, "Tasa de caminería rural", "transporte de productos rurales (madera, arroz, ganado, lana, piedra, leche) en cargas de 5 t o más", monto=0.05, unidad_monto="UR por tonelada", vigencia=V06,
+        notas="exentos hasta 50 ha CONEAT 100; guía obligatoria, multa 30 UR")
+    for c, m in [("agua mineral, por litro", 0.00055), ("cerveza, por litro", 0.00175), ("otras bebidas alcohólicas, por litro", 0.02), ("demás alimentos y refrescos, por kg o litro", 0.00175)]:
+        add(La, BROM, c, monto=m, unidad_monto="UR", vigencia="desde 2001", fuente=L01, notas="exentos leche, pan, frutas y verduras frescas")
+    add(La, PAT, "rebaja sobre los valores 2000: autos / utilitarios", monto="-6% / -12%", unidad_monto="", vigencia="2001", fuente=L01)
+    add(La, CIU, "hoteles o restaurantes nuevos o ampliados más de 50% con 70% de mano de obra local", tasa=-100, vigencia="desde 2001 (10 años)", fuente=L01)
 
     # --- Rocha -------------------------------------------------------------------------------------------
     R = "Rocha"
@@ -444,6 +487,8 @@ def rows(r):
                  ("ómnibus regional, por salida", 0.07)]:
         add(C, TERM, f"tasa de contralor de ómnibus: {c}", monto=m, unidad_monto="UR por día o por unidad")
     add(C, CIU, "descuento por pago anticipado de cuotas", tasa=-5, notas="la escala de alícuotas no está en el presupuesto 2026")
+    add(C, TRAN, "tasa de habilitación vehicular cada 2 años (vehículos de más de 2 años sin habilitación del MTOP): motos / autos y utilitarios", monto="0,5 / 1", unidad_monto="UR",
+        vigencia="desde 2006", fuente=do("2006-05-31"), notas="valores mayores para vehículos empadronados en otro departamento")
 
     # --- Paysandú ----------------------------------------------------------------------------------------
     P = "Paysandú"
