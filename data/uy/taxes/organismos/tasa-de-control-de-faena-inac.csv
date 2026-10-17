@@ -1,0 +1,6 @@
+departamento,condicion,base,desde,hasta,unidad_tramo,tasa_pct,monto,unidad_monto,vigencia,confianza,fuente,notas
+,faena de reses bovinas: tasa de control original,res bovina faenada,,,,,1,USD por res,desde 2003,oficial,https://inac.uy/innovaportal/file/5562/1/decreto-364-003-del-4.3.2021.pdf,"Dec. 364/003; la paga el remitente, la deposita la planta en la cuenta INAC/TCF"
+,incremento para vacuna antiaftosa (Dec. 432/003),res bovina faenada,,,,,1.5,USD por res,desde 2003,oficial,https://inac.uy/innovaportal/file/5563/1/decreto-11-009.pdf,
+,incremento para vacuna antiaftosa (Dec. 34/006),res bovina faenada,,,,,1,USD por res,desde 2006,oficial,https://inac.uy/innovaportal/file/5563/1/decreto-11-009.pdf,
+,incremento para vacuna antiaftosa (Dec. 11/009),res bovina faenada,,,,,1.3,USD por res,desde 2009,oficial,https://inac.uy/innovaportal/file/5563/1/decreto-11-009.pdf,"total acumulado USD 4,80 por res según los decretos citados; cambios posteriores no verificados"
+,habilitación de establecimientos lecheros (Dec. 432/003),leche recibida en planta,,,,,0.12,USD cada 1.000 litros,desde 2003,oficial,https://inac.uy/innovaportal/file/5563/1/decreto-11-009.pdf,

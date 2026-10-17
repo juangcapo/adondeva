@@ -1,7 +1,0 @@
-condicion,base,desde,hasta,unidad_tramo,tasa_pct,monto,unidad_monto,vigencia,confianza,fuente,notas
-Carrasco: vuelos internacionales,,,,,,61,USD por pasajero,2026,oficial,https://www.aeropuertodecarrasco.com.uy/tasa-de-embarque/,"incluida en el pasaje; exentos menores de 2 años, diplomáticos e invitados oficiales"
-Carrasco: vuelos a Buenos Aires (Aeroparque),,,,,,27,USD por pasajero,2026,oficial,https://www.aeropuertodecarrasco.com.uy/tasa-de-embarque/,
-Carrasco: vuelos nacionales,,,,,,5,USD por pasajero,2026,oficial,https://www.aeropuertodecarrasco.com.uy/tasa-de-embarque/,
-Carrasco: precio de seguridad,,,,,,9.57,USD por pasajero,2026,oficial,https://www.aeropuertodecarrasco.com.uy/tasa-de-embarque/,
-Punta del Este: vuelos internacionales,,,,,,42,USD por pasajero,,secundaria,https://aeropuertodepuntadeleste.com.uy/tasa-de-embarque/,
-Punta del Este: vuelos nacionales,,,,,,4,USD por pasajero,,secundaria,https://aeropuertodepuntadeleste.com.uy/tasa-de-embarque/,

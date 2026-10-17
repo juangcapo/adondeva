@@ -1,9 +1,0 @@
-condicion,base,desde,hasta,unidad_tramo,tasa_pct,monto,unidad_monto,vigencia,confianza,fuente,notas
-escala anual,jubilaciones y pensiones anuales,0,108,BPC,0,,,2026,secundaria,https://cambio-uruguay.com/en/impuestos-inversiones-uruguay,
-escala anual,jubilaciones y pensiones anuales,108,180,BPC,6,,,2026,secundaria,https://cambio-uruguay.com/en/impuestos-inversiones-uruguay,
-escala anual,jubilaciones y pensiones anuales,180,600,BPC,24,,,2026,secundaria,https://cambio-uruguay.com/en/impuestos-inversiones-uruguay,
-escala anual,jubilaciones y pensiones anuales,600,,BPC,30,,,2026,secundaria,https://cambio-uruguay.com/en/impuestos-inversiones-uruguay,
-escala mensual (retención),jubilaciones y pensiones mensuales,0,9,BPC,0,,,2026,secundaria,https://www.elobservador.com.uy/cuales-son-las-nuevas-franjas-aportes-irpf-2026-y-el-nuevo-valor-la-bpc-n6030375,
-escala mensual (retención),jubilaciones y pensiones mensuales,9,15,BPC,6,,,2026,secundaria,https://www.elobservador.com.uy/cuales-son-las-nuevas-franjas-aportes-irpf-2026-y-el-nuevo-valor-la-bpc-n6030375,
-escala mensual (retención),jubilaciones y pensiones mensuales,15,50,BPC,24,,,2026,secundaria,https://www.elobservador.com.uy/cuales-son-las-nuevas-franjas-aportes-irpf-2026-y-el-nuevo-valor-la-bpc-n6030375,
-escala mensual (retención),jubilaciones y pensiones mensuales,50,,BPC,30,,,2026,secundaria,https://www.elobservador.com.uy/cuales-son-las-nuevas-franjas-aportes-irpf-2026-y-el-nuevo-valor-la-bpc-n6030375,

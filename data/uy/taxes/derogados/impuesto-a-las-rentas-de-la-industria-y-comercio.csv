@@ -1,0 +1,6 @@
+departamento,condicion,base,desde,hasta,unidad_tramo,tasa_pct,monto,unidad_monto,vigencia,confianza,fuente,notas
+,tasa general,renta neta,,,,30,,,hasta 1990,secundaria,https://www.cienciassociales.edu.uy/wp-content/uploads/2019/09/Evoluci%C3%B3n-sistema-tributario-1990-2018-Gustavo-Vi%C3%B1ales-v.-presen.pdf,
+,aumento transitorio por un año,renta neta,,,,40,,,1990-1991 (Ley 16.107),secundaria,https://www.cienciassociales.edu.uy/wp-content/uploads/2019/09/Evoluci%C3%B3n-sistema-tributario-1990-2018-Gustavo-Vi%C3%B1ales-v.-presen.pdf,
+,tasa general,renta neta,,,,30,,,1991-2002,secundaria,https://www.cienciassociales.edu.uy/wp-content/uploads/2019/09/Evoluci%C3%B3n-sistema-tributario-1990-2018-Gustavo-Vi%C3%B1ales-v.-presen.pdf,
+,aumento,renta neta,,,,35,,,2002-2004 (Ley 17.453),secundaria,https://www.cienciassociales.edu.uy/wp-content/uploads/2019/09/Evoluci%C3%B3n-sistema-tributario-1990-2018-Gustavo-Vi%C3%B1ales-v.-presen.pdf,
+,tasa al momento de la derogación,renta neta,,,,30,,,ejercicios desde ago-2004 hasta 2007 (Dec. 270/004),secundaria,https://www.cienciassociales.edu.uy/wp-content/uploads/2019/09/Evoluci%C3%B3n-sistema-tributario-1990-2018-Gustavo-Vi%C3%B1ales-v.-presen.pdf,

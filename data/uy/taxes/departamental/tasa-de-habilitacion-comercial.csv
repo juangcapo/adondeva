@@ -1,0 +1,4 @@
+departamento,condicion,base,desde,hasta,unidad_tramo,tasa_pct,monto,unidad_monto,vigencia,confianza,fuente,notas
+Rocha,Rocha: comercios en áreas protegidas o zonas fiscales,,,,,,30,UR anuales,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/04/10/documentos.pdf,más 30 UR de higiene ambiental
+Río Negro,Río Negro: estudio e inspección de locales comerciales o industriales,,,,,,1,UR por unidad,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/03/documentos.pdf,
+Cerro Largo,"Cerro Largo: contralor estructural, sanitario y ambiental de comercios con más de 200 m² de venta",metro cuadrado de exposición y venta,,,,,0.05,UR por m²,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/06/documentos.pdf,

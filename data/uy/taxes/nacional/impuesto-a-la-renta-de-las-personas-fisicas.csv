@@ -1,0 +1,42 @@
+departamento,condicion,base,desde,hasta,unidad_tramo,tasa_pct,monto,unidad_monto,vigencia,confianza,fuente,notas
+,"Categoría II, rentas del trabajo (escala anual)",renta anual del trabajo,0,84,BPC,0,,,2026,guia_oficial,https://www.uruguayxxi.gub.uy/es/quiero-invertir/guias-inversor/sistema-tributario-2026/descarga/,
+,"Categoría II, rentas del trabajo (escala anual)",renta anual del trabajo,84,120,BPC,10,,,2026,guia_oficial,https://www.uruguayxxi.gub.uy/es/quiero-invertir/guias-inversor/sistema-tributario-2026/descarga/,
+,"Categoría II, rentas del trabajo (escala anual)",renta anual del trabajo,120,180,BPC,15,,,2026,guia_oficial,https://www.uruguayxxi.gub.uy/es/quiero-invertir/guias-inversor/sistema-tributario-2026/descarga/,
+,"Categoría II, rentas del trabajo (escala anual)",renta anual del trabajo,180,360,BPC,24,,,2026,guia_oficial,https://www.uruguayxxi.gub.uy/es/quiero-invertir/guias-inversor/sistema-tributario-2026/descarga/,
+,"Categoría II, rentas del trabajo (escala anual)",renta anual del trabajo,360,600,BPC,25,,,2026,guia_oficial,https://www.uruguayxxi.gub.uy/es/quiero-invertir/guias-inversor/sistema-tributario-2026/descarga/,
+,"Categoría II, rentas del trabajo (escala anual)",renta anual del trabajo,600,900,BPC,27,,,2026,guia_oficial,https://www.uruguayxxi.gub.uy/es/quiero-invertir/guias-inversor/sistema-tributario-2026/descarga/,
+,"Categoría II, rentas del trabajo (escala anual)",renta anual del trabajo,900,1380,BPC,31,,,2026,guia_oficial,https://www.uruguayxxi.gub.uy/es/quiero-invertir/guias-inversor/sistema-tributario-2026/descarga/,
+,"Categoría II, rentas del trabajo (escala anual)",renta anual del trabajo,1380,,BPC,36,,,2026,guia_oficial,https://www.uruguayxxi.gub.uy/es/quiero-invertir/guias-inversor/sistema-tributario-2026/descarga/,
+,"Categoría II, anticipo mensual por retención",renta mensual computable,0,7,BPC,0,,,2026,guia_oficial,https://www.uruguayxxi.gub.uy/es/quiero-invertir/guias-inversor/sistema-tributario-2026/descarga/,
+,"Categoría II, anticipo mensual por retención",renta mensual computable,7,10,BPC,10,,,2026,guia_oficial,https://www.uruguayxxi.gub.uy/es/quiero-invertir/guias-inversor/sistema-tributario-2026/descarga/,
+,"Categoría II, anticipo mensual por retención",renta mensual computable,10,15,BPC,15,,,2026,guia_oficial,https://www.uruguayxxi.gub.uy/es/quiero-invertir/guias-inversor/sistema-tributario-2026/descarga/,
+,"Categoría II, anticipo mensual por retención",renta mensual computable,15,30,BPC,24,,,2026,guia_oficial,https://www.uruguayxxi.gub.uy/es/quiero-invertir/guias-inversor/sistema-tributario-2026/descarga/,
+,"Categoría II, anticipo mensual por retención",renta mensual computable,30,50,BPC,25,,,2026,guia_oficial,https://www.uruguayxxi.gub.uy/es/quiero-invertir/guias-inversor/sistema-tributario-2026/descarga/,
+,"Categoría II, anticipo mensual por retención",renta mensual computable,50,75,BPC,27,,,2026,guia_oficial,https://www.uruguayxxi.gub.uy/es/quiero-invertir/guias-inversor/sistema-tributario-2026/descarga/,
+,"Categoría II, anticipo mensual por retención",renta mensual computable,75,115,BPC,31,,,2026,guia_oficial,https://www.uruguayxxi.gub.uy/es/quiero-invertir/guias-inversor/sistema-tributario-2026/descarga/,
+,"Categoría II, anticipo mensual por retención",renta mensual computable,115,,BPC,36,,,2026,guia_oficial,https://www.uruguayxxi.gub.uy/es/quiero-invertir/guias-inversor/sistema-tributario-2026/descarga/,
+,"Categoría II, tasa de deducciones con ingreso nominal anual hasta 180 BPC",total de deducciones,0,180,BPC,14,,,2026,guia_oficial,https://www.uruguayxxi.gub.uy/es/quiero-invertir/guias-inversor/sistema-tributario-2026/descarga/,se resta del impuesto; mensual: hasta 15 BPC
+,"Categoría II, tasa de deducciones con ingreso nominal anual mayor a 180 BPC",total de deducciones,180,,BPC,8,,,2026,guia_oficial,https://www.uruguayxxi.gub.uy/es/quiero-invertir/guias-inversor/sistema-tributario-2026/descarga/,
+,deducción por hijo menor a cargo,,,,,,20,BPC anuales por hijo,2026,guia_oficial,https://www.uruguayxxi.gub.uy/es/quiero-invertir/guias-inversor/sistema-tributario-2026/descarga/,se duplica para hijos con discapacidad
+,deducción por cuota de préstamo hipotecario de vivienda única (costo hasta 794.000 UI),,,,,,36,BPC anuales (tope),2026,guia_oficial,https://www.uruguayxxi.gub.uy/es/quiero-invertir/guias-inversor/sistema-tributario-2026/descarga/,
+,crédito por arrendamiento de vivienda permanente,precio del arrendamiento,,,,6,,,2026,guia_oficial,https://www.uruguayxxi.gub.uy/es/quiero-invertir/guias-inversor/sistema-tributario-2026/descarga/,
+,trabajo fuera de relación de dependencia: ficto de gastos,ingresos,,,,30,,,2026,guia_oficial,https://www.uruguayxxi.gub.uy/es/quiero-invertir/guias-inversor/sistema-tributario-2026/descarga/,"porcentaje deducible, no tasa del impuesto"
+,retención a no dependientes cuando la facturación mensual al responsable supera 10.000 UI,monto pagado más retención,10000,,UI por mes,7,,,2026,guia_oficial,https://www.uruguayxxi.gub.uy/es/quiero-invertir/guias-inversor/sistema-tributario-2026/descarga/,
+,"Categoría I: depósitos en pesos a tasa fija, hasta 1 año",intereses,,,,5.5,,,2026,secundaria,https://cambio-uruguay.com/en/impuestos-inversiones-uruguay,
+,"Categoría I: depósitos en pesos a tasa fija, 1 a 3 años",intereses,,,,2.5,,,2026,secundaria,https://cambio-uruguay.com/en/impuestos-inversiones-uruguay,
+,"Categoría I: depósitos en pesos a tasa fija, más de 3 años",intereses,,,,0.5,,,2026,secundaria,https://cambio-uruguay.com/en/impuestos-inversiones-uruguay,
+,"Categoría I: depósitos en pesos reajustables (UI), hasta 1 año",intereses,,,,10,,,2026,secundaria,https://cambio-uruguay.com/en/impuestos-inversiones-uruguay,
+,"Categoría I: depósitos en pesos reajustables (UI), 1 a 3 años",intereses,,,,7,,,2026,secundaria,https://cambio-uruguay.com/en/impuestos-inversiones-uruguay,
+,"Categoría I: depósitos en pesos reajustables (UI), más de 3 años",intereses,,,,5,,,2026,secundaria,https://cambio-uruguay.com/en/impuestos-inversiones-uruguay,
+,"Categoría I: depósitos en moneda extranjera, hasta 3 años",intereses,,,,12,,,2026,secundaria,https://cambio-uruguay.com/en/impuestos-inversiones-uruguay,
+,"Categoría I: depósitos en moneda extranjera, más de 3 años",intereses,,,,7,,,2026,secundaria,https://cambio-uruguay.com/en/impuestos-inversiones-uruguay,
+,Categoría I: dividendos de contribuyentes de IRAE (incluye fictos),dividendo,,,,7,,,2026,guia_oficial,https://www.uruguayxxi.gub.uy/es/quiero-invertir/guias-inversor/sistema-tributario-2026/descarga/,
+,Categoría I: alquileres,renta neta,,,,12,,,2026,secundaria,https://cambio-uruguay.com/en/impuestos-inversiones-uruguay,"la retención sobre el bruto es 10,5%; exonerados si las rentas no superan 40 BPC anuales"
+,Categoría I: incrementos patrimoniales (régimen real),precio menos costo fiscal actualizado,,,,12,,,2026,secundaria,https://cambio-uruguay.com/en/impuestos-inversiones-uruguay,
+,"Categoría I: incrementos patrimoniales, inmuebles no rurales comprados antes de 1/7/2007 (opcional)",15% del precio,,,,12,,,2026,secundaria,https://cambio-uruguay.com/en/impuestos-inversiones-uruguay,"tasa efectiva 1,8%"
+,Categoría I: incrementos patrimoniales sin costo probado o bienes en el exterior (ficto),20% del precio,,,,12,,,2026,secundaria,https://cambio-uruguay.com/en/impuestos-inversiones-uruguay,"tasa efectiva 2,4%"
+,Categoría I: exoneración de operaciones chicas,precio de cada operación,,30000,UI,0,,,2026,secundaria,https://cambio-uruguay.com/en/impuestos-inversiones-uruguay,y la suma anual menor a 90.000 UI
+,Categoría I: rentas de capital del exterior (desde 2026),renta,,,,12,,,2026,guia_oficial,https://www.uruguayxxi.gub.uy/es/quiero-invertir/guias-inversor/sistema-tributario-2026/descarga/,retención de 8% si opera un bróker local con custodia
+,Categoría I: premios de juegos de azar y carreras,premio menos apuesta,,,,12,,,desde 2018,secundaria,https://focusgn.com/latinoamerica/uruguay-impuestos-entran-vigencia,Ley 19.535; exoneraciones por monto a verificar
+,"nuevos residentes desde 2026, tras los 11 años de régimen IRNR: opción A por 5 años",rentas de capital del exterior,,,,6,,,2026,guia_oficial,https://www.uruguayxxi.gub.uy/es/quiero-invertir/guias-inversor/sistema-tributario-2026/descarga/,
+,"nuevos residentes desde 2026, tras los 11 años: opción B por 20 años",,,,,,1875000,UI anuales,2026,guia_oficial,https://www.uruguayxxi.gub.uy/es/quiero-invertir/guias-inversor/sistema-tributario-2026/descarga/,1.250.000 UI si permanece más de 183 días en el país

@@ -1,0 +1,5 @@
+departamento,condicion,base,desde,hasta,unidad_tramo,tasa_pct,monto,unidad_monto,vigencia,confianza,fuente,notas
+,"Industria y Comercio, trabajo doméstico y civil",remuneración gravada,,,,15,,,desde 1/7/2007,oficial,https://www.bps.gub.uy/835/tasas.html,
+,tope A (art. 7 y 8 Ley 16.713),,,,,,96279,UYU mensuales,oct-2026,oficial,https://www.bps.gub.uy/16815/valores.html,
+,tope B,,,,,,144418,UYU mensuales,oct-2026,oficial,https://www.bps.gub.uy/16815/valores.html,
+,tope C,,,,,,288836,UYU mensuales,oct-2026,oficial,https://www.bps.gub.uy/16815/valores.html,

@@ -1,16 +1,17 @@
-"""Rebuild rates/*.csv from the RATES table below, one file per catalog.csv entry, and fill catalog.csv's `archivo` column.
+"""Rebuild the rate files from the RATES table below, one per catalog.csv entry in its level folder, and fill catalog.csv's `archivo` column.
 
 To change a rate, edit RATES and run: python3 build_rates.py (standard library only).
 Catalog entries missing from RATES get a single `sin_datos` row.
 """
 import csv
+
 import re
 import sys
 import unicodedata
 from pathlib import Path
 
 HERE = Path(__file__).parent
-COLS = ["condicion", "base", "desde", "hasta", "unidad_tramo", "tasa_pct", "monto", "unidad_monto",
+COLS = ["departamento", "condicion", "base", "desde", "hasta", "unidad_tramo", "tasa_pct", "monto", "unidad_monto",
         "vigencia", "confianza", "fuente", "notas"]
 
 S = {
@@ -90,13 +91,23 @@ S = {
     "DL15605": "https://www.impo.com.uy/bases/decretos-ley/15605-1984",
     "INAC_FAENA": "https://www.inac.uy/innovaportal/v/5431/17/innova.front/precios-fictos-07--y-tasa-control-de-faena",
     "MEF_ARANCEL": "https://www.gub.uy/ministerio-economia-finanzas/nomenclatura-aranceles-uruguay-0",
+    "DO_20090128": "https://www.impo.com.uy/diariooficial/2009/01/28/documentos.pdf",
+    "DO_20250820": "https://www.impo.com.uy/diariooficial/2025/08/20/documentos.pdf",
+    "INAC_DEC364": "https://inac.uy/innovaportal/file/5562/1/decreto-364-003-del-4.3.2021.pdf",
+    "INAC_DEC11": "https://inac.uy/innovaportal/file/5563/1/decreto-11-009.pdf",
+    "VINALES": "https://www.cienciassociales.edu.uy/wp-content/uploads/2019/09/Evoluci%C3%B3n-sistema-tributario-1990-2018-Gustavo-Vi%C3%B1ales-v.-presen.pdf",
+    "LEY17166": "https://uruguay.justia.com/nacionales/leyes/ley-17166-sep-10-1999/gdoc/",
+    "DEC658": "https://www.impo.com.uy/bases/decretos/658-1992",
+    "LEY18876": "https://impo.com.uy/bases/leyes/18876-2011",
+    "BPS_PPL": "https://www.bps.gub.uy/19831/nuevo-regimen-de-aportes-para-emprendimientos-productivos-de-personas-privadas-de-libertad.html",
+    "DEC122_2025": "https://www.impo.com.uy/bases/decretos/122-2025/1",
     "MEF_IRAE_ANT": "https://www.gub.uy/ministerio-economia-finanzas/sites/ministerio-economia-finanzas/files/2026-01/Decreto%2030_12_25%20mef_230.pdf",
 }
 
 
 def r(condicion, *, base="", desde="", hasta="", unidad_tramo="", tasa="", monto="", unidad_monto="",
       vigencia="", confianza="oficial", src="", notas=""):
-    return {"condicion": condicion, "base": base, "desde": desde, "hasta": hasta, "unidad_tramo": unidad_tramo,
+    return {"departamento": "", "condicion": condicion, "base": base, "desde": desde, "hasta": hasta, "unidad_tramo": unidad_tramo,
             "tasa_pct": tasa, "monto": monto, "unidad_monto": unidad_monto, "vigencia": vigencia,
             "confianza": confianza, "fuente": S[src] if src else "", "notas": notas}
 
@@ -195,7 +206,7 @@ RATES["Impuesto a las Rentas de las Actividades Económicas"] = [
     r("cesión de contenedores para comercio internacional", base="15% del precio", tasa=25, vigencia=V26, confianza=G, src="UXXI"),
     r("enajenación de participaciones de no residentes con activos en Uruguay (personas físicas y no residentes)", base="ficto 2,4% del precio de venta", vigencia=V26, confianza=G, src="UXXI"),
     r("pequeñas empresas (literal E)", base="ingresos anuales", desde=0, hasta=305000, unidad_tramo="UI", tasa=0, vigencia=V26, confianza=SEC, src="RSM_IVAMIN", notas="exoneradas de IRAE; pagan IVA mínimo"),
-    r("anticipo en la importación de bienes de consumo del anexo (lista por código en ../aranceles/arancel.csv)", base="valor en aduana más arancel", tasa=4, vigencia="desde 2026", src="MEF_IRAE_ANT", notas="pago a cuenta del IRAE, no impuesto adicional"),
+    r("anticipo en la importación de bienes de consumo del anexo (lista por código en data/uy/aranceles/arancel.csv)", base="valor en aduana más arancel", tasa=4, vigencia="desde 2026", src="MEF_IRAE_ANT", notas="pago a cuenta del IRAE, no impuesto adicional"),
     r("productores agropecuarios: IRAE obligatorio en vez de IMEBA", base="ingresos del ejercicio anterior", desde=2500000, unidad_tramo="UI", tasa=25, vigencia=V26, confianza=G, src="UXXI", notas="también si explotan más de 1.250 ha CONEAT o son SA, SCA, establecimientos permanentes o fideicomisos"),
 ]
 
@@ -292,7 +303,8 @@ RATES["Impuesto a las Trasmisiones Patrimoniales"] = [
 ]
 RATES["Adicional del Impuesto a las Trasmisiones Patrimoniales"] = nodata("figura en el boletín DGI 2023 con recaudación 0")
 RATES["Impuesto a la Apuesta"] = [
-    r("apuestas en máquinas electrónicas de casinos y salas", base="monto apostado", tasa=0.75, vigencia="2018-2025", confianza=SEC, src="DEC359", notas="Dec. 359/017 derogado por Dec. 167/025; tasa actual a verificar"),
+    r("apuestas en máquinas electrónicas de casinos y salas", base="monto apostado", tasa=0.75, vigencia="desde ago-2025", src="DO_20250820", notas="Dec. 167/025; contribuyente el apostador, retiene la sala"),
+    r("régimen anterior", base="monto apostado", tasa=0.75, vigencia="2018-2025", confianza=SEC, src="DEC359", notas="Dec. 359/017"),
 ]
 RATES["Impuesto a los Ingresos de las Entidades Aseguradoras"] = [
     r("seguros generales, incendio y vehículos", base="ingresos brutos por primas", tasa=7, vigencia=V26, src="DEC255"),
@@ -304,7 +316,8 @@ RATES["Impuestos para el Fondo de Inspección Sanitaria"] = [
     r("carne vacuna y ovina destinada al consumo interno", base="precio", tasa=1, vigencia="1970", confianza=SEC, src="LEY13892", notas="tasa de la ley original de 1970; la vigente está en el Dec. 152/025, sin verificar"),
 ]
 RATES["Detracciones a la exportación"] = [
-    r("cueros bovinos sin terminar (subpartidas 41.04.11 y 41.04.19)", base="valor exportado", tasa=5, vigencia="base legal", confianza=SEC, src="DETRAC", notas="decretos sucesivos la bajan a 0% por 6 meses; situación en 2026 a verificar"),
+    r("cueros bovinos sin terminar (subpartidas 41.04.11 y 41.04.19): tasa base", base="valor exportado", tasa=5, vigencia="Dec. 639/006", confianza=SEC, src="DETRAC"),
+    r("ídem, rebaja transitoria", base="valor exportado", tasa=0, vigencia="desde 2020, prorrogada por Dec. 122/025 (jun-2025)", src="DEC122_2025", notas="sin prórroga posterior encontrada; si venció, rige otra vez el 5%"),
 ]
 
 _MONO = "aporte mensual total al BPS"
@@ -331,13 +344,16 @@ RATES["Monotributo Social MIDES"] = [
     r(f"titular con Seguro Nacional de Salud, sin cónyuge y con hijos, {tramo}", base="5 BFC ($ 9.240)", monto=m, unidad_monto=_MONO, vigencia="ene-2026", src="BPS_MIDES")
     for tramo, m in [("meses 1 a 12 (25%)", 5430), ("meses 13 a 24 (50%)", 5953), ("meses 25 a 36 (75%)", 6475), ("desde el mes 37 (100%)", 6996)]
 ]
-RATES["Aporte Social Único de Personas Privadas de Libertad"] = nodata()
+RATES["Aporte Social Único de Personas Privadas de Libertad"] = [
+    r(f"emprendimientos productivos aprobados por el INR, {tramo}", base="monto ficto (aporte jubilatorio y FRL)", tasa=pct, vigencia="desde 2022", src="BPS_PPL",
+      notas="sustituye aportes y demás impuestos nacionales salvo los de importación; monto ficto no publicado")
+    for tramo, pct in [("meses 1 a 12", 25), ("meses 13 a 24", 50), ("meses 25 a 36", 75), ("desde el mes 37", 100)]
+]
 
 RATES["Tasa Global Arancelaria (Arancel Externo Común)"] = [
     r("importaciones desde el Mercosur", base="valor en aduana (CIF)", tasa=0, vigencia=V26, src="DEC426"),
-    r("importaciones extrazona: según posición arancelaria", base="valor en aduana (CIF)", desde=0, hasta=35, unidad_tramo="% (rango)", vigencia="feb-2025", src="MEF_ARANCEL", notas="tasa por código de 10 dígitos en ../aranceles/arancel.csv"),
+    r("importaciones extrazona: según posición arancelaria", base="valor en aduana (CIF)", desde=0, hasta=35, unidad_tramo="% (rango)", vigencia="feb-2025", src="MEF_ARANCEL", notas="tasa por código de 10 dígitos en data/uy/aranceles/arancel.csv"),
 ]
-RATES["Recargos a la importación"] = nodata()
 RATES["Tasa Consular"] = [
     r("importaciones extrazona de bienes de consumo", base="valor CIF", tasa=5, vigencia="desde 2018", confianza=SEC, src="AUTOBLOG_TC", notas="0% para bienes de capital, petróleo crudo y admisión temporaria"),
     r("importaciones desde el Mercosur", base="valor CIF", tasa=3, vigencia="desde 2018", confianza=SEC, src="AUTOBLOG_TC"),
@@ -361,8 +377,8 @@ RATES["Prestación para el LATU sobre exportaciones no tradicionales"] = [
     r("exportaciones no tradicionales", base="valor en aduana", tasa=0.2, vigencia=V26, src="LEY20446", notas="2 por mil, pagado en el BROU al liquidar el cumplido de embarque"),
 ]
 RATES["Tributo único a envíos postales y express"] = [
-    r("envíos de hasta 20 kg y factura de hasta USD 800, opcional", base="valor facturado o declarado", tasa=60, monto=20, unidad_monto="USD mínimo por envío", vigencia="desde 23/3/2026", src="DEC50", notas="sustituye aranceles y tributos internos; comparación con 2024 en ../aranceles/regimen-envios/"),
-    r("régimen anterior: envíos de hasta USD 200", base="valor facturado o declarado", tasa=60, monto=10, unidad_monto="USD mínimo por envío", vigencia="2016 a 22/3/2026", src="ADU2015", notas="Decreto 356/014 modificado; ver ../aranceles/regimen-envios/"),
+    r("envíos de hasta 20 kg y factura de hasta USD 800, opcional", base="valor facturado o declarado", tasa=60, monto=20, unidad_monto="USD mínimo por envío", vigencia="desde 23/3/2026", src="DEC50", notas="sustituye aranceles y tributos internos; comparación con 2024 en data/uy/aranceles/regimen-envios/"),
+    r("régimen anterior: envíos de hasta USD 200", base="valor facturado o declarado", tasa=60, monto=10, unidad_monto="USD mínimo por envío", vigencia="2016 a 22/3/2026", src="ADU2015", notas="Decreto 356/014 modificado; ver data/uy/aranceles/regimen-envios/"),
 ]
 
 RATES["Aportes jubilatorios personales"] = [
@@ -524,13 +540,50 @@ RATES["Tasa de embarque aeroportuaria"] = [
     r("Punta del Este: vuelos nacionales", monto=4, unidad_monto="USD por pasajero", confianza=SEC, src="PDE_EMB"),
 ]
 RATES["Tasa de control del sistema financiero"] = [
-    r("entidades supervisadas por el BCU: tope legal", base="promedio anual de activos o comisiones, según el sujeto", tasa=0.2, src="BCU_TASA", notas="2 por mil como máximo (Ley 18.083); alícuotas por tipo de entidad en el Dec. 795/008, no disponible; en 2025 el BCU propuso modificarla"),
+    r("bancos (tasa marginal descendente)", base="activos radicados en el país", desde=0, hasta=5000, unidad_tramo="millones de UI", tasa=0.1, vigencia="desde 2009", src="DO_20090128"),
+    r("bancos (tasa marginal descendente)", base="activos radicados en el país", desde=5000, hasta=10000, unidad_tramo="millones de UI", tasa=0.0975, vigencia="desde 2009", src="DO_20090128"),
+    r("bancos (tasa marginal descendente)", base="activos radicados en el país", desde=10000, hasta=15000, unidad_tramo="millones de UI", tasa=0.095, vigencia="desde 2009", src="DO_20090128"),
+    r("bancos (tasa marginal descendente)", base="activos radicados en el país", desde=15000, hasta=20000, unidad_tramo="millones de UI", tasa=0.0925, vigencia="desde 2009", src="DO_20090128"),
+    r("bancos (tasa marginal descendente)", base="activos radicados en el país", desde=20000, hasta=25000, unidad_tramo="millones de UI", tasa=0.09, vigencia="desde 2009", src="DO_20090128"),
+    r("bancos (tasa marginal descendente)", base="activos radicados en el país", desde=25000, hasta=30000, unidad_tramo="millones de UI", tasa=0.0875, vigencia="desde 2009", src="DO_20090128"),
+    r("bancos (tasa marginal descendente)", base="activos radicados en el país", desde=30000, hasta=35000, unidad_tramo="millones de UI", tasa=0.085, vigencia="desde 2009", src="DO_20090128"),
+    r("bancos (tasa marginal descendente)", base="activos radicados en el país", desde=35000, hasta=40000, unidad_tramo="millones de UI", tasa=0.0825, vigencia="desde 2009", src="DO_20090128"),
+    r("bancos (tasa marginal descendente)", base="activos radicados en el país", desde=40000, hasta=45000, unidad_tramo="millones de UI", tasa=0.08, vigencia="desde 2009", src="DO_20090128"),
+    r("bancos (tasa marginal descendente)", base="activos radicados en el país", desde=45000, hasta=50000, unidad_tramo="millones de UI", tasa=0.0775, vigencia="desde 2009", src="DO_20090128"),
+    r("bancos (tasa marginal descendente)", base="activos radicados en el país", desde=50000, hasta=55000, unidad_tramo="millones de UI", tasa=0.075, vigencia="desde 2009", src="DO_20090128"),
+    r("bancos (tasa marginal descendente)", base="activos radicados en el país", desde=55000, hasta=60000, unidad_tramo="millones de UI", tasa=0.0725, vigencia="desde 2009", src="DO_20090128"),
+    r("bancos (tasa marginal descendente)", base="activos radicados en el país", desde=60000, hasta=65000, unidad_tramo="millones de UI", tasa=0.07, vigencia="desde 2009", src="DO_20090128"),
+    r("bancos (tasa marginal descendente)", base="activos radicados en el país", desde=65000, hasta=70000, unidad_tramo="millones de UI", tasa=0.0675, vigencia="desde 2009", src="DO_20090128"),
+    r("bancos (tasa marginal descendente)", base="activos radicados en el país", desde=70000, hasta=75000, unidad_tramo="millones de UI", tasa=0.065, vigencia="desde 2009", src="DO_20090128"),
+    r("bancos (tasa marginal descendente)", base="activos radicados en el país", desde=75000, hasta=80000, unidad_tramo="millones de UI", tasa=0.0625, vigencia="desde 2009", src="DO_20090128"),
+    r("bancos (tasa marginal descendente)", base="activos radicados en el país", desde=80000, hasta=85000, unidad_tramo="millones de UI", tasa=0.06, vigencia="desde 2009", src="DO_20090128"),
+    r("bancos (tasa marginal descendente)", base="activos radicados en el país", desde=85000, hasta=90000, unidad_tramo="millones de UI", tasa=0.0575, vigencia="desde 2009", src="DO_20090128"),
+    r("bancos (tasa marginal descendente)", base="activos radicados en el país", desde=90000, hasta=95000, unidad_tramo="millones de UI", tasa=0.055, vigencia="desde 2009", src="DO_20090128"),
+    r("bancos (tasa marginal descendente)", base="activos radicados en el país", desde=95000, hasta=100000, unidad_tramo="millones de UI", tasa=0.0525, vigencia="desde 2009", src="DO_20090128"),
+    r("bancos (tasa marginal descendente)", base="activos radicados en el país", desde=100000, hasta='', unidad_tramo="millones de UI", tasa=0.05, vigencia="desde 2009", src="DO_20090128"),
+    r("casas financieras", base="activos propios en el país", tasa=0.1, vigencia="desde 2009", src="DO_20090128"),
+    r("instituciones financieras externas", base="activos propios en el país", tasa=0.1, monto=500000, unidad_monto="UI tope anual", vigencia="desde 2009", src="DO_20090128"),
+    r("cooperativas de intermediación financiera", base="activos propios en el país", tasa=0.05, vigencia="desde 2009", src="DO_20090128"),
+    r("administradoras de grupos de ahorro previo", base="activos propios en el país", tasa=0.04, vigencia="desde 2009", src="DO_20090128"),
+    r("casas de cambio", base="activos propios en el país", tasa=0.02, vigencia="desde 2009", src="DO_20090128"),
+    r("instituciones con activos menores a 5 millones de UI (literales A, B y H)", base="activos propios en el país", hasta=5, unidad_tramo="millones de UI", tasa=0, vigencia="desde 2009", src="DO_20090128"),
+    r("AFAP", base="comisiones cobradas", tasa=0.2, vigencia="desde 2009", src="DO_20090128"),
+    r("aseguradoras, reaseguradoras y mutuas", base="ingresos brutos de fuente uruguaya", tasa=0.2, vigencia="desde 2009", src="DO_20090128", notas="pago a cuenta del IIEA"),
+    r("bolsas, corredores y agentes de valores", base="comisiones cobradas", tasa=0.2, vigencia="desde 2009", src="DO_20090128"),
+    r("administradoras de fondos de inversión y fiduciarios profesionales", base="comisiones cobradas", tasa=0.2, vigencia="desde 2009", src="DO_20090128"),
+    r("emisores de valores de oferta pública", tasa=0, vigencia="desde 2009", src="DO_20090128"),
+    r("representaciones de entidades del exterior y administradoras de crédito", base="activos propios en el país", tasa=0.2, vigencia="desde 2009", src="DO_20090128"),
+    r("tope legal", base="promedio anual de activos o comisiones", tasa=0.2, src="BCU_TASA", notas="Ley 18.083 art. 95; el Dec. 203/012 agregó sujetos; en 2025 el BCU propuso modificarla"),
 ]
 RATES["Prestación INAC del 0,7% sobre carnes"] = [
     r("carnes vendidas en el mercado interno", base="precio de venta (precios fictos publicados por INAC)", tasa=0.7, src="DL15605", notas="Decreto-ley 15.605"),
 ]
 RATES["Tasa de Control de Faena (INAC)"] = [
-    r("faena de reses bovinas", base="cabezas faenadas", confianza="sin_datos", src="INAC_FAENA", notas="creada por el Dec. 364/003; monto no disponible"),
+    r("faena de reses bovinas: tasa de control original", base="res bovina faenada", monto=1, unidad_monto="USD por res", vigencia="desde 2003", src="INAC_DEC364", notas="Dec. 364/003; la paga el remitente, la deposita la planta en la cuenta INAC/TCF"),
+    r("incremento para vacuna antiaftosa (Dec. 432/003)", base="res bovina faenada", monto=1.5, unidad_monto="USD por res", vigencia="desde 2003", src="INAC_DEC11"),
+    r("incremento para vacuna antiaftosa (Dec. 34/006)", base="res bovina faenada", monto=1, unidad_monto="USD por res", vigencia="desde 2006", src="INAC_DEC11"),
+    r("incremento para vacuna antiaftosa (Dec. 11/009)", base="res bovina faenada", monto=1.3, unidad_monto="USD por res", vigencia="desde 2009", src="INAC_DEC11", notas="total acumulado USD 4,80 por res según los decretos citados; cambios posteriores no verificados"),
+    r("habilitación de establecimientos lecheros (Dec. 432/003)", base="leche recibida en planta", monto=0.12, unidad_monto="USD cada 1.000 litros", vigencia="desde 2003", src="INAC_DEC11"),
 ]
 RATES["Impuesto Mínimo Complementario Doméstico"] = [
     r("grupos multinacionales con ingresos consolidados de 750 millones de euros o más", base="resultado neto admisible GloBE", tasa=15, vigencia="desde 2026", confianza=G, src="UXXI", notas="paga la diferencia entre 15% y la tasa efectiva local"),
@@ -543,22 +596,113 @@ RATES["Patente de Rodados"] = [
     r("eléctricos usados", base="valor de mercado", tasa=2.25, vigencia=V26, confianza=SEC, src="SUCIVE", notas="El Observador cita 2,5%"),
     r("ómnibus, micros y furgones desafectados del servicio público", monto=22208.27, unidad_monto="UYU anuales", vigencia=V26, confianza=SEC, src="SUCIVE"),
 ]
-RATES["Contribución Inmobiliaria Urbana y Suburbana"] = brackets(
-    "Montevideo: escala progresiva", "valor imponible 2026", "UYU",
-    [992630, 2481576, 4963144, 8551753, 17103509], [0.25, 0.75, 1, 1.2, 1.65, 1.8], "MVD_CI", V26) + [
-    r("Montevideo: primer tramo para inmuebles con valor imponible menor a $2.481.577", base="valor imponible 2026", desde=0, hasta=992630, unidad_tramo="UYU", tasa=0.18, vigencia=V26, src="MVD_CI", notas="en lugar de 0,25%"),
-    r("demás departamentos", confianza="sin_datos", notas="cada intendencia fija sus alícuotas"),
-]
-RATES["Adicionales municipales a la Contribución Inmobiliaria"] = [
-    r("Montevideo: vivienda deshabitada al menos un año", base="Contribución Inmobiliaria", tasa=100, confianza=SEC, src="MVD_CI_PROP", notas="la IM propuso derogarlo desde 2027"),
-]
+# Departmental rows (including Montevideo) live in departamental_data.py.
 
 RATES["Impuesto a la Compra de Moneda Extranjera"] = [
     r("compras de BCU, BROU y BHU para su actividad de cambio", base="monto comprado", tasa=0, vigencia="1994", src="DEC109"),
     r("compras de personas públicas estatales fuera de la actividad de cambio", base="erogaciones mensuales en moneda extranjera", tasa=2, vigencia="1994", src="DEC109"),
 ]
+_H = dict(confianza=SEC, src="VINALES")  # Viñales (2019), history of the tax system 1990-2018, quoting each law
+RATES["Impuesto a las Rentas de la Industria y Comercio"] = [
+    r("tasa general", base="renta neta", tasa=30, vigencia="hasta 1990", **_H),
+    r("aumento transitorio por un año", base="renta neta", tasa=40, vigencia="1990-1991 (Ley 16.107)", **_H),
+    r("tasa general", base="renta neta", tasa=30, vigencia="1991-2002", **_H),
+    r("aumento", base="renta neta", tasa=35, vigencia="2002-2004 (Ley 17.453)", **_H),
+    r("tasa al momento de la derogación", base="renta neta", tasa=30, vigencia="ejercicios desde ago-2004 hasta 2007 (Dec. 270/004)", **_H),
+]
+RATES["Impuesto a las Rentas Agropecuarias"] = [
+    r("tasa general", base="renta neta agropecuaria", tasa=30, vigencia="hasta 1990", **_H),
+    r("aumento transitorio", base="renta neta agropecuaria", tasa=40, vigencia="ejercicio 1989-1990", **_H),
+    r("aumento", base="renta neta agropecuaria", tasa=35, vigencia="2002-2004", **_H),
+    r("tasa al momento de la derogación", base="renta neta agropecuaria", tasa=30, vigencia="2004-2007", **_H),
+]
+RATES["Impuesto a las Retribuciones Personales"] = [
+    r("retribuciones, hasta 3 SMN", base="retribución nominal", hasta=3, unidad_tramo="salarios mínimos mensuales", tasa=1, vigencia="1982-1990", **_H),
+    r("retribuciones, más de 3 SMN", base="retribución nominal", desde=3, unidad_tramo="salarios mínimos mensuales", tasa=2, vigencia="1982-1990", **_H),
+    r("empleadores privados y entes", base="retribuciones pagadas", tasa=1, vigencia="1982-1990", **_H),
+    r("retribuciones, hasta 3 SMN", base="retribución nominal", hasta=3, unidad_tramo="salarios mínimos mensuales", tasa=1, vigencia="1995-2001 (Ley 16.697)", **_H),
+    r("retribuciones, 3 a 6 SMN", base="retribución nominal", desde=3, hasta=6, unidad_tramo="salarios mínimos mensuales", tasa=3, vigencia="1995-2001", **_H),
+    r("retribuciones, más de 6 SMN", base="retribución nominal", desde=6, unidad_tramo="salarios mínimos mensuales", tasa=6, vigencia="1995-2001", **_H),
+    r("retribuciones, hasta 3 SMN", base="retribución nominal", hasta=3, unidad_tramo="salarios mínimos mensuales", tasa=0, vigencia="ago-2004 a 2007 (Dec. 270/004)", **_H),
+    r("retribuciones, 3 a 6 SMN", base="retribución nominal", desde=3, hasta=6, unidad_tramo="salarios mínimos mensuales", tasa=2, vigencia="ago-2004 a 2007", **_H),
+    r("retribuciones, más de 6 SMN", base="retribución nominal", desde=6, unidad_tramo="salarios mínimos mensuales", tasa=6, vigencia="ago-2004 a 2007", **_H),
+    r("jubilaciones y pensiones, hasta 6 SMN", base="pasividad nominal", hasta=6, unidad_tramo="salarios mínimos mensuales", tasa=0, vigencia="ago-2004 a 2007", **_H),
+    r("jubilaciones y pensiones, más de 6 SMN", base="pasividad nominal", desde=6, unidad_tramo="salarios mínimos mensuales", tasa=2, vigencia="ago-2004 a 2007", **_H),
+] + brackets("escala de 2002, servicios personales privados", "retribución nominal", "salarios mínimos mensuales",
+             [3, 6, 10, 15, 25, 30, 35, 40, 50], [0, 3, 7.5, 9, 10, 13, 14, 15, 17, 18], "VINALES", "2002-2004 (Ley 17.453)", SEC) \
+  + brackets("escala de 2002, sector público", "retribución nominal", "salarios mínimos mensuales",
+             [3, 6, 10, 15, 20, 25, 30, 35], [0, 3, 7.5, 10, 12, 14, 16, 18, 20], "VINALES", "2002-2004 (Ley 17.453)", SEC) \
+  + brackets("escala de 2002, jubilaciones y pensiones", "pasividad nominal", "salarios mínimos mensuales",
+             [3, 6, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60], [1, 2, 4, 7.5, 10, 11, 12, 13, 14, 15, 16, 17, 18, 20], "VINALES", "2002-2004 (Ley 17.453)", SEC)
+RATES["Impuesto de Contribución al Financiamiento de la Seguridad Social"] = [
+    r("bienes industrializados vendidos a organismos estatales, empresas y contribuyentes de IVA o IMESI, e importaciones", base="precio sin IVA; en importación, valor en aduana más arancel incrementado hasta 21,75%", tasa=3, vigencia="2001-2007 (Ley 17.345)", notas="luego se agregaron servicios públicos de empresas estatales; el Dec. 270/004 redujo la tasa sobre esos servicios", **_H),
+]
+RATES["Impuesto a los Activos de las Empresas Bancarias"] = [
+    r("activos gravados (tope legal)", base="activos de bancos y casas financieras", tasa=1.5, vigencia="1986-1995", **_H),
+    r("créditos de comercio exterior, préstamos a 3 años o más y otros", base="activos", tasa=0.75, vigencia="1986-1995", **_H),
+    r("prefinanciación de exportaciones", base="créditos", tasa=0.01, vigencia="desde 1995", **_H),
+    r("resto de los activos gravados (tope legal)", base="activos", tasa=2, vigencia="1995-2007 (Ley 16.697)", **_H),
+]
+RATES["Impuesto de Control del Sistema Financiero"] = [
+    r("tope legal al crearse", base="créditos computables para el IMABA", tasa=0.18, vigencia="2001-2002 (Ley 17.296)", **_H),
+    r("tope legal", base="créditos computables para el IMABA", tasa=0.36, vigencia="2002-2007 (Ley 17.453)", **_H),
+]
+RATES["Impuesto Específico a los Servicios de Salud"] = [
+    r("servicios de salud prestados en el país", base="precio del servicio", tasa=3, vigencia="2001-2007 (Ley 17.309)", notas="exonerados los servicios gravados por IVA desde 2002", **_H),
+]
+RATES["Impuesto a las Pequeñas Empresas"] = [
+    r("empresas del literal E del IRIC", monto=20000, unidad_monto="nuevos pesos mensuales (1990)", vigencia="1990, actualizado por IPC", notas="desde 2001 se usó, aumentado 30%, como mínimo del IRIC; monto al derogarse no encontrado", **_H),
+]
+RATES["Impuesto a las Comisiones"] = [
+    r("tope al crearse", base="comisiones", tasa=5, vigencia="1991", **_H),
+    r("tope", base="comisiones", tasa=7, vigencia="1992", **_H),
+    r("tope", base="comisiones", tasa=9, vigencia="1993-2002", **_H),
+    r("aumento", base="comisiones", tasa=10.5, vigencia="2002-jul-2004 (Ley 17.453)", **_H),
+    r("tasa al momento de la derogación", base="comisiones", tasa=9, vigencia="ago-2004 a 2007 (Dec. 270/004)", **_H),
+]
+RATES["Impuesto a las Telecomunicaciones"] = [
+    r("llamadas salientes desde líneas celulares", monto=0.4, unidad_monto="pesos por minuto", vigencia="2002-2007 (Ley 17.453)", **_H),
+    r("llamadas salientes de larga distancia internacional", monto=2, unidad_monto="pesos por minuto", vigencia="2002-2007", **_H),
+    r("llamadas de telefonía fija a celulares", monto=0.4, unidad_monto="pesos por minuto", vigencia="2002-2007", **_H),
+]
+RATES["Impuesto a las Tarjetas de Crédito"] = [
+    r("emisores de tarjetas de crédito (tope legal)", monto=0.1, unidad_monto="UR mensuales por tarjeta vigente", vigencia="2002-2007 (Ley 17.453)", **_H),
+]
+RATES["Impuesto a las Ventas Forzadas"] = [
+    r("ventas en remate judicial de muebles e inmuebles", base="precio obtenido en el remate", tasa=2, vigencia="1993-2007 (Ley 16.320 art. 391)", confianza=SEC, src="DEC658", notas="paga el comprador; retiene el rematador"),
+]
+RATES["Impuesto a las Cesiones de Derechos sobre Deportistas"] = [
+    r("cesiones o permutas de derechos de deportistas a entidades del exterior (tope legal)", base="precio de la cesión", tasa=10, vigencia="2001-2007 (Ley 17.296)", notas="50% al Ministerio de Deporte y 50% al Fondo Nacional de lucha contra el SIDA", **_H),
+]
+RATES["Impuesto a la Compraventa de Bienes Muebles en Remate Público"] = [
+    r("compraventa de muebles en remate público", base="precio de venta", tasa=0.2, vigencia="desde 1967 (Ley 13.640, destino MEVIR)", notas="2 por mil, por mitades entre las partes; la Ley 16.694 (1995) modificó la alícuota, valor no encontrado", **_H),
+]
+RATES["Impuesto a los Concursos, Sorteos y Competencias"] = [
+    r("concursos, sorteos y competencias por teléfono, correo o similares (tope legal)", base="ingresos del organizador sin IVA", tasa=20, vigencia="1999-2007 (Ley 17.166)", src="LEY17166"),
+]
+RATES["Impuesto a la Concentración de Inmuebles Rurales"] = [
+    r("titulares con inmuebles rurales que superan 2.000 ha CONEAT 100", base="hectáreas CONEAT 100", desde=d, hasta=h, unidad_tramo="ha", monto=m, unidad_monto="UI por hectárea", vigencia="2012-2013", confianza=SEC, src="LEY18876",
+      notas="Ley 18.876; declarado inconstitucional y derogado por la Ley 19.093 (2013)")
+    for d, h, m in [(0, 2000, 0), (2000, 5000, 67), (5000, 10000, 100), (10000, "", 135)]
+]
+RATES["Impuesto a la Venta de Moneda Extranjera"] = [
+    r("ventas de bancos, financieras y casas de cambio (tope legal)", base="precio de la operación", tasa=1.5, vigencia="desde 1984 (Decreto-ley 15.584)", **_H),
+]
+RATES["Impuesto a las Actividades Agropecuarias"] = [
+    r("tope legal", base="ingreso neto ficto según capacidad productiva CONEAT", tasa=30, vigencia="1984-1995", notas="exentos hasta 200 ha de producción media; 40% en el ejercicio 1989-1990; derogado desde jul-1995", **_H),
+]
+RATES["Impuesto a la Constitución y Aumentos de Capital de Sociedades Anónimas"] = [
+    r("constitución", base="capital", tasa=1, vigencia="1985-2001", **_H),
+    r("aumentos de capital", base="aumento", desde=0.5, hasta=1, unidad_tramo="% (rango)", vigencia="1991-2001", notas="reemplazado por el ICOSA", **_H),
+]
+RATES["Impuesto Adicional a las Retribuciones Personales"] = [
+    r("sector público, más de 20 SMN", base="retribución", tasa=4, vigencia="2002-2004", notas="sube hasta 7%", **_H),
+    r("resto, más de 25 SMN", base="retribución", tasa=3, vigencia="2002-2004", notas="sube 1% cada 5 SMN hasta 6%", **_H),
+]
+RATES["Impuesto a los Ingresos de las Compañías de Seguros"] = nodata("reemplazado en 2001 por el IIEA (Ley 17.296); tasas no encontradas")
+RATES["Recargos a la importación"] = nodata("Impuesto Aduanero Único y recargos, unificados en la Tasa Global Arancelaria (Decreto 85/991); tasas históricas no encontradas")
 
-DEPARTAMENTAL_SIN_DATOS ="cada intendencia fija sus alícuotas; sin datos todavía"
+DEPARTAMENTAL_SIN_DATOS = "cada intendencia fija sus alícuotas; sin datos todavía"
 
 
 def slug(name):
@@ -566,16 +710,43 @@ def slug(name):
     return re.sub(r"[^a-z0-9]+", "-", s).strip("-")[:70]
 
 
+# catalog.csv `nivel` -> folder holding that level's rate files
+FOLDERS = {
+    "nacional": "nacional",
+    "organismos": "organismos",
+    "aduana": "aduana",
+    "seguridad_social": "seguridad_social",
+    "departamental": "departamental",
+    "derogado": "derogados",
+}
+
+
+def departmental_rows():
+    """Rows from departamental_data.py grouped by tributo, with department and source filled in."""
+    import departamental_data as dd
+    by_tributo = {}
+    for dept, tributo, row in dd.rows(r):
+        row["departamento"] = dept
+        row["condicion"] = f"{dept}: {row['condicion']}"
+        if not row["fuente"]:
+            row["fuente"] = dd.DEPT_SOURCES[dept][0]
+        by_tributo.setdefault(tributo, []).append(row)
+    return by_tributo
+
+
 def main():
     path = HERE / "catalog.csv"
     rows = list(csv.DictReader(open(path, encoding="utf-8")))
-    out = HERE / "rates"
-    out.mkdir(exist_ok=True)
     unused = set(RATES)
+    dept = departmental_rows()
+    unknown = set(dept) - {row["nombre"] for row in rows}
+    if unknown:
+        sys.exit(f"departmental rows for tributos missing from catalog.csv: {sorted(unknown)}")
+    written = set()
     for row in rows:
         name = row["nombre"]
-        if name in RATES:
-            data = RATES[name]
+        if name in RATES or name in dept:
+            data = RATES.get(name, []) + dept.get(name, [])
             unused.discard(name)
         elif row["nivel"] == "departamental":
             data = nodata(DEPARTAMENTAL_SIN_DATOS)
@@ -583,25 +754,26 @@ def main():
             data = nodata("derogado; tasa histórica sin datos todavía")
         else:
             data = nodata()
-        fname = f"{slug(name)}.csv"
-        row["archivo"] = f"rates/{fname}"
-        with open(out / fname, "w", newline="", encoding="utf-8") as f:
+        rel = Path(FOLDERS[row["nivel"]]) / f"{slug(name)}.csv"
+        row["archivo"] = rel.as_posix()
+        written.add(rel)
+        (HERE / rel.parent).mkdir(exist_ok=True)
+        with open(HERE / rel, "w", newline="", encoding="utf-8") as f:
             w = csv.DictWriter(f, fieldnames=COLS)
             w.writeheader()
             w.writerows(data)
     if unused:
         sys.exit(f"rates without catalog entry: {sorted(unused)}")
-    written = {Path(row["archivo"]).name for row in rows}
-    for stale in out.glob("*.csv"):
-        if stale.name not in written:
-            stale.unlink()
+    for folder in set(FOLDERS.values()):
+        for stale in (HERE / folder).glob("*.csv"):
+            if stale.relative_to(HERE) not in written:
+                stale.unlink()
     fields = list(rows[0].keys())
     with open(path, "w", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, fieldnames=fields)
         w.writeheader()
         w.writerows(rows)
     print(len(rows), "files written")
-
 
 if __name__ == "__main__":
     main()

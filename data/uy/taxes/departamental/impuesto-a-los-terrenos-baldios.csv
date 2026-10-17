@@ -1,0 +1,18 @@
+departamento,condicion,base,desde,hasta,unidad_tramo,tasa_pct,monto,unidad_monto,vigencia,confianza,fuente,notas
+Rocha,"Rocha: baldíos de Rocha, La Paloma, Castillos, Lascano y Chuy (zonas indicadas)",Contribución Inmobiliaria del inmueble,,,,35,,,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/04/10/documentos.pdf,acumulable a la contribución
+Durazno,Durazno: zona 1,metro cuadrado,,,,,375,UYU por m² al año,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/01/documentos.pdf,el texto en letras de la zona 1 dice trescientos sesenta y cinco
+Durazno,Durazno: zona 2,metro cuadrado,,,,,150,UYU por m² al año,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/01/documentos.pdf,exonerados los baldíos 100% en zonas 4 y 5 si están limpios
+Durazno,Durazno: zona 3,metro cuadrado,,,,,100,UYU por m² al año,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/01/documentos.pdf,exonerados los baldíos 100% en zonas 4 y 5 si están limpios
+Durazno,Durazno: zona 4,metro cuadrado,,,,,50,UYU por m² al año,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/01/documentos.pdf,exonerados los baldíos 100% en zonas 4 y 5 si están limpios
+Durazno,Durazno: zona 5,metro cuadrado,,,,,40,UYU por m² al año,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/01/documentos.pdf,exonerados los baldíos 100% en zonas 4 y 5 si están limpios
+Río Negro,Río Negro: Fray Bentos y Young zona 1,valor imponible de la contribución urbana,,,,5,,,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/03/documentos.pdf,
+Río Negro,Río Negro: Fray Bentos y Young zona 2,valor imponible de la contribución urbana,,,,4,,,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/03/documentos.pdf,
+Río Negro,Río Negro: Fray Bentos y Young zona 3,valor imponible de la contribución urbana,,,,2,,,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/03/documentos.pdf,
+Río Negro,Río Negro: balnearios Las Cañas y Los Arrayanes,valor imponible de la contribución urbana,,,,12,,,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/03/documentos.pdf,
+Artigas,Artigas: zona A de Artigas y Bella Unión,valor real,,,,12,,,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/27/documentos.pdf,incluye edificación menor a 32 m²
+Artigas,Artigas: zona B de Artigas y Bella Unión,valor real,,,,6,,,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/27/documentos.pdf,incluye edificación menor a 32 m²
+Artigas,Artigas: zonas C y D de Artigas y C de Bella Unión,valor real,,,,1.5,,,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/27/documentos.pdf,incluye edificación menor a 32 m²
+Paysandú,Paysandú: zona 1 de la ciudad de Paysandú,valor catastral,,,,12,,,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/08/07/documentos.pdf,zona 1: terreno que vale 5 veces o más que lo construido; zona 2: 10 veces o más
+Paysandú,Paysandú: zona 2,valor catastral,,,,7,,,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/08/07/documentos.pdf,zona 1: terreno que vale 5 veces o más que lo construido; zona 2: 10 veces o más
+Paysandú,Paysandú: zona 3,valor catastral,,,,1,,,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/08/07/documentos.pdf,zona 1: terreno que vale 5 veces o más que lo construido; zona 2: 10 veces o más
+Paysandú,Paysandú: centros termales Guaviyú y Almirón,valor catastral,,,,25,,,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/08/07/documentos.pdf,zona 1: terreno que vale 5 veces o más que lo construido; zona 2: 10 veces o más

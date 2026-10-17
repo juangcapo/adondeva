@@ -1,0 +1,6 @@
+departamento,condicion,base,desde,hasta,unidad_tramo,tasa_pct,monto,unidad_monto,vigencia,confianza,fuente,notas
+,empresas rurales con explotación: unidad básica de contribución,BPC por hectárea CONEAT,,,,0.1004,6.89,UYU por ha CONEAT al mes,2.º cuatrimestre 2026,oficial,https://www.bps.gub.uy/848/sector-rural.html,
+,predios sin explotación,BPC por hectárea CONEAT,,,,0.1506,10.34,UYU por ha CONEAT al mes,2.º cuatrimestre 2026,oficial,https://www.bps.gub.uy/848/sector-rural.html,
+,"aporte mínimo (15% de 22 BFC por 0,67)",,,,,,4086,UYU mensuales,2.º cuatrimestre 2026,oficial,https://www.bps.gub.uy/848/sector-rural.html,
+,contratistas rurales,suma de montepíos (15%) de sus dependientes,,,,-12.99,,,desde 2020,oficial,https://www.bps.gub.uy/15581/contribucion-patronal-rural.html,"la suma se reduce 12,99%"
+,acrecimiento en empresas pluripersonales,contribución patronal rural,,,,10,,,2026,oficial,https://www.bps.gub.uy/15581/contribucion-patronal-rural.html,10% por los primeros tres integrantes y 10% más por cada uno adicional

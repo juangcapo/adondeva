@@ -1,0 +1,3 @@
+departamento,condicion,base,desde,hasta,unidad_tramo,tasa_pct,monto,unidad_monto,vigencia,confianza,fuente,notas
+Rocha,Rocha: alícuota fijada por ley nacional (Ley 9.189),valor real catastral,,,,,,,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/04/10/documentos.pdf,recauda la intendencia
+Río Negro,Río Negro: alícuota fijada por ley nacional,valor real catastral,,,,,,,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/03/documentos.pdf,enclaves rurales categorizados como suburbanos pagan la rural más 20%

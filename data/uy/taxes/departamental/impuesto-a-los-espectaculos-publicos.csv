@@ -1,0 +1,8 @@
+departamento,condicion,base,desde,hasta,unidad_tramo,tasa_pct,monto,unidad_monto,vigencia,confianza,fuente,notas
+Rocha,Rocha: espectáculos con venta de entradas,entradas vendidas,,,,10,,,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/04/10/documentos.pdf,
+Rocha,Rocha: espectáculos deportivos,entradas vendidas,,,,4,,,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/04/10/documentos.pdf,10% en instalaciones de la intendencia
+Rocha,Rocha: espectáculos sin entrada,concurrentes estimados,,,,,0.02,UR por concurrente,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/04/10/documentos.pdf,
+Río Negro,Río Negro: cada espectáculo con cobro de entradas,,,,,,1,UR por solicitud,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/03/documentos.pdf,salas de cine o teatro: opción de 3 UR mensuales fictas
+Artigas,Artigas: locales de bailes y similares (habilitación anual),personas habilitadas a concurrir,,,,,0.01,UR por persona al año,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/27/documentos.pdf,
+Paysandú,Paysandú: apuestas mutuas en competencias (salvo carreras de caballos),monto bruto apostado,,,,5,,,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/08/07/documentos.pdf,lo retiene el organizador
+Paysandú,Paysandú: rifas y sorteos: derecho de permiso,valor nominal de la emisión,,,,6.667,,,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/08/07/documentos.pdf,más 10% de la diferencia entre premios y boletos vendidos

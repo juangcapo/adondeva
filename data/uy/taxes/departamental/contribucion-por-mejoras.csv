@@ -1,0 +1,4 @@
+departamento,condicion,base,desde,hasta,unidad_tramo,tasa_pct,monto,unidad_monto,vigencia,confianza,fuente,notas
+Rocha,Rocha: obras públicas departamentales,costo de la obra prorrateado,,,,,,,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/04/10/documentos.pdf,no puede superar la contribución inmobiliaria del inmueble; hasta 30 años
+Artigas,Artigas: obras públicas urbanas y rurales,costo de la obra,,,,,,,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/27/documentos.pdf,hasta 20% del costo en zona urbana y 50% en rural; la cuota no supera 50% de la contribución
+Paysandú,Paysandú: mayor aprovechamiento por cambio de categoría de suelo / mayor edificabilidad,mayor edificabilidad,10,15,% (precio compensatorio),,,,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/08/07/documentos.pdf,

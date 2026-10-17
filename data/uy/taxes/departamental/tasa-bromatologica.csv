@@ -1,0 +1,6 @@
+departamento,condicion,base,desde,hasta,unidad_tramo,tasa_pct,monto,unidad_monto,vigencia,confianza,fuente,notas
+Rocha,Rocha: cada control de alimentos,,,,,,1,UR,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/04/10/documentos.pdf,
+Rocha,Rocha: cada inspección de alimentos,,,,,,3,UR,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/04/10/documentos.pdf,
+Rocha,Rocha: cada examen de alimentos,,,,,,5,UR,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/04/10/documentos.pdf,
+Artigas,Artigas: acto de inspección o contralor,,,,,,1 a 3,"UR según riesgo, más el costo de los análisis",2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/27/documentos.pdf,
+Artigas,Artigas: registro RUNAEV de empresa / producto / local / vehículo,,,,,,1 / 5 / 4 / 5,UR,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/27/documentos.pdf,

@@ -1,0 +1,6 @@
+departamento,condicion,base,desde,hasta,unidad_tramo,tasa_pct,monto,unidad_monto,vigencia,confianza,fuente,notas
+Rocha,Rocha: zona 1,,,,,,6,UR anuales,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/04/10/documentos.pdf,financia limpieza y recolección
+Rocha,Rocha: zona 2,,,,,,4,UR anuales,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/04/10/documentos.pdf,financia limpieza y recolección
+Rocha,Rocha: zona 3,,,,,,3,UR anuales,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/04/10/documentos.pdf,financia limpieza y recolección
+Rocha,Rocha: zona FZ (fuera de zona),,,,,,2,UR anuales,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/04/10/documentos.pdf,financia limpieza y recolección
+Río Negro,"Río Negro: Impuesto General, parte de salubridad, limpieza y conservación",valor imponible de la contribución urbana,,,,0.35,0.5,UR mínimo,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/03/documentos.pdf,

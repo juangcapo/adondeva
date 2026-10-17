@@ -1,0 +1,3 @@
+departamento,condicion,base,desde,hasta,unidad_tramo,tasa_pct,monto,unidad_monto,vigencia,confianza,fuente,notas
+,obras de arquitectura,monto imponible de la obra,,,,4,,,2026,oficial,https://www.bps.gub.uy/837/aportacion-construccion.html,Ley 17.738; se paga con el aporte unificado
+,obras de ingeniería,monto imponible de la obra,,,,2,,,2026,oficial,https://www.bps.gub.uy/837/aportacion-construccion.html,

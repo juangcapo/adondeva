@@ -1,0 +1,12 @@
+departamento,condicion,base,desde,hasta,unidad_tramo,tasa_pct,monto,unidad_monto,vigencia,confianza,fuente,notas
+Maldonado,Maldonado: tasa de conservación de pavimento,,,,,,2046,UYU mínimo anual,2026,secundaria,https://www.revistacero.com.uy/ajustan-la-contribucion-inmobiliaria-y-tributos-asociados-en-maldonado-regiran-desde-enero-de-2026/,
+Rocha,Rocha: reparación de pavimento: hormigón armado,,,,,,4 + 15 por m²,UR,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/04/10/documentos.pdf,
+Rocha,Rocha: reparación de pavimento: adoquín,,,,,,4 + 10 por m²,UR,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/04/10/documentos.pdf,
+Rocha,Rocha: reparación de pavimento: bituminoso,,,,,,4 + 4 por m²,UR,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/04/10/documentos.pdf,
+Rocha,Rocha: reparación de pavimento: balasto,,,,,,4 + 1 por m²,UR,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/04/10/documentos.pdf,
+Río Negro,Río Negro: inspección técnica de obras,,,,,,1,UR por inspección,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/03/documentos.pdf,"obras menores 0,3 UR; anticipo de estudio técnico 0,04 UR por m²"
+Artigas,Artigas: estudio y aprobación de planos de obra nueva o ampliación,metro cuadrado,,,,,0.1,UR por m²,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/27/documentos.pdf,"regularización 0,20; reforma 0,03 a 0,23 UR por m²"
+Artigas,Artigas: habilitación de obra / demolición / plano de ajuste,,,,,,1 / 1 / 2,UR,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/27/documentos.pdf,
+Artigas,Artigas: perforaciones en la vía pública,,,,,,40,UR por perforación,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/27/documentos.pdf,
+Paysandú,Paysandú: construcción / reparación de veredas por la intendencia,metro cuadrado,,,,,2.400 / 1.200,UYU por m²,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/08/07/documentos.pdf,
+Florida,Florida: permiso de obra en la vía pública,,,,,,2,UR,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/09/03/documentos.pdf,

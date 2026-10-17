@@ -1,7 +1,0 @@
-condicion,base,desde,hasta,unidad_tramo,tasa_pct,monto,unidad_monto,vigencia,confianza,fuente,notas
-inmuebles urbanos y suburbanos,valor real catastral,0,282612,UYU,0,,,2026,secundaria,https://memory.com.uy/blog/obligaciones-fiscales/que-es-el-impuesto-de-primaria/,
-inmuebles urbanos y suburbanos,valor real catastral,282612,494568,UYU,0.15,,,2026,secundaria,https://memory.com.uy/blog/obligaciones-fiscales/que-es-el-impuesto-de-primaria/,
-inmuebles urbanos y suburbanos,valor real catastral,494568,2119563,UYU,0.2,,,2026,secundaria,https://memory.com.uy/blog/obligaciones-fiscales/que-es-el-impuesto-de-primaria/,
-inmuebles urbanos y suburbanos,valor real catastral,2119563,4945638,UYU,0.25,,,2026,secundaria,https://memory.com.uy/blog/obligaciones-fiscales/que-es-el-impuesto-de-primaria/,
-inmuebles urbanos y suburbanos,valor real catastral,4945638,,UYU,0.3,,,2026,secundaria,https://memory.com.uy/blog/obligaciones-fiscales/que-es-el-impuesto-de-primaria/,
-inmuebles rurales con explotación agropecuaria,valor catastral e índice CONEAT por padrón,,,,,,,2026,sin_datos,https://www.gub.uy/direccion-general-impositiva/impuesto-primaria/padrones-rurales/informacion-para-calculo-ejercicio-2026,la DGI publica una planilla de cálculo; exonerados quienes exploten hasta 300 ha CONEAT 100

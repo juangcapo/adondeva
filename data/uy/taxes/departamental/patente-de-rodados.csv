@@ -1,0 +1,10 @@
+departamento,condicion,base,desde,hasta,unidad_tramo,tasa_pct,monto,unidad_monto,vigencia,confianza,fuente,notas
+,autos 0 km,valor de mercado sin IVA,,,,5,,,2026,secundaria,https://www.gub.uy/congreso-intendentes/comunicacion/publicaciones/texto-ordenado-del-sucive-2026,"SUCIVE, igual en todo el país"
+,autos usados,valor de mercado al 30/09/2025,,,,4.5,,,2026,secundaria,https://www.gub.uy/congreso-intendentes/comunicacion/publicaciones/texto-ordenado-del-sucive-2026,
+,eléctricos 0 km,valor sin IVA,,,,3,,,2026,secundaria,https://www.gub.uy/congreso-intendentes/comunicacion/publicaciones/texto-ordenado-del-sucive-2026,
+,eléctricos usados,valor de mercado,,,,2.25,,,2026,secundaria,https://www.gub.uy/congreso-intendentes/comunicacion/publicaciones/texto-ordenado-del-sucive-2026,"El Observador cita 2,5%"
+,"ómnibus, micros y furgones desafectados del servicio público",,,,,,22208.27,UYU anuales,2026,secundaria,https://www.gub.uy/congreso-intendentes/comunicacion/publicaciones/texto-ordenado-del-sucive-2026,
+Rocha,Rocha: régimen SUCIVE (Ley 18.860),,,,,,,,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/04/10/documentos.pdf,ver la fila nacional del SUCIVE; ciclomotores hasta 125 cc exonerados
+Río Negro,Río Negro: régimen SUCIVE (Ley 18.860),,,,,,,,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/03/documentos.pdf,
+Artigas,Artigas: régimen SUCIVE (Ley 18.860),,,,,,,,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/27/documentos.pdf,cambio de categoría o motor 4 UR; permiso de chapa de alquiler 4 UR más 20 UR
+Paysandú,"Paysandú: régimen SUCIVE, fijado por el Congreso de Intendentes",,,,,,,,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/08/07/documentos.pdf,

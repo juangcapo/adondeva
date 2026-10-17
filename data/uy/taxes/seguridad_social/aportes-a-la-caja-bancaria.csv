@@ -1,0 +1,25 @@
+departamento,condicion,base,desde,hasta,unidad_tramo,tasa_pct,monto,unidad_monto,vigencia,confianza,fuente,notas
+,"personal, afiliados de instituciones de los literales A) a E) y J) del art. 3 y la propia Caja",asignaciones computables,,,,17.5,,,desde 2009,oficial,https://uruguay.justia.com/nacionales/leyes/ley-18396-oct-24-2008/gdoc/,
+,"personal, afiliados de instituciones de los literales F) a I) del art. 3",asignaciones computables,,,,15,,,desde 2009,oficial,https://uruguay.justia.com/nacionales/leyes/ley-18396-oct-24-2008/gdoc/,
+,"patronal básico, instituciones de los literales A) a D) y la propia Caja",asignaciones computables,,,,25.25,,,desde 2009,oficial,https://uruguay.justia.com/nacionales/leyes/ley-18396-oct-24-2008/gdoc/,"baja 0,45 puntos por año, hasta 4,5, cuando las reservas lleguen al 50% del presupuesto"
+,"patronal básico, instituciones de los literales E) a J)",asignaciones computables,,,,7.5,,,desde 2009,oficial,https://uruguay.justia.com/nacionales/leyes/ley-18396-oct-24-2008/gdoc/,
+,"prestación complementaria, bancos y financieras (literales A y B)","activos propios en el país más activos netos en el exterior, saldo mensual",,,,0.04,,,desde 2009,oficial,https://uruguay.justia.com/nacionales/leyes/ley-18396-oct-24-2008/gdoc/,4 por diez mil; tasa máxima
+,"prestación complementaria, aseguradoras (literales C y D)",primas emitidas en el mes,,,,1.4,,,desde 2009,oficial,https://uruguay.justia.com/nacionales/leyes/ley-18396-oct-24-2008/gdoc/,14 por mil; tasa máxima
+,"prestación complementaria, literales F) a H)","activos propios en el país, saldo mensual",,,,0.04,,,desde 2009,oficial,https://uruguay.justia.com/nacionales/leyes/ley-18396-oct-24-2008/gdoc/,
+,"prestación complementaria, BCU, administradoras de ahorro previo e instituciones financieras externas",asignaciones computables,,,,10,,,desde 2009,oficial,https://uruguay.justia.com/nacionales/leyes/ley-18396-oct-24-2008/gdoc/,
+,"prestación complementaria, literal I)",ingresos mensuales sin IVA,,,,0.2,,,desde 2009,oficial,https://uruguay.justia.com/nacionales/leyes/ley-18396-oct-24-2008/gdoc/,20 por diez mil
+,"prestación complementaria, la propia Caja",asignaciones computables,,,,5.5,,,desde 2009,oficial,https://uruguay.justia.com/nacionales/leyes/ley-18396-oct-24-2008/gdoc/,
+,contribución de jubilados y pensionistas (régimen anterior),pasividad nominal mensual,0,6,BPC,0,,,desde 2009,oficial,https://uruguay.justia.com/nacionales/leyes/ley-18396-oct-24-2008/gdoc/,
+,contribución de jubilados y pensionistas (régimen anterior),pasividad nominal mensual,6,10,BPC,2,,,desde 2009,oficial,https://uruguay.justia.com/nacionales/leyes/ley-18396-oct-24-2008/gdoc/,
+,contribución de jubilados y pensionistas (régimen anterior),pasividad nominal mensual,10,15,BPC,7.5,,,desde 2009,oficial,https://uruguay.justia.com/nacionales/leyes/ley-18396-oct-24-2008/gdoc/,
+,contribución de jubilados y pensionistas (régimen anterior),pasividad nominal mensual,15,20,BPC,10,,,desde 2009,oficial,https://uruguay.justia.com/nacionales/leyes/ley-18396-oct-24-2008/gdoc/,
+,contribución de jubilados y pensionistas (régimen anterior),pasividad nominal mensual,20,25,BPC,11,,,desde 2009,oficial,https://uruguay.justia.com/nacionales/leyes/ley-18396-oct-24-2008/gdoc/,
+,contribución de jubilados y pensionistas (régimen anterior),pasividad nominal mensual,25,30,BPC,12,,,desde 2009,oficial,https://uruguay.justia.com/nacionales/leyes/ley-18396-oct-24-2008/gdoc/,
+,contribución de jubilados y pensionistas (régimen anterior),pasividad nominal mensual,30,35,BPC,13,,,desde 2009,oficial,https://uruguay.justia.com/nacionales/leyes/ley-18396-oct-24-2008/gdoc/,
+,contribución de jubilados y pensionistas (régimen anterior),pasividad nominal mensual,35,40,BPC,14,,,desde 2009,oficial,https://uruguay.justia.com/nacionales/leyes/ley-18396-oct-24-2008/gdoc/,
+,contribución de jubilados y pensionistas (régimen anterior),pasividad nominal mensual,40,45,BPC,15,,,desde 2009,oficial,https://uruguay.justia.com/nacionales/leyes/ley-18396-oct-24-2008/gdoc/,
+,contribución de jubilados y pensionistas (régimen anterior),pasividad nominal mensual,45,50,BPC,16,,,desde 2009,oficial,https://uruguay.justia.com/nacionales/leyes/ley-18396-oct-24-2008/gdoc/,
+,contribución de jubilados y pensionistas (régimen anterior),pasividad nominal mensual,50,55,BPC,17,,,desde 2009,oficial,https://uruguay.justia.com/nacionales/leyes/ley-18396-oct-24-2008/gdoc/,
+,contribución de jubilados y pensionistas (régimen anterior),pasividad nominal mensual,55,60,BPC,18,,,desde 2009,oficial,https://uruguay.justia.com/nacionales/leyes/ley-18396-oct-24-2008/gdoc/,
+,contribución de jubilados y pensionistas (régimen anterior),pasividad nominal mensual,60,,BPC,20,,,desde 2009,oficial,https://uruguay.justia.com/nacionales/leyes/ley-18396-oct-24-2008/gdoc/,
+,recargo para pasividades mayores a 10 BPC,tasa de la escala,,,,2,,,desde 2010,oficial,https://uruguay.justia.com/nacionales/leyes/ley-18396-oct-24-2008/gdoc/,"puntos porcentuales adicionales; bajan 0,4 por año según reservas"

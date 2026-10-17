@@ -1,0 +1,13 @@
+departamento,condicion,base,desde,hasta,unidad_tramo,tasa_pct,monto,unidad_monto,vigencia,confianza,fuente,notas
+Rocha,Rocha: cartelería frente a rutas,metro cuadrado,,,,,2,UR por m² al año (máximo 15 UR),2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/04/10/documentos.pdf,
+Rocha,Rocha: avisos en la vía pública,metro cuadrado,3,40,UR por m² al año (rango),,,,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/04/10/documentos.pdf,
+Rocha,Rocha: publicidad en vehículos,,,,,,"1 (birodados) / 1,5 (automotores)",UR por mes,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/04/10/documentos.pdf,
+Durazno,Durazno: avisos y propaganda,,,,,0,,,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/01/documentos.pdf,derogado por el presupuesto 2026 (art. 105)
+Río Negro,Río Negro: letreros de 10 a 20 m² (empresas sin domicilio en el departamento),metro cuadrado,,,,,0.5,UR por m² al año,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/03/documentos.pdf,
+Río Negro,Río Negro: letreros de más de 20 m²,metro cuadrado,,,,,0.25,UR por m² al año,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/03/documentos.pdf,
+Río Negro,Río Negro: aparatos de proyección hacia la vía pública,,,,,,5 (sede propia) / 10 (fuera),UR anuales,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/03/documentos.pdf,
+Artigas,Artigas: avisos fijos con frente a la vía pública,metro cuadrado,,,,,1.5,UR por m² al año,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/27/documentos.pdf,
+Artigas,Artigas: propaganda oral o acústica con parlantes fijos,,,,,,1.5,UR por parlante al mes,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/27/documentos.pdf,
+Artigas,Artigas: propaganda en vehículos,,,,,,1 (birodados) / 2 (automotores),UR por mes,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/27/documentos.pdf,
+Artigas,Artigas: anuncios en pantallas de salas o espacios públicos,,,,,,0.05,UR por hora,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/27/documentos.pdf,
+Paysandú,Paysandú: letreros y avisos,,,,,,,,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/08/07/documentos.pdf,cuantía por remisión al Dec. 5231/2006; sobre más de 100 avisos se paga 25%

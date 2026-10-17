@@ -1,0 +1,6 @@
+departamento,condicion,base,desde,hasta,unidad_tramo,tasa_pct,monto,unidad_monto,vigencia,confianza,fuente,notas
+Rocha,"Rocha: pasajeros que embarcan en terminales de Rocha, Castillos, Chuy, Aguas Dulces y La Pedrera",,,,,,10,UYU por pasaje,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/04/10/documentos.pdf,ajuste anual por IPC
+Cerro Largo,"Cerro Largo: tasa de contralor de ómnibus: ómnibus departamental, por entrada o salida de la terminal",,,,,,0.066,UR por día o por unidad,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/06/documentos.pdf,
+Cerro Largo,Cerro Largo: tasa de contralor de ómnibus: ómnibus urbano,,,,,,0.045,UR por día o por unidad,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/06/documentos.pdf,
+Cerro Largo,"Cerro Largo: tasa de contralor de ómnibus: ómnibus interdepartamental, por salida",,,,,,0.12,UR por día o por unidad,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/06/documentos.pdf,
+Cerro Largo,"Cerro Largo: tasa de contralor de ómnibus: ómnibus regional, por salida",,,,,,0.07,UR por día o por unidad,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/06/documentos.pdf,
