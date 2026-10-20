@@ -1,6 +1,6 @@
-# myrmidon-harvesters
+# ¿A dónde va?
 
-Agents that harvest public state records and turn them into data you can analyze.
+**adondeva** follows public money: where the state's money comes from and where it goes. It collects official records and turns them into data you can analyze.
 
 The first target is **Uruguay's public finances**: how much the national budget allocated and actually spent, by agency, program and year, and how that compares once inflation is taken out. The repo also covers **Uruguay's taxes and import tariffs**: every tax, fee and contribution with its rates, and the tariff for every product code.
 
@@ -8,15 +8,13 @@ The first target is **Uruguay's public finances**: how much the national budget 
 
 Governments publish their money numbers, but across many portals, formats and conventions, each with its own quirks. Some are CSVs, some spreadsheets, some PDFs. Some files are only partial, and some sites have broken certificates. This repo gathers the official files in one place, records where each one came from and what is wrong with it, and gives one command-line tool to query them.
 
-The name comes from the Myrmidons of Greek myth: an army of ants turned into soldiers. Here the soldiers are many small workers, each going out to one source and bringing its records back.
-
 ## What's inside
 
 Each country's data lives under `data/<ISO 3166-1 alpha-2 code>/`. For Uruguay:
 
 ```
-myrmidon-harvesters/
-├── myrmidon.py                          command-line tool (see "How to use")
+adondeva/
+├── adondeva.py                          command-line tool (see "How to use")
 └── data/uy/
     ├── opp/
     │   ├── credito-presupuestal/        OPP budget detail, 2011–2024
@@ -82,10 +80,10 @@ The budget data has the following limits:
 You only need Python 3. No packages to install.
 
 ```bash
-git clone https://github.com/juangcapo/myrmidon-harvesters.git
-cd myrmidon-harvesters
-python3 myrmidon.py --help
-python3 myrmidon.py COMMAND --help
+git clone https://github.com/juangcapo/adondeva.git
+cd adondeva
+python3 adondeva.py --help
+python3 adondeva.py COMMAND --help
 ```
 
 ### Commands
@@ -116,7 +114,7 @@ python3 myrmidon.py COMMAND --help
 ### `sources`
 
 ```
-$ python3 myrmidon.py sources
+$ python3 adondeva.py sources
           source  from    to  years
    opp-historico  1961  2010     50
              opp  2011  2024     14
@@ -128,13 +126,13 @@ ine-ipc (annual)  1938  2025     88
 
 ```bash
 # Inflation every five years since 1980
-python3 myrmidon.py inflation --since 1980 --every 5
+python3 adondeva.py inflation --since 1980 --every 5
 
 # Spending every five years since 1980, in 2025 pesos
-python3 myrmidon.py spending --since 1980 --every 5
+python3 adondeva.py spending --since 1980 --every 5
 
 # Spending since 2019 in 2020 pesos, saved as CSV
-python3 myrmidon.py spending --since 2019 --base 2020 --csv > spending.csv
+python3 adondeva.py spending --since 2019 --base 2020 --csv > spending.csv
 ```
 
 Sample output:
@@ -160,7 +158,7 @@ The first run takes about 15–20 seconds while it reads the large files. Result
 Splits one year's spending (2011–2025) and goes one level deeper with each argument. With no arguments it lists the areas and suggests what to type next.
 
 ```
-python3 myrmidon.py breakdown [--year YEAR] [SELECTION ...]
+python3 adondeva.py breakdown [--year YEAR] [SELECTION ...]
 ```
 
 The levels, in order:
@@ -173,13 +171,13 @@ Each selection is either a **rank** from the previous listing (`1` is the larges
 
 ```bash
 # Areas of the latest year
-python3 myrmidon.py breakdown
+python3 adondeva.py breakdown
 
 # Agencies inside General Public Services, 2024
-python3 myrmidon.py breakdown --year 2024 "servicios publicos"
+python3 adondeva.py breakdown --year 2024 "servicios publicos"
 
 # Pay items of DGI's staff in 2024
-python3 myrmidon.py breakdown --year 2024 "servicios publicos" economia impositiva 1 1 "servicios personales" 1
+python3 adondeva.py breakdown --year 2024 "servicios publicos" economia impositiva 1 1 "servicios personales" 1
 ```
 
 ```
@@ -200,7 +198,7 @@ Amounts are in current pesos of that year. 2025 comes from MEF and excludes "Fon
 Tax breakdown for an action and an amount, with 2026 rates read from `data/uy/taxes/`. Prints who pays each item, its base, rate and amount, then totals. `--csv` prints CSV.
 
 ```
-python3 myrmidon.py tax ACCION MONTO [options]
+python3 adondeva.py tax ACCION MONTO [options]
 ```
 
 | Action | Amount | Options | What it computes |
@@ -214,7 +212,7 @@ python3 myrmidon.py tax ACCION MONTO [options]
 Examples:
 
 ```
-$ python3 myrmidon.py tax sueldo 80000 --hijos 1
+$ python3 adondeva.py tax sueldo 80000 --hijos 1
       paga                                                        concepto       base    tasa      monto
 trabajador                          aporte jubilatorio personal (BPS/AFAP)  80,000.00     15%  12,000.00
 trabajador                        FONASA personal (sin cónyuge, con hijos)  80,000.00      6%   4,800.00
@@ -229,11 +227,11 @@ trabajador  IRPF (franjas sobre $84,800, menos 14% de deducciones $28,320)  84,8
                                                impuestos y aportes totales                     27,498.40
                                                          % del costo total                         30.52
 
-python3 myrmidon.py tax compra 1500
-python3 myrmidon.py tax compra 1000 --tasa minima --neto
-python3 myrmidon.py tax importar 1200 --ncm 8471.30.12.00 --contribuyente
-python3 myrmidon.py tax importar 300 --envio
-python3 myrmidon.py tax alquiler 30000
+python3 adondeva.py tax compra 1500
+python3 adondeva.py tax compra 1000 --tasa minima --neto
+python3 adondeva.py tax importar 1200 --ncm 8471.30.12.00 --contribuyente
+python3 adondeva.py tax importar 300 --envio
+python3 adondeva.py tax alquiler 30000
 ```
 
 BPC, UR and UI values come from `data/uy/taxes/valores_referencia.csv`; update it when BPS publishes new values.
@@ -246,7 +244,7 @@ Not covered:
 
 ### Adding a command
 
-Write a function in `myrmidon.py` and register it with `@command`:
+Write a function in `adondeva.py` and register it with `@command`:
 
 ```python
 @command("what it does", arg("--inciso", type=int, help="agency code"))

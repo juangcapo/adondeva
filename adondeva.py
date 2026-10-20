@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
-"""myrmidon — central command line for the harvested Uruguayan public-finance data.
+"""adondeva — where public money goes: command line for the harvested Uruguayan public-finance data.
 
 Usage:
-  python3 myrmidon.py --help
-  python3 myrmidon.py sources
-  python3 myrmidon.py inflation --since 1980 --every 5
-  python3 myrmidon.py spending --since 1980 --every 5 --base 2025 [--csv]
-  python3 myrmidon.py breakdown [--year 2024] ["servicios publicos" 1 salarios ...]
-  python3 myrmidon.py tax sueldo 80000 --hijos 1
-  python3 myrmidon.py tax compra 1500 [--tasa minima]
-  python3 myrmidon.py tax importar 1200 --ncm 8471.30.12.00
+  python3 adondeva.py --help
+  python3 adondeva.py sources
+  python3 adondeva.py inflation --since 1980 --every 5
+  python3 adondeva.py spending --since 1980 --every 5 --base 2025 [--csv]
+  python3 adondeva.py breakdown [--year 2024] ["servicios publicos" 1 salarios ...]
+  python3 adondeva.py tax sueldo 80000 --hijos 1
+  python3 adondeva.py tax compra 1500 [--tasa minima]
+  python3 adondeva.py tax importar 1200 --ncm 8471.30.12.00
 
 Adding a command: write a function that takes `args`, decorate it with
 @command("help text", arg(...), ...). The function name becomes the command
@@ -405,7 +405,7 @@ def breakdown(args):
 
     sys.stdout.flush()  # keep the table above the hints when both go to a terminal or file
     if depth + 1 < len(BREAKDOWN_LEVELS) and ranked:
-        prefix = "python3 myrmidon.py breakdown" + (f" --year {args.year}" if args.year else "")
+        prefix = "python3 adondeva.py breakdown" + (f" --year {args.year}" if args.year else "")
         prefix += "".join(" " + shell_quote(s) for s in args.path)
         print(f"\n# go into one {level} (by rank or name), then the next level is {BREAKDOWN_LEVELS[depth + 1]}:",
               file=sys.stderr)
@@ -602,7 +602,7 @@ def tax(args):
 # ---------------------------------------------------------------- entry point
 
 def main(argv=None):
-    parser = argparse.ArgumentParser(prog="myrmidon", description=__doc__.splitlines()[0])
+    parser = argparse.ArgumentParser(prog="adondeva", description=__doc__.splitlines()[0])
     sub = parser.add_subparsers(dest="command", required=True, metavar="COMMAND")
     for name, (fn, help_text, arguments) in COMMANDS.items():
         p = sub.add_parser(name, help=help_text, description=help_text)
