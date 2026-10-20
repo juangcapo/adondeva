@@ -260,6 +260,8 @@ The function name becomes the command name (`by-agency`, underscores turn into d
 - **Files get replaced without notice.** OPP's 2021 file was replaced more than a year after it first appeared. Check `Last-Modified` and keep each version.
 - **The national data catalog is behind.** [catalogodatos.gub.uy](https://catalogodatos.gub.uy) only lists OPP files up to 2021. The newer years exist only on the OPP site.
 
-## License of the data
+## License
 
-The data is published under the [Licencia de Datos Abiertos – Uruguay](https://www.gub.uy/agencia-gobierno-electronico-sociedad-informacion-conocimiento/sites/agencia-gobierno-electronico-sociedad-informacion-conocimiento/files/documentos/publicaciones/licencia_de_datos_abiertos_0.pdf). It requires you to credit the publishing agency (OPP, MEF, INE) and the dataset used.
+- **Code** (`adondeva.py` and the `build_*.py` scripts): [MIT](LICENSE).
+- **Datasets compiled for this repo** (`data/uy/taxes/` and `data/uy/aranceles/`): [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Reuse them freely, crediting this repo.
+- **Official files** published by OPP, MEF and INE: the [Licencia de Datos Abiertos – Uruguay](https://www.gub.uy/agencia-gobierno-electronico-sociedad-informacion-conocimiento/sites/agencia-gobierno-electronico-sociedad-informacion-conocimiento/files/documentos/publicaciones/licencia_de_datos_abiertos_0.pdf). It requires you to credit the publishing agency (OPP, MEF, INE) and the dataset used.
