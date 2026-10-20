@@ -95,6 +95,7 @@ python3 myrmidon.py COMMAND --help
 | `sources` | Which years each data source covers |
 | `inflation` | Yearly inflation from the INE index |
 | `spending` | Total national budget spending per year, nominal and adjusted for inflation |
+| `breakdown` | Drill into one year's spending, one level per argument: area, agency, program, item… |
 | `tax` | Tax breakdown for an action (salary, purchase, import, rent) and an amount |
 
 `inflation` and `spending` both take:
@@ -153,6 +154,46 @@ real = nominal × IPC[base year] / IPC[year]
 ```
 
 The first run takes about 15–20 seconds while it reads the large files. Results are cached in `.cache/` (not tracked by git) and refresh automatically when a file changes.
+
+### `breakdown`
+
+Splits one year's spending (2011–2025) and goes one level deeper with each argument. With no arguments it lists the areas and suggests what to type next.
+
+```
+python3 myrmidon.py breakdown [--year YEAR] [SELECTION ...]
+```
+
+The levels, in order:
+
+```
+area › agency › executing unit › program › project › group › subgroup › item › funding source
+```
+
+Each selection is either a **rank** from the previous listing (`1` is the largest) or **part of a name**, ignoring case and accents (`salud`, `"servicios publicos"`). If a name matches several values, it lists them. Each listing shows spending, share, final budget and the percentage of the budget spent, and ends with suggested next commands.
+
+```bash
+# Areas of the latest year
+python3 myrmidon.py breakdown
+
+# Agencies inside General Public Services, 2024
+python3 myrmidon.py breakdown --year 2024 "servicios publicos"
+
+# Pay items of DGI's staff in 2024
+python3 myrmidon.py breakdown --year 2024 "servicios publicos" economia impositiva 1 1 "servicios personales" 1
+```
+
+```
+# 2024 (opp) · spent and final budget, millions of current pesos
+# all spending › SERVICIOS PÚBLICOS GENERALES › Diversos Créditos
+# by executing unit (level 3 of 9)
+#  executing unit                           spent  share     budget  executed
+1  Dir. Gral. de Secretaría (M.E.F.)    109,246.2  98.0%  111,992.0       98%
+2  Presidencia de la República            1,544.1   1.4%    1,572.4       98%
+3  Ministerio de Relaciones Exteriores      664.3   0.6%      711.0       93%
+   total                                111,454.7   100%  114,275.4       98%
+```
+
+Amounts are in current pesos of that year. 2025 comes from MEF and excludes "Fondos de Terceros" unless you pass `--include-fondos-terceros`, as `spending` does. `--csv` prints full amounts in pesos. The first 2025 run takes about 15 seconds; after that it is cached.
 
 ### `tax`
 

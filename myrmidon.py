@@ -6,6 +6,7 @@ Usage:
   python3 myrmidon.py sources
   python3 myrmidon.py inflation --since 1980 --every 5
   python3 myrmidon.py spending --since 1980 --every 5 --base 2025 [--csv]
+  python3 myrmidon.py breakdown [--year 2024] ["servicios publicos" 1 salarios ...]
   python3 myrmidon.py tax sueldo 80000 --hijos 1
   python3 myrmidon.py tax compra 1500 [--tasa minima]
   python3 myrmidon.py tax importar 1200 --ncm 8471.30.12.00
@@ -20,6 +21,7 @@ import importlib.util
 import json
 import re
 import sys
+import unicodedata
 import zipfile
 import xml.etree.ElementTree as ET
 from pathlib import Path
@@ -97,12 +99,15 @@ def iter_ods_rows(path):
                 return
 
 
-def cached(path, key, compute):
-    """Memoize an expensive per-file result, invalidated when the file changes."""
+def cached(path, key, compute, store=CACHE):
+    """Memoize an expensive per-file result, invalidated when the file changes.
+
+    Large results get their own `store` file so reading the small totals stays fast.
+    """
     st = path.stat()
     stamp = [st.st_size, st.st_mtime_ns]
     try:
-        cache = json.loads(CACHE.read_text())
+        cache = json.loads(store.read_text())
     except (OSError, ValueError):
         cache = {}
     entry = cache.get(f"{path.relative_to(ROOT)}::{key}")
@@ -110,8 +115,8 @@ def cached(path, key, compute):
         return entry["value"]
     value = compute()
     cache[f"{path.relative_to(ROOT)}::{key}"] = {"stamp": stamp, "value": value}
-    CACHE.parent.mkdir(exist_ok=True)
-    CACHE.write_text(json.dumps(cache, indent=1))
+    store.parent.mkdir(exist_ok=True)
+    store.write_text(json.dumps(cache, indent=1 if store == CACHE else None, ensure_ascii=False))
     return value
 
 
@@ -246,6 +251,171 @@ def spending(args):
     print(f"# billions of pesos; real = pesos of {base} (INE annual average CPI)", file=sys.stderr)
     emit(["year", "source", "nominal_bn", f"real_{base}_bn", "vs_prev_row", "per_year", "vs_first"],
          rows, args.csv)
+
+
+# ---------------------------------------------------------------- spending breakdown
+# Each positional argument picks one value at the current level and steps one level in.
+# OPP (2011–2024) and MEF (2025) share these levels; the columns differ by source.
+
+BREAKDOWN_LEVELS = ["area", "agency", "executing unit", "program", "project",
+                    "group", "subgroup", "item", "funding source"]
+OPP_LEVEL_COLUMNS = ["ap_nombre", "organismo_nombre", "ue_nombre", "programa_nombre", "proyecto_nombre",
+                     "grupo_nombre", "subgrupo_nombre", "odgyaux_nombre", "fuente_financ_nombre"]
+MEF_LEVEL_COLUMNS = ["AREA_PROGRAMATICA_DESC", "INST_DESC", "UE_DESC", "PROG_DESC", "PROY_DESC",
+                     "GRUPO_DESC", "SUBGRUPO_DESC", "OBJETO_DEL_GASTO_AUXILIAR_DESC", "FINANCIAMIENTO_DESC"]
+
+
+def clean_name(s):
+    return " ".join(s.split())
+
+
+def detail_opp_year(path):
+    """[[level values..., budget, spent], ...] for one OPP year."""
+    with open(path, encoding="utf-8") as f:
+        return [[clean_name(r[c]) for c in OPP_LEVEL_COLUMNS] + [num_es(r["credito"]), num_es(r["ejecutado"])]
+                for r in csv.DictReader(f)]
+
+
+def detail_mef_year(path):
+    """Same shape as detail_opp_year, from MEF's bal_gastos.ods (cached: the file is slow to read)."""
+    def compute():
+        rows = iter_ods_rows(path)
+        header = [h.strip() for h in next(rows)]
+        idx = [header.index(c) for c in MEF_LEVEL_COLUMNS + ["CREDITO", "OBLIGADO"]]
+        out = []
+        for r in rows:
+            r = r + [""] * (len(header) - len(r))
+            names = [clean_name(r[i]) for i in idx[:-2]]
+            names[7] = re.sub(r"^\d+\s+", "", names[7])  # item: "011000 Sueldo básico" -> "Sueldo básico"
+            out.append(names + [float(r[idx[-2]] or 0), float(r[idx[-1]] or 0)])
+        return out
+    return cached(path, "detail", compute, store=CACHE.with_name(f"detail-{path.parent.name}.json"))
+
+
+def detail_sources():
+    """{year: (source, path)} preferring MEF over OPP, as spending_series does."""
+    out = {int(p.stem.rsplit("_", 1)[1]): ("opp", p) for p in OPP_DETAIL.glob("credito_presupuestal_detalle_*.csv")}
+    out.update({int(p.parent.name): ("mef", p) for p in MEF_RC.glob("*/bal_gastos.ods")})
+    return out
+
+
+def fold(s):
+    """Lowercase, accent-free, single-spaced: what selections are matched on."""
+    s = unicodedata.normalize("NFKD", s.casefold())
+    return " ".join("".join(c for c in s if not unicodedata.combining(c)).split())
+
+
+def pick(selector, ranked):
+    """The value in `ranked` (names sorted by spending) that `selector` names.
+
+    A number is a rank in the listing; text matches exactly or as a substring, ignoring case and accents.
+    Returns (value, None) or (None, candidates) when nothing or several values match.
+    """
+    if selector.isdigit():
+        i = int(selector)
+        return (ranked[i - 1], None) if 1 <= i <= len(ranked) else (None, ranked)
+    want = fold(selector)
+    exact = [v for v in ranked if fold(v) == want]
+    if exact:
+        return exact[0], None
+    partial = [v for v in ranked if want in fold(v)]
+    return (partial[0], None) if len(partial) == 1 else (None, partial or ranked)
+
+
+def ranking(rows, depth):
+    """[(name, budget, spent)] at `depth`, largest spending first: the order rank numbers refer to.
+
+    Names with neither budget nor spending are left out.
+    """
+    totals = {}
+    for r in rows:
+        t = totals.setdefault(r[depth], [0.0, 0.0])
+        t[0] += r[9]
+        t[1] += r[10]
+    return [(k, b, s) for k, (b, s) in sorted(totals.items(), key=lambda kv: -kv[1][1]) if b or s]
+
+
+def shell_quote(s):
+    return s if re.fullmatch(r"[\w.-]+", s) else '"' + s.replace('"', '\\"') + '"'
+
+
+@command("drill into budget spending one level per argument, from area down to funding source",
+         arg("path", nargs="*", metavar="SELECTION",
+             help="a rank number or (part of) a name from the previous listing; each one steps one level in"),
+         arg("--year", type=int, help="budget year (default: latest)"),
+         arg("--include-fondos-terceros", action="store_true",
+             help="keep MEF's 'Fondos de Terceros' (not comparable with OPP years)"),
+         arg("--csv", action="store_true", help="print CSV instead of a table"))
+def breakdown(args):
+    sources = detail_sources()
+    year = args.year or max(sources)
+    if year not in sources:
+        sys.exit(f"No detailed budget for {year}. Available: {min(sources)}–{max(sources)}.")
+    if len(args.path) > len(BREAKDOWN_LEVELS):
+        sys.exit(f"At most {len(BREAKDOWN_LEVELS)} selections, one per level: "
+                 + " › ".join(BREAKDOWN_LEVELS) + ".")
+    source, path = sources[year]
+    rows = detail_opp_year(path) if source == "opp" else detail_mef_year(path)
+    if not args.include_fondos_terceros:
+        rows = [r for r in rows if r[8] != FONDOS_TERCEROS]
+
+    chosen = []
+    for depth, selector in enumerate(args.path):
+        ranked = [k for k, _, _ in ranking(rows, depth)]
+        value, candidates = pick(selector, ranked)
+        if value is None:
+            problem = "matches several values for" if len(candidates) < len(ranked) else "does not name any"
+            print(f"'{selector}' {problem} {BREAKDOWN_LEVELS[depth]}"
+                  + (" under " + " › ".join(chosen) if chosen else "") + ". Options:", file=sys.stderr)
+            for v in candidates[:30]:
+                print(f"  {ranked.index(v) + 1:>3}  {v}", file=sys.stderr)
+            if len(candidates) > 30:
+                print(f"  … {len(candidates) - 30} more", file=sys.stderr)
+            sys.exit(1)
+        chosen.append(value)
+        rows = [r for r in rows if r[depth] == value]
+
+    depth = len(chosen)
+    if depth == len(BREAKDOWN_LEVELS):
+        budget, spent = sum(r[9] for r in rows), sum(r[10] for r in rows)
+        print(f"# {year} ({source}) · millions of current pesos; every level is selected", file=sys.stderr)
+        print("# " + " › ".join(["all spending"] + chosen), file=sys.stderr)
+        emit(["spent", "budget", "executed"], [[f"{spent / 1e6:,.1f}", f"{budget / 1e6:,.1f}",
+             f"{spent / budget * 100:.0f}%" if budget else ""]], args.csv)
+        return
+    level = BREAKDOWN_LEVELS[depth]
+    ranked = ranking(rows, depth)
+    budget, spent = sum(b for _, b, _ in ranked), sum(s for _, _, s in ranked)
+
+    print(f"# {year} ({source}) · spent and final budget, millions of current pesos", file=sys.stderr)
+    print("# " + " › ".join(["all spending"] + chosen), file=sys.stderr)
+    print(f"# by {level} (level {depth + 1} of {len(BREAKDOWN_LEVELS)})", file=sys.stderr)
+    if args.csv:
+        emit(["rank", level, "spent", "budget"], [[i, k, f"{s:.2f}", f"{b:.2f}"]
+             for i, (k, b, s) in enumerate(ranked, start=1)], True)
+    else:
+        share = lambda s: f"{s / spent * 100:.1f}%" if spent else ""
+        executed = lambda b, s: f"{s / b * 100:.0f}%" if b else ""
+        table = [[i, k[:70], f"{s / 1e6:,.1f}", share(s), f"{b / 1e6:,.1f}", executed(b, s)]
+                 for i, (k, b, s) in enumerate(ranked, start=1)]
+        table.append(["", "total", f"{spent / 1e6:,.1f}", "100%" if spent else "", f"{budget / 1e6:,.1f}", executed(budget, spent)])
+        widths = [max(len(str(x)) for x in col) for col in zip(["#", level, "spent", "share", "budget", "executed"], *table)]
+        for line in [["#", level, "spent", "share", "budget", "executed"]] + table:
+            print("  ".join(str(x).ljust(w) if j == 1 else str(x).rjust(w) for j, (x, w) in enumerate(zip(line, widths))))
+
+    sys.stdout.flush()  # keep the table above the hints when both go to a terminal or file
+    if depth + 1 < len(BREAKDOWN_LEVELS) and ranked:
+        prefix = "python3 myrmidon.py breakdown" + (f" --year {args.year}" if args.year else "")
+        prefix += "".join(" " + shell_quote(s) for s in args.path)
+        print(f"\n# go into one {level} (by rank or name), then the next level is {BREAKDOWN_LEVELS[depth + 1]}:",
+              file=sys.stderr)
+        for i, (k, _, _) in enumerate(ranked[:3], start=1):
+            print(f"#   {prefix} {i}    → {k[:60]}", file=sys.stderr)
+        if not args.path:
+            print(f"#   {prefix} salud   (names match in part, without accents)", file=sys.stderr)
+            print(f"# years: {min(sources)}–{max(sources)} with --year", file=sys.stderr)
+    elif ranked:
+        print(f"\n# {level} is the deepest level.", file=sys.stderr)
 
 
 # ---------------------------------------------------------------- tax calculator
