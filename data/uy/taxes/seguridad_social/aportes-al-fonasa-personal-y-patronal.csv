@@ -1,0 +1,11 @@
+departamento,condicion,base,desde,hasta,unidad_tramo,tasa_pct,monto,unidad_monto,vigencia,confianza,fuente,notas
+,patronal,remuneración gravada,,,,5,,,2026,oficial,https://www.bps.gub.uy/10314/tasas-fonasa.html,más complemento de cuota mutual si corresponde
+,"personal, remuneración hasta 2,5 BPC, sin cónyuge, sin hijos",remuneración gravada,0,2.5,BPC mensuales,3,,,2026,oficial,https://www.bps.gub.uy/10314/tasas-fonasa.html,
+,"personal, remuneración hasta 2,5 BPC, sin cónyuge, con hijos",remuneración gravada,0,2.5,BPC mensuales,3,,,2026,oficial,https://www.bps.gub.uy/10314/tasas-fonasa.html,
+,"personal, remuneración hasta 2,5 BPC, con cónyuge, sin hijos",remuneración gravada,0,2.5,BPC mensuales,5,,,2026,oficial,https://www.bps.gub.uy/10314/tasas-fonasa.html,
+,"personal, remuneración hasta 2,5 BPC, con cónyuge, con hijos",remuneración gravada,0,2.5,BPC mensuales,5,,,2026,oficial,https://www.bps.gub.uy/10314/tasas-fonasa.html,
+,"personal, remuneración mayor a 2,5 BPC, sin cónyuge, sin hijos",remuneración gravada,2.5,,BPC mensuales,4.5,,,2026,oficial,https://www.bps.gub.uy/10314/tasas-fonasa.html,
+,"personal, remuneración mayor a 2,5 BPC, sin cónyuge, con hijos",remuneración gravada,2.5,,BPC mensuales,6,,,2026,oficial,https://www.bps.gub.uy/10314/tasas-fonasa.html,
+,"personal, remuneración mayor a 2,5 BPC, con cónyuge, sin hijos",remuneración gravada,2.5,,BPC mensuales,6.5,,,2026,oficial,https://www.bps.gub.uy/10314/tasas-fonasa.html,
+,"personal, remuneración mayor a 2,5 BPC, con cónyuge, con hijos",remuneración gravada,2.5,,BPC mensuales,8,,,2026,oficial,https://www.bps.gub.uy/10314/tasas-fonasa.html,
+,valor de la cuota mutual,,,,,,1880,UYU mensuales,oct-2026,oficial,https://www.bps.gub.uy/16815/valores.html,

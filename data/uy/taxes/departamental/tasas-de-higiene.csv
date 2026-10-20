@@ -1,0 +1,44 @@
+departamento,condicion,base,desde,hasta,unidad_tramo,tasa_pct,monto,unidad_monto,vigencia,confianza,fuente,notas
+Maldonado,"Maldonado: tasa de contralor de higiene ambiental, categoría 1 (por giro comercial)",,,,,,2311,UYU anuales,2026-2030,oficial,https://digesto.maldonado.gub.uy/detalle-volumen/13,
+Maldonado,"Maldonado: tasa de contralor de higiene ambiental, categoría 2 (por giro comercial)",,,,,,6111,UYU anuales,2026-2030,oficial,https://digesto.maldonado.gub.uy/detalle-volumen/13,
+Maldonado,"Maldonado: tasa de contralor de higiene ambiental, categoría 3 (por giro comercial)",,,,,,17814,UYU anuales,2026-2030,oficial,https://digesto.maldonado.gub.uy/detalle-volumen/13,
+Maldonado,"Maldonado: tasa de contralor de higiene ambiental, categoría 4 (por giro comercial)",,,,,,27641,UYU anuales,2026-2030,oficial,https://digesto.maldonado.gub.uy/detalle-volumen/13,
+Maldonado,"Maldonado: tasa de contralor de higiene ambiental, categoría 5 (por giro comercial)",,,,,,110568,UYU anuales,2026-2030,oficial,https://digesto.maldonado.gub.uy/detalle-volumen/13,
+Colonia,Colonia: tasa de higiene ambiental de locales abiertos al público,,,,,,4.5,UR anuales,desde 2012 (Dec. 013/2011),oficial,https://www.impo.com.uy/diariooficial/2011/08/29/documentos.pdf,exonera empresas con hasta 1 empleado
+Rivera,"Rivera: tasa de higiene de locales comerciales, industriales y de servicios: franja 1 (damero céntrico y asistencia médica)",,,,,,6,UR anuales,desde 2016,oficial,https://www.impo.com.uy/diariooficial/2016/05/27/documentos.pdf,
+Rivera,"Rivera: tasa de higiene de locales comerciales, industriales y de servicios: franja 2",,,,,,5,UR anuales,desde 2016,oficial,https://www.impo.com.uy/diariooficial/2016/05/27/documentos.pdf,
+Rivera,"Rivera: tasa de higiene de locales comerciales, industriales y de servicios: franja 3",,,,,,3,UR anuales,desde 2016,oficial,https://www.impo.com.uy/diariooficial/2016/05/27/documentos.pdf,
+Rivera,"Rivera: tasa de higiene de locales comerciales, industriales y de servicios: franja 4",,,,,,2.5,UR anuales,desde 2016,oficial,https://www.impo.com.uy/diariooficial/2016/05/27/documentos.pdf,
+Rivera,"Rivera: tasa de higiene de locales comerciales, industriales y de servicios: franja 5 (municipios)",,,,,,2.5,UR anuales,desde 2016,oficial,https://www.impo.com.uy/diariooficial/2016/05/27/documentos.pdf,
+Rivera,"Rivera: tasa de higiene de locales comerciales, industriales y de servicios: franja 6 (juntas locales)",,,,,,1,UR anuales,desde 2016,oficial,https://www.impo.com.uy/diariooficial/2016/05/27/documentos.pdf,
+Salto,Salto: inspección de condiciones higiénicas de locales de alimentos: más de 200 m²,,,,,,860,UYU de 2011,desde 2011,oficial,https://www.impo.com.uy/diariooficial/2011/05/24/documentos.pdf,
+Salto,Salto: inspección de condiciones higiénicas de locales de alimentos: 30 a 200 m²,,,,,,573,UYU de 2011,desde 2011,oficial,https://www.impo.com.uy/diariooficial/2011/05/24/documentos.pdf,
+Salto,Salto: inspección de condiciones higiénicas de locales de alimentos: hasta 30 m²,,,,,,287,UYU de 2011,desde 2011,oficial,https://www.impo.com.uy/diariooficial/2011/05/24/documentos.pdf,
+Rocha,Rocha: faena en mataderos municipales: vacuno,,,,,,1.8,UR por animal,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/04/10/documentos.pdf,
+Rocha,Rocha: faena en mataderos municipales: ternero,,,,,,0.75,UR por animal,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/04/10/documentos.pdf,
+Rocha,Rocha: faena en mataderos municipales: ovino,,,,,,0.125,UR por animal,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/04/10/documentos.pdf,
+Rocha,Rocha: faena en mataderos municipales: cerdo,,,,,,1.2,UR por animal,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/04/10/documentos.pdf,
+Rocha,Rocha: faena en mataderos municipales: lechón hasta 18 kg,,,,,,0.25,UR por animal,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/04/10/documentos.pdf,
+Rocha,Rocha: limpieza de baldíos por la intendencia,superficie,,,,,1,UR cada 100 m²,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/04/10/documentos.pdf,
+Rocha,Rocha: control de barométricas particulares,,,,,,3,UR por trimestre,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/04/10/documentos.pdf,
+Durazno,Durazno: control de higiene y salubridad ambiental de comercios e industrias: más de 400 m² y más de 20 empleados,,,,,,3,UR por inspección,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/01/documentos.pdf,al menos dos inspecciones al año
+Durazno,Durazno: control de higiene y salubridad ambiental de comercios e industrias: más de 400 m² y menos de 20 empleados,,,,,,1.5,UR por inspección,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/01/documentos.pdf,al menos dos inspecciones al año
+Durazno,Durazno: control de higiene y salubridad ambiental de comercios e industrias: 200 a 399 m² y 10 a 19 empleados,,,,,,1.5,UR por inspección,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/01/documentos.pdf,al menos dos inspecciones al año
+Durazno,Durazno: control de higiene y salubridad ambiental de comercios e industrias: 200 a 399 m² y menos de 10 empleados,,,,,,1,UR por inspección,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/01/documentos.pdf,al menos dos inspecciones al año
+Durazno,Durazno: control de higiene y salubridad ambiental de comercios e industrias: menos de 200 m² y menos de 10 empleados,,,,,,0.5,UR por inspección,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/01/documentos.pdf,al menos dos inspecciones al año
+Río Negro,Río Negro: habilitación de inmuebles para arrendamiento,,,,,,1.5,UR,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/03/documentos.pdf,
+Artigas,Artigas: inspección de higiene de locales hasta 350 m²,metro cuadrado,,,,,0.02,UR por m² al año,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/27/documentos.pdf,doble si hay materiales peligrosos
+Artigas,Artigas: inspección de higiene de locales de más de 350 m²,,,,,,7,UR anuales,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/27/documentos.pdf,
+Artigas,Artigas: vehículos de transporte de alimentos,,,,,,2 a 3,UR según peso,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/27/documentos.pdf,
+Artigas,Artigas: habilitación de locales de remates ferias / remates de mercaderías,,,,,,15 / 5,UR anuales,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/27/documentos.pdf,
+Paysandú,"Paysandú: contralor de higiene ambiental: instituciones financieras, loterías y casas de cambio",,,,,,4506,UI anuales por local,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/08/07/documentos.pdf,
+Paysandú,Paysandú: contralor de higiene ambiental: teatros y cines,,,,,,939,UI anuales por local,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/08/07/documentos.pdf,
+Paysandú,Paysandú: contralor de higiene ambiental: clubes nocturnos y similares,,,,,,1875,UI anuales por local,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/08/07/documentos.pdf,
+Paysandú,Paysandú: contralor de higiene ambiental: casas de huéspedes,,,,,,470,UI anuales por local,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/08/07/documentos.pdf,
+Paysandú,"Paysandú: contralor de higiene ambiental: hoteles, por habitación",,,,,,106,UI anuales por local,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/08/07/documentos.pdf,
+Paysandú,Paysandú: contralor de higiene ambiental: demás locales hasta 25 m²,,,,,,281,UI anuales por local,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/08/07/documentos.pdf,
+Paysandú,Paysandú: contralor de higiene ambiental: de 25 a 50 m²,,,,,,658,UI anuales por local,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/08/07/documentos.pdf,
+Paysandú,Paysandú: contralor de higiene ambiental: de 50 a 100 m²,,,,,,1217,UI anuales por local,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/08/07/documentos.pdf,
+Paysandú,Paysandú: contralor de higiene ambiental: de 100 a 1.000 m²,,,,,,2812,UI anuales por local,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/08/07/documentos.pdf,
+Paysandú,Paysandú: contralor de higiene ambiental: de 1.000 a 5.000 m²,,,,,,4216,UI anuales por local,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/08/07/documentos.pdf,
+Paysandú,Paysandú: salones con máquinas electrónicas,,,,,,820 a 6.552,UI anuales según superficie,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/08/07/documentos.pdf,

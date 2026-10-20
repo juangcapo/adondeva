@@ -1,0 +1,5 @@
+departamento,condicion,base,desde,hasta,unidad_tramo,tasa_pct,monto,unidad_monto,vigencia,confianza,fuente,notas
+Montevideo,Montevideo: tarifa de saneamiento: cargo fijo por unidad ocupacional,,,,,,9.52,UYU de 2001 mensuales (ajuste por IPC),desde 2001 (Dec. 29.434),oficial,https://montevideo.gub.uy/sites/default/files/documentos/decreto_29434_saneamiento_1.pdf,
+Montevideo,Montevideo: tarifa de saneamiento: cargo variable,m³ de agua consumida (85% se considera vertido),,,,,5.34,UYU de 2001 por m³,desde 2001 (Dec. 29.434),oficial,https://montevideo.gub.uy/sites/default/files/documentos/decreto_29434_saneamiento_1.pdf,
+Montevideo,"Montevideo: hogares de menor valor imponible, consumo hasta 12 m³",cargo variable,,,,-74,,,desde 2001 (Dec. 29.434),oficial,https://montevideo.gub.uy/sites/default/files/documentos/decreto_29434_saneamiento_1.pdf,
+Montevideo,"Montevideo: industria, comercio e instituciones: excedente de 1.000 a 3.000 m³ / más de 3.000 m³",,,,,,-35% / -50%,sobre el cargo variable,desde 2001 (Dec. 29.434),oficial,https://montevideo.gub.uy/sites/default/files/documentos/decreto_29434_saneamiento_1.pdf,

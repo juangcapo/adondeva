@@ -1,0 +1,4 @@
+departamento,condicion,base,desde,hasta,unidad_tramo,tasa_pct,monto,unidad_monto,vigencia,confianza,fuente,notas
+,espectáculos de elencos nacionales,total recaudado,,,,1,,,desde 2004,oficial,https://uruguay.justia.com/nacionales/leyes/ley-17741-jan-10-2004/gdoc/,
+,espectáculos de elencos extranjeros,total recaudado,,,,5,,,desde 2004,oficial,https://uruguay.justia.com/nacionales/leyes/ley-17741-jan-10-2004/gdoc/,
+,espectáculos de elencos mixtos,total recaudado,,,,3,,,desde 2004,oficial,https://uruguay.justia.com/nacionales/leyes/ley-17741-jan-10-2004/gdoc/,

@@ -1,0 +1,15 @@
+departamento,condicion,base,desde,hasta,unidad_tramo,tasa_pct,monto,unidad_monto,vigencia,confianza,fuente,notas
+Maldonado,"Maldonado: contralores, exámenes o inspecciones: hasta 10 / 11 a 20 / 21 a 30 por mes",,,,,,2.000 / 15.000 / 30.000,UYU por período,2026-2030,oficial,https://digesto.maldonado.gub.uy/detalle-volumen/13,
+Colonia,"Colonia: registro, habilitación y contralor de higiene",,,,,,2,UR base × coeficiente 1 a 30,desde 2012 (Dec. 013/2011),oficial,https://www.impo.com.uy/diariooficial/2011/08/29/documentos.pdf,
+Colonia,Colonia: contralor en la cadena de distribución,,,,,,1,UR base,desde 2012 (Dec. 013/2011),oficial,https://www.impo.com.uy/diariooficial/2011/08/29/documentos.pdf,
+Durazno,Durazno: controles / inspecciones / exámenes,,,,,,250 / 400 / 800,UYU de 2016,desde 2016,oficial,https://www.impo.com.uy/diariooficial/2016/08/04/documentos.pdf,
+Durazno,Durazno: carné de manipulador de alimentos (3 años),,,,,,320,UYU de 2016,desde 2016,oficial,https://www.impo.com.uy/diariooficial/2016/08/04/documentos.pdf,
+Lavalleja,"Lavalleja: agua mineral, por litro",,,,,,0.00055,UR,desde 2001,oficial,https://www.impo.com.uy/diariooficial/2001/06/13/documentos.pdf,"exentos leche, pan, frutas y verduras frescas"
+Lavalleja,"Lavalleja: cerveza, por litro",,,,,,0.00175,UR,desde 2001,oficial,https://www.impo.com.uy/diariooficial/2001/06/13/documentos.pdf,"exentos leche, pan, frutas y verduras frescas"
+Lavalleja,"Lavalleja: otras bebidas alcohólicas, por litro",,,,,,0.02,UR,desde 2001,oficial,https://www.impo.com.uy/diariooficial/2001/06/13/documentos.pdf,"exentos leche, pan, frutas y verduras frescas"
+Lavalleja,"Lavalleja: demás alimentos y refrescos, por kg o litro",,,,,,0.00175,UR,desde 2001,oficial,https://www.impo.com.uy/diariooficial/2001/06/13/documentos.pdf,"exentos leche, pan, frutas y verduras frescas"
+Rocha,Rocha: cada control de alimentos,,,,,,1,UR,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/04/10/documentos.pdf,
+Rocha,Rocha: cada inspección de alimentos,,,,,,3,UR,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/04/10/documentos.pdf,
+Rocha,Rocha: cada examen de alimentos,,,,,,5,UR,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/04/10/documentos.pdf,
+Artigas,Artigas: acto de inspección o contralor,,,,,,1 a 3,"UR según riesgo, más el costo de los análisis",2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/27/documentos.pdf,
+Artigas,Artigas: registro RUNAEV de empresa / producto / local / vehículo,,,,,,1 / 5 / 4 / 5,UR,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/27/documentos.pdf,

@@ -1,0 +1,3 @@
+departamento,condicion,base,desde,hasta,unidad_tramo,tasa_pct,monto,unidad_monto,vigencia,confianza,fuente,notas
+Rivera,Rivera: vehículos extranjeros usados por residentes,,,,,,,,2026-2030,oficial,https://www.rivera.gub.uy/portal/cobro-del-impuesto-a-la-circulacion-de-vehiculos-extranjeros-para-el-ejercicio-2016/,tabla de aforo propia (2012 ajustada por IPC)
+Rocha,Rocha: vehículos con matrícula de Brasil u otro país usados habitualmente por residentes,patente de un vehículo similar en el SUCIVE,,,,50,,,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/04/10/documentos.pdf,

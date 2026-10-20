@@ -1,0 +1,19 @@
+departamento,condicion,base,desde,hasta,unidad_tramo,tasa_pct,monto,unidad_monto,vigencia,confianza,fuente,notas
+Montevideo,Montevideo: sellado de inicio / de culminación de trámite,,,,,,1.740 / 3.797,UYU (mayo-agosto 2024),2024,guia_oficial,https://tramites.montevideo.gub.uy/tramites-y-tributos/autorizacion/realizar-sorteos-y-promociones-para-premios-superiores-a-100-ur,
+Montevideo,Montevideo: sellado de ingresos comerciales (por formulario),,,,,,329,UYU (agosto 2024),2024,guia_oficial,https://tramites.montevideo.gub.uy/tramites-y-tributos/solicitud/baja-de-avisos-y-propaganda,
+Maldonado,Maldonado: timbre municipal sobre todo pago o cobro de la Tesorería,monto del recibo,,,,2,,,2026-2030,oficial,https://digesto.maldonado.gub.uy/detalle-volumen/13,
+Maldonado,Maldonado: testimonio / certificado del Registro Civil,,,,,,30 / 25,UYU,2026-2030,oficial,https://digesto.maldonado.gub.uy/detalle-volumen/13,
+Maldonado,Maldonado: tasa por actividad administrativa,,,,,0,,,desde 2025,oficial,https://digesto.maldonado.gub.uy/detalle-volumen/13,suprimida por el Dec. 4113/2025
+Maldonado,Maldonado: registro de constructores y empresas de demolición / instaladores sanitarios,,,,,,544 / 218,UYU anuales,2026-2030,oficial,https://digesto.maldonado.gub.uy/detalle-volumen/13,
+Colonia,Colonia: tasa administrativa por trámite,,,,,,82,UYU de 2011,desde 2012 (Dec. 013/2011),oficial,https://www.impo.com.uy/diariooficial/2011/08/29/documentos.pdf,
+Colonia,Colonia: certificado de libre de multas / antecedentes,,,,,,153 / 252,UYU de 2011,desde 2012 (Dec. 013/2011),oficial,https://www.impo.com.uy/diariooficial/2011/08/29/documentos.pdf,
+Colonia,Colonia: derecho de rifas y sorteos,,,,,,800,UYU de 2011,desde 2012 (Dec. 013/2011),oficial,https://www.impo.com.uy/diariooficial/2011/08/29/documentos.pdf,
+Tacuarembó,Tacuarembó: valorado departamental por gestión,,,,,,100,UYU de 2016 (ajuste anual por IPC),desde 2016,oficial,https://www.impo.com.uy/diariooficial/2016/07/05/documentos.pdf,
+Lavalleja,"Lavalleja: tasa de actualización de la propiedad inmueble, por padrón",,,,,,0.4,UR anuales,desde 2006,oficial,https://www.impo.com.uy/diariooficial/2006/11/20/documentos.pdf,
+Lavalleja,Lavalleja: derecho de expedición de recaudos / completo administrativo por escrito,,,,,,"0,15 / 0,25",UR,desde 2006,oficial,https://www.impo.com.uy/diariooficial/2006/11/20/documentos.pdf,"exentos recaudos menores a 0,25 UR"
+Rocha,Rocha: foja valorada por trámite,,,,,,0.25,UR,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/04/10/documentos.pdf,
+Rocha,Rocha: derecho de expedición por comprobante,,,,,,0.35,UR,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/04/10/documentos.pdf,
+Rocha,Rocha: estampilla municipal por comprobante,,,,,,0.25,UR,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/04/10/documentos.pdf,1 UR anual para contribución y patente
+Artigas,Artigas: retiro de expedientes del archivo,,,,,,0.5,UR,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/27/documentos.pdf,
+Paysandú,Paysandú: tributo por tramitación,,,,,,8,UI por tributo,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/08/07/documentos.pdf,5 tributos por expediente
+Paysandú,Paysandú: partidas y certificados del Registro Civil,,,,,,10 a 16,UI,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/08/07/documentos.pdf,

@@ -1,0 +1,3 @@
+departamento,condicion,base,desde,hasta,unidad_tramo,tasa_pct,monto,unidad_monto,vigencia,confianza,fuente,notas
+,egresados de carreras de 5 o más años,,,,,,5/6,BPC anuales,2026,oficial,https://www.bps.gub.uy/23860/2026---comunicado-r-5---valores-escalas-irpf-2026.html,sigue vigente en 2026 (BPS lo usa en las categorías 4 y 5)
+,redacción original: egresados con ingresos mayores a 6 salarios mínimos,,,,,,5/3,salarios mínimos anuales,2001,secundaria,https://www.montevideo.com.uy/Noticias/Ejecutivo-propone-eliminar-la-contribucion-adicional-del-Fondo-de-Solidaridad-en-Rendicion-uc826311,Ley 17.296; reemplazado por el valor en BPC

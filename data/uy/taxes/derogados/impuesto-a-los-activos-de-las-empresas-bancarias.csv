@@ -1,0 +1,5 @@
+departamento,condicion,base,desde,hasta,unidad_tramo,tasa_pct,monto,unidad_monto,vigencia,confianza,fuente,notas
+,activos gravados (tope legal),activos de bancos y casas financieras,,,,1.5,,,1986-1995,secundaria,https://www.cienciassociales.edu.uy/wp-content/uploads/2019/09/Evoluci%C3%B3n-sistema-tributario-1990-2018-Gustavo-Vi%C3%B1ales-v.-presen.pdf,
+,"créditos de comercio exterior, préstamos a 3 años o más y otros",activos,,,,0.75,,,1986-1995,secundaria,https://www.cienciassociales.edu.uy/wp-content/uploads/2019/09/Evoluci%C3%B3n-sistema-tributario-1990-2018-Gustavo-Vi%C3%B1ales-v.-presen.pdf,
+,prefinanciación de exportaciones,créditos,,,,0.01,,,desde 1995,secundaria,https://www.cienciassociales.edu.uy/wp-content/uploads/2019/09/Evoluci%C3%B3n-sistema-tributario-1990-2018-Gustavo-Vi%C3%B1ales-v.-presen.pdf,
+,resto de los activos gravados (tope legal),activos,,,,2,,,1995-2007 (Ley 16.697),secundaria,https://www.cienciassociales.edu.uy/wp-content/uploads/2019/09/Evoluci%C3%B3n-sistema-tributario-1990-2018-Gustavo-Vi%C3%B1ales-v.-presen.pdf,

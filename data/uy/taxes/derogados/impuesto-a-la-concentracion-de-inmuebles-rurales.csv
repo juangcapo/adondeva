@@ -1,0 +1,5 @@
+departamento,condicion,base,desde,hasta,unidad_tramo,tasa_pct,monto,unidad_monto,vigencia,confianza,fuente,notas
+,titulares con inmuebles rurales que superan 2.000 ha CONEAT 100,hectáreas CONEAT 100,0,2000,ha,,0,UI por hectárea,2012-2013,secundaria,https://impo.com.uy/bases/leyes/18876-2011,Ley 18.876; declarado inconstitucional y derogado por la Ley 19.093 (2013)
+,titulares con inmuebles rurales que superan 2.000 ha CONEAT 100,hectáreas CONEAT 100,2000,5000,ha,,67,UI por hectárea,2012-2013,secundaria,https://impo.com.uy/bases/leyes/18876-2011,Ley 18.876; declarado inconstitucional y derogado por la Ley 19.093 (2013)
+,titulares con inmuebles rurales que superan 2.000 ha CONEAT 100,hectáreas CONEAT 100,5000,10000,ha,,100,UI por hectárea,2012-2013,secundaria,https://impo.com.uy/bases/leyes/18876-2011,Ley 18.876; declarado inconstitucional y derogado por la Ley 19.093 (2013)
+,titulares con inmuebles rurales que superan 2.000 ha CONEAT 100,hectáreas CONEAT 100,10000,,ha,,135,UI por hectárea,2012-2013,secundaria,https://impo.com.uy/bases/leyes/18876-2011,Ley 18.876; declarado inconstitucional y derogado por la Ley 19.093 (2013)

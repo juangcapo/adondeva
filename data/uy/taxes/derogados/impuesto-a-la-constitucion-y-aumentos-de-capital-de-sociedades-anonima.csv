@@ -1,0 +1,3 @@
+departamento,condicion,base,desde,hasta,unidad_tramo,tasa_pct,monto,unidad_monto,vigencia,confianza,fuente,notas
+,constitución,capital,,,,1,,,1985-2001,secundaria,https://www.cienciassociales.edu.uy/wp-content/uploads/2019/09/Evoluci%C3%B3n-sistema-tributario-1990-2018-Gustavo-Vi%C3%B1ales-v.-presen.pdf,
+,aumentos de capital,aumento,0.5,1,% (rango),,,,1991-2001,secundaria,https://www.cienciassociales.edu.uy/wp-content/uploads/2019/09/Evoluci%C3%B3n-sistema-tributario-1990-2018-Gustavo-Vi%C3%B1ales-v.-presen.pdf,reemplazado por el ICOSA

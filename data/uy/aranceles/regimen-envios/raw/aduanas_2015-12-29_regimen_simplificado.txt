@@ -1,0 +1,9 @@
+A partir del 1° de enero se modifica el régimen para compras en el exterior
+Fecha: 29/12/2015
+- Se modifica la cantidad de veces que una misma persona podrá hacer uso de los beneficios del régimen de franquicia (no pagando tributos), pasando de 5 a 4 veces por año.
+- El régimen de franquicia amparará los envíos postales de entrega expresa, por un valor de factura o declaración de valor de hasta USD 200.
+- En el caso de los envíos postales de entrega no expresa, el régimen de franquicia amparará los envíos por un valor de factura o declaración de valor de hasta USD 50.
+- Por valor de factura deberá interpretarse el monto total detallado por el vendedor del exterior en la correspondiente factura comercial de la compra, con o sin gastos de envío según corresponda en cada caso.
+- Por declaración de valor deberá interpretarse el monto total que el destinatario hubiera tenido que pagar, de tener que comprar la misma mercadería a un vendedor del exterior.
+- Los usuarios podrán elegir no ampararse a la franquicia, y pagar los impuestos bajo régimen simplificado, siempre que el valor de su envío o compra sea menor a USD 200. Los impuestos implican un tributo único del 60% del valor de factura o de la declaración de valor, con un pago mínimo de USD 10.
+Asimismo, se reitera que los envíos no expresos y EMS (servicio express del Correo Uruguayo) deben ser declarados por los usuarios a través del formulario que se ha implementado en la página Web de Correo Uruguayo.

@@ -1,0 +1,6 @@
+departamento,condicion,base,desde,hasta,unidad_tramo,tasa_pct,monto,unidad_monto,vigencia,confianza,fuente,notas
+Maldonado,Maldonado: redes en subsuelo o espacio aéreo hasta 50 m,,,,,,10,UR anuales,2026-2030,oficial,https://digesto.maldonado.gub.uy/detalle-volumen/13,hasta 50% menos si comparten soportes
+Maldonado,"Maldonado: reserva de espacio en la vía pública (estacionamiento, carga y descarga)",,,,,,2700,UYU anuales,2026-2030,oficial,https://digesto.maldonado.gub.uy/detalle-volumen/13,
+Colonia,Colonia: quiosco permanente / instalación transitoria / unidad móvil,,,,,,3.474 al año / 57 por m² al mes / 1.500 al mes,UYU de 2011,desde 2012 (Dec. 013/2011),oficial,https://www.impo.com.uy/diariooficial/2011/08/29/documentos.pdf,
+Rivera,"Rivera: Paseo 33 Orientales, por puesto",,,,,,1,UR,2026-2030,guia_oficial,https://www.rivera.gub.uy/portal/tasas/,
+Durazno,Durazno: quioscos permanentes zona 1 / zona 2,,,,,,1.200 / 720,UYU de 2001 mensuales,desde 2002 (Dec. 1664/2001),oficial,https://www.impo.com.uy/diariooficial/2001/12/26/documentos.pdf,

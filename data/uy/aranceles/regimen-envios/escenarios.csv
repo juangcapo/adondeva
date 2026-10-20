@@ -1,0 +1,45 @@
+canal,origen,valor_usd,impuesto_2024_usd,opcion_2024,impuesto_2026_usd,opcion_2026,diferencia_usd,costo_total_2024_usd,costo_total_2026_usd
+courier (entrega expresa),EE.UU. (vendedor registrado),20,0.0,franquicia (exento),0.0,franquicia (IVA exento por TIFA),0.0,20.0,20.0
+courier (entrega expresa),EE.UU. (vendedor registrado),50,0.0,franquicia (exento),0.0,franquicia (IVA exento por TIFA),0.0,50.0,50.0
+courier (entrega expresa),EE.UU. (vendedor registrado),100,0.0,franquicia (exento),0.0,franquicia (IVA exento por TIFA),0.0,100.0,100.0
+courier (entrega expresa),EE.UU. (vendedor registrado),150,0.0,franquicia (exento),0.0,franquicia (IVA exento por TIFA),0.0,150.0,150.0
+courier (entrega expresa),EE.UU. (vendedor registrado),200,0.0,franquicia (exento),0.0,franquicia (IVA exento por TIFA),0.0,200.0,200.0
+courier (entrega expresa),EE.UU. (vendedor registrado),250,,régimen general,55.0,franquicia (IVA 22%),,,305.0
+courier (entrega expresa),EE.UU. (vendedor registrado),300,,régimen general,66.0,franquicia (IVA 22%),,,366.0
+courier (entrega expresa),EE.UU. (vendedor registrado),400,,régimen general,88.0,franquicia (IVA 22%),,,488.0
+courier (entrega expresa),EE.UU. (vendedor registrado),500,,régimen general,110.0,franquicia (IVA 22%),,,610.0
+courier (entrega expresa),EE.UU. (vendedor registrado),800,,régimen general,176.0,franquicia (IVA 22%),,,976.0
+courier (entrega expresa),EE.UU. (vendedor registrado),1000,,régimen general,,régimen general,,,
+courier (entrega expresa),"otros países (China, Europa, etc.)",20,0.0,franquicia (exento),20,franquicia (IVA 22%),20.0,20.0,40
+courier (entrega expresa),"otros países (China, Europa, etc.)",50,0.0,franquicia (exento),20,franquicia (IVA 22%),20.0,50.0,70
+courier (entrega expresa),"otros países (China, Europa, etc.)",100,0.0,franquicia (exento),22.0,franquicia (IVA 22%),22.0,100.0,122.0
+courier (entrega expresa),"otros países (China, Europa, etc.)",150,0.0,franquicia (exento),33.0,franquicia (IVA 22%),33.0,150.0,183.0
+courier (entrega expresa),"otros países (China, Europa, etc.)",200,0.0,franquicia (exento),44.0,franquicia (IVA 22%),44.0,200.0,244.0
+courier (entrega expresa),"otros países (China, Europa, etc.)",250,,régimen general,55.0,franquicia (IVA 22%),,,305.0
+courier (entrega expresa),"otros países (China, Europa, etc.)",300,,régimen general,66.0,franquicia (IVA 22%),,,366.0
+courier (entrega expresa),"otros países (China, Europa, etc.)",400,,régimen general,88.0,franquicia (IVA 22%),,,488.0
+courier (entrega expresa),"otros países (China, Europa, etc.)",500,,régimen general,110.0,franquicia (IVA 22%),,,610.0
+courier (entrega expresa),"otros países (China, Europa, etc.)",800,,régimen general,176.0,franquicia (IVA 22%),,,976.0
+courier (entrega expresa),"otros países (China, Europa, etc.)",1000,,régimen general,,régimen general,,,
+correo común (no expreso),EE.UU. (vendedor registrado),20,0.0,franquicia (exento),0.0,franquicia (IVA exento por TIFA),0.0,20.0,20.0
+correo común (no expreso),EE.UU. (vendedor registrado),50,0.0,franquicia (exento),0.0,franquicia (IVA exento por TIFA),0.0,50.0,50.0
+correo común (no expreso),EE.UU. (vendedor registrado),100,60.0,simplificado 60%,0.0,franquicia (IVA exento por TIFA),-60.0,160.0,100.0
+correo común (no expreso),EE.UU. (vendedor registrado),150,90.0,simplificado 60%,0.0,franquicia (IVA exento por TIFA),-90.0,240.0,150.0
+correo común (no expreso),EE.UU. (vendedor registrado),200,120.0,simplificado 60%,0.0,franquicia (IVA exento por TIFA),-120.0,320.0,200.0
+correo común (no expreso),EE.UU. (vendedor registrado),250,,régimen general,55.0,franquicia (IVA 22%),,,305.0
+correo común (no expreso),EE.UU. (vendedor registrado),300,,régimen general,66.0,franquicia (IVA 22%),,,366.0
+correo común (no expreso),EE.UU. (vendedor registrado),400,,régimen general,88.0,franquicia (IVA 22%),,,488.0
+correo común (no expreso),EE.UU. (vendedor registrado),500,,régimen general,110.0,franquicia (IVA 22%),,,610.0
+correo común (no expreso),EE.UU. (vendedor registrado),800,,régimen general,176.0,franquicia (IVA 22%),,,976.0
+correo común (no expreso),EE.UU. (vendedor registrado),1000,,régimen general,,régimen general,,,
+correo común (no expreso),"otros países (China, Europa, etc.)",20,0.0,franquicia (exento),20,franquicia (IVA 22%),20.0,20.0,40
+correo común (no expreso),"otros países (China, Europa, etc.)",50,0.0,franquicia (exento),20,franquicia (IVA 22%),20.0,50.0,70
+correo común (no expreso),"otros países (China, Europa, etc.)",100,60.0,simplificado 60%,22.0,franquicia (IVA 22%),-38.0,160.0,122.0
+correo común (no expreso),"otros países (China, Europa, etc.)",150,90.0,simplificado 60%,33.0,franquicia (IVA 22%),-57.0,240.0,183.0
+correo común (no expreso),"otros países (China, Europa, etc.)",200,120.0,simplificado 60%,44.0,franquicia (IVA 22%),-76.0,320.0,244.0
+correo común (no expreso),"otros países (China, Europa, etc.)",250,,régimen general,55.0,franquicia (IVA 22%),,,305.0
+correo común (no expreso),"otros países (China, Europa, etc.)",300,,régimen general,66.0,franquicia (IVA 22%),,,366.0
+correo común (no expreso),"otros países (China, Europa, etc.)",400,,régimen general,88.0,franquicia (IVA 22%),,,488.0
+correo común (no expreso),"otros países (China, Europa, etc.)",500,,régimen general,110.0,franquicia (IVA 22%),,,610.0
+correo común (no expreso),"otros países (China, Europa, etc.)",800,,régimen general,176.0,franquicia (IVA 22%),,,976.0
+correo común (no expreso),"otros países (China, Europa, etc.)",1000,,régimen general,,régimen general,,,

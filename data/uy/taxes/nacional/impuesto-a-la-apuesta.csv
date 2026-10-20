@@ -1,0 +1,3 @@
+departamento,condicion,base,desde,hasta,unidad_tramo,tasa_pct,monto,unidad_monto,vigencia,confianza,fuente,notas
+,apuestas en máquinas electrónicas de casinos y salas,monto apostado,,,,0.75,,,desde ago-2025,oficial,https://www.impo.com.uy/diariooficial/2025/08/20/documentos.pdf,"Dec. 167/025; contribuyente el apostador, retiene la sala"
+,régimen anterior,monto apostado,,,,0.75,,,2018-2025,secundaria,https://impo.com.uy/bases/decretos/359-2017/1,Dec. 359/017

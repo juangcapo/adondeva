@@ -1,0 +1,3 @@
+departamento,condicion,base,desde,hasta,unidad_tramo,tasa_pct,monto,unidad_monto,vigencia,confianza,fuente,notas
+,exportación de bovinos y ovinos en pie y de carne (salvo conservas),valor exportado,,,,1,,,2026,oficial,https://impo.com.uy/bases/decretos/152-2025,
+,carne vacuna y ovina destinada al consumo interno,precio,,,,1,,,1970,secundaria,https://impo.com.uy/bases/leyes-originales/13892-1970/421,"tasa de la ley original de 1970; la vigente está en el Dec. 152/025, sin verificar"

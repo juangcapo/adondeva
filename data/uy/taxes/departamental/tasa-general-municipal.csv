@@ -1,0 +1,13 @@
+departamento,condicion,base,desde,hasta,unidad_tramo,tasa_pct,monto,unidad_monto,vigencia,confianza,fuente,notas
+Colonia,Colonia: tasa de manejo de residuos (inmuebles sin sobretasa de salubridad con recolección),,,,,,2,UR anuales,desde 2026,oficial,https://www.impo.com.uy/diariooficial/2026/09/02/documentos.pdf,
+Rivera,Rivera: derogada en Rivera desde 2001 (sustituida por la tasa de higiene),,,,,0,,,desde 2001,oficial,https://www.impo.com.uy/diariooficial/2000/12/21/documentos.pdf,
+Rivera,Rivera: residuos industriales recogidos por la intendencia,,,,,,0.25,UR por m³,desde 2016,oficial,https://www.impo.com.uy/diariooficial/2016/05/27/documentos.pdf,solo disposición final: 1 UR por tonelada
+Soriano,"Soriano: tasa de salubridad y limpieza, radio 1",,,,,,1314.2,UYU de 2006 anuales,desde 2006 (RIM),oficial,https://www.impo.com.uy/diariooficial/2006/06/22/documentos.pdf,
+Soriano,"Soriano: tasa de salubridad y limpieza, radio 2",,,,,,699.8,UYU de 2006 anuales,desde 2006 (RIM),oficial,https://www.impo.com.uy/diariooficial/2006/06/22/documentos.pdf,
+Soriano,"Soriano: tasa de salubridad y limpieza, radio 3",,,,,,221.9,UYU de 2006 anuales,desde 2006 (RIM),oficial,https://www.impo.com.uy/diariooficial/2006/06/22/documentos.pdf,
+Soriano,Soriano: disposición final de envases PET o PVC: más de 1 litro / hasta 1 litro,,,,,,"0,35 / 0,25",UYU de 2011 por envase,desde 2011,oficial,https://www.impo.com.uy/diariooficial/2011/07/21/documentos.pdf,sobre 80% de lo introducido al departamento
+Durazno,"Durazno: tasa de salubridad, zona 1",,,,,,70,UYU de 2001 mensuales (ajuste por IPC),desde 2002 (Dec. 1664/2001),oficial,https://www.impo.com.uy/diariooficial/2001/12/26/documentos.pdf,
+Durazno,"Durazno: tasa de salubridad, zona 2",,,,,,70,UYU de 2001 mensuales (ajuste por IPC),desde 2002 (Dec. 1664/2001),oficial,https://www.impo.com.uy/diariooficial/2001/12/26/documentos.pdf,
+Durazno,"Durazno: tasa de salubridad, zona 3",,,,,,40,UYU de 2001 mensuales (ajuste por IPC),desde 2002 (Dec. 1664/2001),oficial,https://www.impo.com.uy/diariooficial/2001/12/26/documentos.pdf,
+Durazno,"Durazno: tasa de salubridad, zona 4",,,,,,25,UYU de 2001 mensuales (ajuste por IPC),desde 2002 (Dec. 1664/2001),oficial,https://www.impo.com.uy/diariooficial/2001/12/26/documentos.pdf,
+Durazno,"Durazno: tasa de salubridad, zona 5",,,,,,15,UYU de 2001 mensuales (ajuste por IPC),desde 2002 (Dec. 1664/2001),oficial,https://www.impo.com.uy/diariooficial/2001/12/26/documentos.pdf,

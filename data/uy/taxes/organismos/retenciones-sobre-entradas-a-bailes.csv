@@ -1,0 +1,4 @@
+departamento,condicion,base,desde,hasta,unidad_tramo,tasa_pct,monto,unidad_monto,vigencia,confianza,fuente,notas
+,INAU,valor de la entrada,,,,1,,,2025,guia_oficial,https://tramites.montevideo.gub.uy/tramites-y-tributos/solicitud/declaracion-de-espectaculos-publicos,
+,Comisión Honoraria de Lucha Antituberculosa,valor de la entrada,,,,5,,,2025,guia_oficial,https://tramites.montevideo.gub.uy/tramites-y-tributos/solicitud/declaracion-de-espectaculos-publicos,
+,Ministerio de Salud Pública,valor de la entrada,,,,3,,,2025,guia_oficial,https://tramites.montevideo.gub.uy/tramites-y-tributos/solicitud/declaracion-de-espectaculos-publicos,

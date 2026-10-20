@@ -2,7 +2,7 @@
 
 Agents that harvest public state records and turn them into data you can analyze.
 
-The first target is **Uruguay's public finances**: how much the national budget allocated and actually spent, by agency, program and year, and how that compares once inflation is taken out.
+The first target is **Uruguay's public finances**: how much the national budget allocated and actually spent, by agency, program and year, and how that compares once inflation is taken out. The repo also covers **Uruguay's taxes and import tariffs**: every tax, fee and contribution with its rates, and the tariff for every product code.
 
 ## Purpose
 
@@ -12,17 +12,22 @@ The name comes from the Myrmidons of Greek myth: an army of ants turned into sol
 
 ## What's inside
 
+Each country's data lives under `data/<ISO 3166-1 alpha-2 code>/`. For Uruguay:
+
 ```
 myrmidon-harvesters/
-├── myrmidon.py                     command-line tool (see "How to use")
-├── opp/
-│   ├── credito-presupuestal/       OPP budget detail, 2011–2024
-│   └── historico/                  OPP executed budget by agency, 1961–2010
-├── mef/rendicion-cuentas/2025/     MEF Rendición de Cuentas 2025 open data
-└── inflation/ine-ipc/              INE consumer price index (IPC), 1937–today
+├── myrmidon.py                          command-line tool (see "How to use")
+└── data/uy/
+    ├── opp/
+    │   ├── credito-presupuestal/        OPP budget detail, 2011–2024
+    │   └── historico/                   OPP executed budget by agency, 1961–2010
+    ├── mef/rendicion-cuentas/2025/      MEF Rendición de Cuentas 2025 open data
+    ├── inflation/ine-ipc/               INE consumer price index (IPC), 1937–today
+    ├── taxes/                           every tax, fee and contribution, with rates
+    └── aranceles/                       import tariffs and the postal/courier regime
 ```
 
-### `opp/credito-presupuestal/` — national budget, 2011–2024
+### `data/uy/opp/credito-presupuestal/` — national budget, 2011–2024
 
 Source: [Portal de Transparencia Presupuestaria (OPP)](https://transparenciapresupuestaria.opp.gub.uy/inicio/datos-abiertos).
 
@@ -32,14 +37,14 @@ Source: [Portal de Transparencia Presupuestaria (OPP)](https://transparenciapres
 - `Metadatos_CreditoPresupuestalDesde2011.csv` describes every column.
 - OPP also publishes a 2025 file, but it only runs to mid-2025, so it is not included. Use MEF for 2025.
 
-### `opp/historico/` — executed budget by agency, 1961–2010
+### `data/uy/opp/historico/` — executed budget by agency, 1961–2010
 
 - One row per agency, one column per year, in thousands of current pesos (semicolon-separated).
 - Values from before the 1975 and 1993 currency changes are already converted to current pesos (see the methodology PDF).
 - Less detail than 2011 onward: there is no program or spending-item breakdown.
 - Until 1984, debt repayments were counted under agency 20. From 1985 they are excluded, so 1980–1984 read slightly high.
 
-### `mef/rendicion-cuentas/2025/` — full-year 2025
+### `data/uy/mef/rendicion-cuentas/2025/` — full-year 2025
 
 Source: [MEF – Rendición de Cuentas 2025, Datos Abiertos](https://www.gub.uy/ministerio-economia-finanzas/comunicacion/publicaciones/rendicion-cuentas-balance-ejecucion-presupuestal-ejercicio-2025-datos), published 30 June 2026.
 
@@ -48,17 +53,25 @@ Source: [MEF – Rendición de Cuentas 2025, Datos Abiertos](https://www.gub.uy/
 - MEF only publishes open data for 2025. Earlier years are PDFs only, so 2011–2024 come from OPP.
 - MEF counts one funding source that OPP leaves out, **"Fondos de Terceros Declarados por Ley"** (9.7 bn in 2025, about 1% of spending). Drop it when comparing with OPP years.
 
-### `inflation/ine-ipc/` — consumer price index
+### `data/uy/inflation/ine-ipc/` — consumer price index
 
 Source: [INE – IPC base Octubre 2022=100](https://www.gub.uy/instituto-nacional-estadistica/datos-y-estadisticas/estadisticas/series-historicas-ipc-base-octubre-2022100).
 
 - `ipc_mensual.csv`: monthly index from July 1937.
 - `ipc_anual.csv`: complete years only, with the average index, the December index and inflation measured both ways (average vs average, December vs December).
-- `build_ipc.py` rebuilds both CSVs from the workbooks in `raw/`. See that folder's [README](inflation/ine-ipc/README.md).
+- `build_ipc.py` rebuilds both CSVs from the workbooks in `raw/`. See that folder's [README](data/uy/inflation/ine-ipc/README.md).
+
+### `data/uy/taxes/` — taxes, fees and contributions
+
+Every Uruguayan tax, fee and contribution with its rates, by level: national, agencies, customs, social security, departmental and repealed. See [its README](data/uy/taxes/README.md).
+
+### `data/uy/aranceles/` — import tariffs
+
+Import tariff for every product code, pending tariff changes, and the 2024 vs 2026 postal/courier regime comparison. See [its README](data/uy/aranceles/README.md).
 
 ### Coverage
 
-The data has the following limits:
+The budget data has the following limits:
 
 - It covers the **national budget** only: the 34 agencies of the Presupuesto Nacional.
 - It does **not** include state companies (UTE, ANCAP, OSE), departmental governments, or the BPS's own accounts. The BPS appears only through the transfers it receives.
@@ -72,6 +85,7 @@ You only need Python 3. No packages to install.
 git clone https://github.com/juangcapo/myrmidon-harvesters.git
 cd myrmidon-harvesters
 python3 myrmidon.py --help
+python3 myrmidon.py COMMAND --help
 ```
 
 ### Commands
@@ -81,6 +95,7 @@ python3 myrmidon.py --help
 | `sources` | Which years each data source covers |
 | `inflation` | Yearly inflation from the INE index |
 | `spending` | Total national budget spending per year, nominal and adjusted for inflation |
+| `tax` | Tax breakdown for an action (salary, purchase, import, rent) and an amount |
 
 `inflation` and `spending` both take:
 
@@ -97,7 +112,18 @@ python3 myrmidon.py --help
 | `--base YEAR` | Show real values in pesos of this year (default: latest year) |
 | `--include-fondos-terceros` | Keep MEF's "Fondos de Terceros" (makes 2025 not comparable with earlier years) |
 
-### Examples
+### `sources`
+
+```
+$ python3 myrmidon.py sources
+          source  from    to  years
+   opp-historico  1961  2010     50
+             opp  2011  2024     14
+             mef  2025  2025      1
+ine-ipc (annual)  1938  2025     88
+```
+
+### `inflation` and `spending`
 
 ```bash
 # Inflation every five years since 1980
@@ -128,6 +154,55 @@ real = nominal × IPC[base year] / IPC[year]
 
 The first run takes about 15–20 seconds while it reads the large files. Results are cached in `.cache/` (not tracked by git) and refresh automatically when a file changes.
 
+### `tax`
+
+Tax breakdown for an action and an amount, with 2026 rates read from `data/uy/taxes/`. Prints who pays each item, its base, rate and amount, then totals. `--csv` prints CSV.
+
+```
+python3 myrmidon.py tax ACCION MONTO [options]
+```
+
+| Action | Amount | Options | What it computes |
+|---|---|---|---|
+| `sueldo` | monthly nominal salary, UYU | `--hijos N`, `--conyuge` | Employee: pension contribution 15% (up to tope C), FONASA by salary and family, FRL, IRPF withholding by brackets (6% added above 10 BPC; deductions credited at 14% or 8%, children included). Employer: pension 7.5%, FONASA 5%, FRL, FGCL. Totals: net salary, total cost to the employer, share of taxes |
+| `compra` | price, UYU | `--tasa basica\|minima\|debito\|exento`, `--neto` | IVA included in the price, or added to it with `--neto` |
+| `importar` | CIF value, USD | `--ncm CODE` or `--arancel PCT`, `--mercosur`, `--contribuyente`, `--tasa minima` | General regime: tariff for the product code (from `aranceles/arancel.csv`), consular fee, preferential services fee (max USD 50), IVA on CIF plus tariff, IRAE advance with `--contribuyente` |
+| `importar --envio` | value, USD | `--eeuu`, `--cupo USD` | Postal/courier regime 2026: each option (franchise with IVA 22%, or flat 60%) and the cheapest one |
+| `alquiler` | monthly rent, UYU | | IRPF on rents (12% of gross), exempt up to 40 BPC a year |
+
+Examples:
+
+```
+$ python3 myrmidon.py tax sueldo 80000 --hijos 1
+      paga                                                        concepto       base    tasa      monto
+trabajador                          aporte jubilatorio personal (BPS/AFAP)  80,000.00     15%  12,000.00
+trabajador                        FONASA personal (sin cónyuge, con hijos)  80,000.00      6%   4,800.00
+trabajador                                   Fondo de Reconversión Laboral  80,000.00    0.1%      80.00
+trabajador  IRPF (franjas sobre $84,800, menos 14% de deducciones $28,320)  84,800.00             518.40
+   empresa                                     aporte jubilatorio patronal  80,000.00    7.5%   6,000.00
+   empresa                                                 FONASA patronal  80,000.00      5%   4,000.00
+   empresa                          Fondo de Reconversión Laboral patronal  80,000.00    0.1%      80.00
+   empresa                         Fondo de Garantía de Créditos Laborales  80,000.00  0.025%      20.00
+                                                            sueldo líquido                     62,601.60
+                                               costo total para la empresa                     90,100.00
+                                               impuestos y aportes totales                     27,498.40
+                                                         % del costo total                         30.52
+
+python3 myrmidon.py tax compra 1500
+python3 myrmidon.py tax compra 1000 --tasa minima --neto
+python3 myrmidon.py tax importar 1200 --ncm 8471.30.12.00 --contribuyente
+python3 myrmidon.py tax importar 300 --envio
+python3 myrmidon.py tax alquiler 30000
+```
+
+BPC, UR and UI values come from `data/uy/taxes/valores_referencia.csv`; update it when BPS publishes new values.
+
+Not covered:
+
+- `sueldo` assumes a private-sector employee (Industria y Comercio); no Fondo de Solidaridad or non-BPS funds (Caja Bancaria, Profesional, Notarial, military and police).
+- `importar` leaves out IMESI, customs broker fees and the non-intrusive inspection fee (up to 85 UI). The consular fee rate comes from a secondary source.
+- `alquiler` taxes the gross rent, without deductible expenses.
+
 ### Adding a command
 
 Write a function in `myrmidon.py` and register it with `@command`:
@@ -138,7 +213,7 @@ def by_agency(args):
     ...
 ```
 
-The function name becomes the command name (`by-agency`) and appears in `--help` automatically.
+The function name becomes the command name (`by-agency`, underscores turn into dashes) and appears in `--help` automatically.
 
 ## Notes for harvesting
 

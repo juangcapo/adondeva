@@ -1,0 +1,5 @@
+departamento,condicion,base,desde,hasta,unidad_tramo,tasa_pct,monto,unidad_monto,vigencia,confianza,fuente,notas
+,inscripción de cada acto o contrato (trámite común),,,,,,3,UR,2026,guia_oficial,https://www.gub.uy/tramites/inscripcion-actos-negocios-juridicos-decisiones-autoridades-competentes-sujetas-ley-publicidad-registral,se paga con e-timbre
+,inscripción urgente (solo Registro Mobiliario),,,,,,3812,UYU,2026,guia_oficial,https://www.gub.uy/tramites/inscripcion-actos-negocios-juridicos-decisiones-autoridades-competentes-sujetas-ley-publicidad-registral,
+,certificado de información de inmuebles (común),,,,,,1.5,UR,2026,guia_oficial,https://www.gub.uy/tramites/certificados-informacion-inmuebles,"la página muestra $1.265, valor desactualizado de la UR"
+,certificado urgente / segunda ampliación / consulta directa,,,,,,"3.812 / 0,5 UR / 3.041",UYU salvo indicación,2026,guia_oficial,https://www.gub.uy/tramites/certificados-informacion-inmuebles,

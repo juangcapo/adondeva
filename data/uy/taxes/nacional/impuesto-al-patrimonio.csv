@@ -1,0 +1,13 @@
+departamento,condicion,base,desde,hasta,unidad_tramo,tasa_pct,monto,unidad_monto,vigencia,confianza,fuente,notas
+,personas jurídicas,activos en el país menos pasivos admitidos,,,,1.5,,,2026,guia_oficial,https://www.uruguayxxi.gub.uy/es/quiero-invertir/guias-inversor/sistema-tributario-2026/descarga/,
+,bancos y casas financieras,activos en el país menos pasivos admitidos,,,,2.8,,,2026,guia_oficial,https://www.uruguayxxi.gub.uy/es/quiero-invertir/guias-inversor/sistema-tributario-2026/descarga/,
+,entidades de países de baja o nula tributación,bienes en el país,,,,3,,,2026,guia_oficial,https://www.uruguayxxi.gub.uy/es/quiero-invertir/guias-inversor/sistema-tributario-2026/descarga/,
+,explotaciones agropecuarias hasta 12.000.000 UI,patrimonio agropecuario,,12000000,UI,0,,,2026,guia_oficial,https://www.uruguayxxi.gub.uy/es/quiero-invertir/guias-inversor/sistema-tributario-2026/descarga/,exoneración con condiciones
+,explotaciones agropecuarias de 12.000.000 a 30.000.000 UI,patrimonio agropecuario,12000000,30000000,UI,0.75,,,2026,guia_oficial,https://www.uruguayxxi.gub.uy/es/quiero-invertir/guias-inversor/sistema-tributario-2026/descarga/,
+,explotaciones agropecuarias de más de 30.000.000 UI,patrimonio agropecuario,30000000,,UI,1.5,,,2026,guia_oficial,https://www.uruguayxxi.gub.uy/es/quiero-invertir/guias-inversor/sistema-tributario-2026/descarga/,
+,personas físicas residentes,patrimonio que excede el mínimo no imponible,,,,0.1,,,2025,secundaria,https://cambio-uruguay.com/en/impuestos-inversiones-uruguay,"escala abatida hasta la tasa plana de 0,1%"
+,mínimo no imponible persona física 2025,,,,,,6653000,UYU,2025,oficial,https://www.impo.com.uy/bases/decretos/334-2025/2,núcleo familiar: 13.306.000
+,personas físicas no residentes (sin IRNR),patrimonio gravado,0,1,veces el mínimo no imponible,0.7,,,2025,secundaria,https://cambio-uruguay.com/en/impuestos-inversiones-uruguay,
+,personas físicas no residentes (sin IRNR),patrimonio gravado,1,2,veces el mínimo no imponible,1.1,,,2025,secundaria,https://cambio-uruguay.com/en/impuestos-inversiones-uruguay,
+,personas físicas no residentes (sin IRNR),patrimonio gravado,2,4,veces el mínimo no imponible,1.4,,,2025,secundaria,https://cambio-uruguay.com/en/impuestos-inversiones-uruguay,
+,personas físicas no residentes (sin IRNR),patrimonio gravado,4,,veces el mínimo no imponible,1.5,,,2025,secundaria,https://cambio-uruguay.com/en/impuestos-inversiones-uruguay,

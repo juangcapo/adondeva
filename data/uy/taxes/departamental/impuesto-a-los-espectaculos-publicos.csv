@@ -1,0 +1,36 @@
+departamento,condicion,base,desde,hasta,unidad_tramo,tasa_pct,monto,unidad_monto,vigencia,confianza,fuente,notas
+Montevideo,Montevideo: general y deporte profesional,precio de la entrada sin impuestos nacionales,,,,10,,,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/06/documentos.pdf,
+Montevideo,Montevideo: deporte no profesional,precio de la entrada sin impuestos nacionales,,,,5,,,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/06/documentos.pdf,
+Montevideo,Montevideo: competiciones hípicas,precio de la entrada sin impuestos nacionales,,,,5,,,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/06/documentos.pdf,
+Montevideo,Montevideo: aparatos mecánicos o eléctricos,precio de la entrada sin impuestos nacionales,,,,3,,,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/06/documentos.pdf,
+Montevideo,Montevideo: artistas internacionales fuera del MERCOSUR,precio de la entrada sin impuestos nacionales,,,,8,,,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/06/documentos.pdf,
+Montevideo,Montevideo: festivales sin 70% de artistas nacionales,precio de la entrada sin impuestos nacionales,,,,6,,,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/06/documentos.pdf,
+Montevideo,"Montevideo: artistas nacionales o residentes (70% o más), tramo 1",recaudación,0,150000,UI,0,,,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/06/documentos.pdf,
+Montevideo,"Montevideo: artistas nacionales o residentes (70% o más), tramo 2",recaudación,150000,500000,UI,2,,,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/06/documentos.pdf,
+Montevideo,"Montevideo: artistas nacionales o residentes (70% o más), tramo 3",recaudación,500000,1500000,UI,4,,,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/06/documentos.pdf,
+Montevideo,"Montevideo: artistas nacionales o residentes (70% o más), tramo 4",recaudación,1500000,,UI,6,,,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/06/documentos.pdf,
+Montevideo,"Montevideo: artistas residentes en el MERCOSUR, tramo 1",recaudación,0,100000,UI,0,,,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/06/documentos.pdf,
+Montevideo,"Montevideo: artistas residentes en el MERCOSUR, tramo 2",recaudación,100000,450000,UI,2,,,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/06/documentos.pdf,
+Montevideo,"Montevideo: artistas residentes en el MERCOSUR, tramo 3",recaudación,450000,1000000,UI,4,,,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/06/documentos.pdf,
+Montevideo,"Montevideo: artistas residentes en el MERCOSUR, tramo 4",recaudación,1000000,,UI,6,,,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/06/documentos.pdf,
+Montevideo,"Montevideo: bailes públicos más de dos veces al mes, capacidad hasta 50 personas",,,,,,0,UI mensuales,desde 2023,oficial,https://montevideo.gub.uy/sites/default/files/biblioteca/decretono38.262.pdf,
+Montevideo,"Montevideo: bailes públicos más de dos veces al mes, capacidad 51 a 150 personas",,,,,,268,UI mensuales,desde 2023,oficial,https://montevideo.gub.uy/sites/default/files/biblioteca/decretono38.262.pdf,
+Montevideo,"Montevideo: bailes públicos más de dos veces al mes, capacidad 151 a 300 personas",,,,,,589,UI mensuales,desde 2023,oficial,https://montevideo.gub.uy/sites/default/files/biblioteca/decretono38.262.pdf,
+Montevideo,"Montevideo: bailes públicos más de dos veces al mes, capacidad 301 a 450 personas",,,,,,1321,UI mensuales,desde 2023,oficial,https://montevideo.gub.uy/sites/default/files/biblioteca/decretono38.262.pdf,
+Montevideo,"Montevideo: bailes públicos más de dos veces al mes, capacidad 451 a 600 personas",,,,,,1463,UI mensuales,desde 2023,oficial,https://montevideo.gub.uy/sites/default/files/biblioteca/decretono38.262.pdf,
+Montevideo,"Montevideo: bailes públicos más de dos veces al mes, capacidad 601 a 1.000 personas",,,,,,1963,UI mensuales,desde 2023,oficial,https://montevideo.gub.uy/sites/default/files/biblioteca/decretono38.262.pdf,
+Montevideo,"Montevideo: bailes públicos más de dos veces al mes, capacidad 1.001 a 1.500 personas",,,,,,3034,UI mensuales,desde 2023,oficial,https://montevideo.gub.uy/sites/default/files/biblioteca/decretono38.262.pdf,
+Montevideo,"Montevideo: bailes públicos más de dos veces al mes, capacidad 1.501 a 2.000 personas",,,,,,3926,UI mensuales,desde 2023,oficial,https://montevideo.gub.uy/sites/default/files/biblioteca/decretono38.262.pdf,
+Montevideo,"Montevideo: bailes públicos más de dos veces al mes, capacidad 2.001 a 2.500 personas",,,,,,4640,UI mensuales,desde 2023,oficial,https://montevideo.gub.uy/sites/default/files/biblioteca/decretono38.262.pdf,
+Montevideo,"Montevideo: bailes públicos más de dos veces al mes, capacidad más de 2.500 personas",,,,,,5354,UI mensuales,desde 2023,oficial,https://montevideo.gub.uy/sites/default/files/biblioteca/decretono38.262.pdf,
+Maldonado,Maldonado: competencias hípicas de interés departamental todo el año,,,,,-50,,,2026-2030,oficial,https://digesto.maldonado.gub.uy/detalle-volumen/13,exoneración del impuesto a las apuestas mutuas
+Colonia,Colonia: espectáculos públicos,valor de la entrada,,,,5,,,desde 2012 (Dec. 013/2011),oficial,https://www.impo.com.uy/diariooficial/2011/08/29/documentos.pdf,sin entrada: 70% del precio de la bebida más barata
+Rivera,Rivera: espectáculos públicos,valor de las entradas,,,,10,,,desde 2011,oficial,https://www.impo.com.uy/diariooficial/2011/05/26/documentos.pdf,
+Rivera,Rivera: espectáculos con más de 1.000 entradas vendidas,valor de las entradas,,,,8,,,desde 2011,oficial,https://www.impo.com.uy/diariooficial/2011/05/26/documentos.pdf,
+Rocha,Rocha: espectáculos con venta de entradas,entradas vendidas,,,,10,,,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/04/10/documentos.pdf,
+Rocha,Rocha: espectáculos deportivos,entradas vendidas,,,,4,,,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/04/10/documentos.pdf,10% en instalaciones de la intendencia
+Rocha,Rocha: espectáculos sin entrada,concurrentes estimados,,,,,0.02,UR por concurrente,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/04/10/documentos.pdf,
+Río Negro,Río Negro: cada espectáculo con cobro de entradas,,,,,,1,UR por solicitud,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/03/documentos.pdf,salas de cine o teatro: opción de 3 UR mensuales fictas
+Artigas,Artigas: locales de bailes y similares (habilitación anual),personas habilitadas a concurrir,,,,,0.01,UR por persona al año,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/07/27/documentos.pdf,
+Paysandú,Paysandú: apuestas mutuas en competencias (salvo carreras de caballos),monto bruto apostado,,,,5,,,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/08/07/documentos.pdf,lo retiene el organizador
+Paysandú,Paysandú: rifas y sorteos: derecho de permiso,valor nominal de la emisión,,,,6.667,,,2026-2030,oficial,https://www.impo.com.uy/diariooficial/2026/08/07/documentos.pdf,más 10% de la diferencia entre premios y boletos vendidos

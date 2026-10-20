@@ -1,0 +1,3 @@
+departamento,condicion,base,desde,hasta,unidad_tramo,tasa_pct,monto,unidad_monto,vigencia,confianza,fuente,notas
+Durazno,Durazno: vehículos con más de 20 t de carga neta en caminería departamental,,,,,,1200,UYU de 2016 por vehículo,desde su reglamentación,oficial,https://www.impo.com.uy/diariooficial/2016/08/04/documentos.pdf,
+Lavalleja,"Lavalleja: transporte de productos rurales (madera, arroz, ganado, lana, piedra, leche) en cargas de 5 t o más",,,,,,0.05,UR por tonelada,desde 2006,oficial,https://www.impo.com.uy/diariooficial/2006/11/20/documentos.pdf,"exentos hasta 50 ha CONEAT 100; guía obligatoria, multa 30 UR"
