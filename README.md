@@ -242,6 +242,10 @@ Not covered:
 - `importar` leaves out IMESI, customs broker fees and the non-intrusive inspection fee (up to 85 UI). The consular fee rate comes from a secondary source.
 - `alquiler` taxes the gross rent, without deductible expenses.
 
+### Website
+
+`web/` has a website (FastAPI + React, in Spanish) over the same data: spending charts and drill-down, the tax calculator, inflation and sources. See [web/README.md](web/README.md) for how to run it.
+
 ### Adding a command
 
 Write a function in `adondeva.py` and register it with `@command`:
