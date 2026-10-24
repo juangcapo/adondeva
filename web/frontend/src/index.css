@@ -14,6 +14,9 @@
   --series-1: #2a78d6;
   --series-2: #eb6834;
   --series-3: #1baf7a;
+  --series-4: #eda100;
+  --series-5: #e87ba4;
+  --other: #a3a19a;
   --critical: #d03b3b;
   --radius: 10px;
   font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
@@ -39,6 +42,9 @@
     --series-1: #3987e5;
     --series-2: #d95926;
     --series-3: #199e70;
+    --series-4: #c98500;
+    --series-5: #d55181;
+    --other: #6b6a64;
   }
 }
 
@@ -130,11 +136,19 @@ details summary { cursor: pointer; color: var(--ink-2); font-size: 0.875rem; mar
 }
 .bar-row:hover:not(:disabled) { background: var(--surface-2); }
 .bar-row:disabled { cursor: default; }
-.bar-name { overflow-wrap: anywhere; }
+.bar-name { overflow-wrap: anywhere; display: flex; align-items: baseline; gap: 8px; }
+.bar-name .swatch { flex: none; }
 .bar-value { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .bar-track { grid-column: 1 / -1; height: 10px; }
-.bar-fill { height: 100%; background: var(--series-1); border-radius: 0 4px 4px 0; min-width: 2px; }
+.bar-fill { height: 100%; border-radius: 0 4px 4px 0; min-width: 2px; }
 .bar-meta { grid-column: 1 / -1; font-size: 0.8rem; color: var(--muted); }
+
+/* breakdown pie */
+.torta { display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: 16px 24px; align-items: center; margin-bottom: 20px; }
+.torta-legend { list-style: none; margin: 0; padding: 0; font-size: 0.9rem; max-width: 460px; }
+.torta-legend li { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 8px; align-items: baseline; padding: 4px 0; }
+.torta-legend .pct { font-variant-numeric: tabular-nums; font-weight: 600; }
+@media (max-width: 600px) { .torta { grid-template-columns: 1fr; } .torta > :first-child { max-width: 240px; margin: 0 auto; width: 100%; } }
 
 /* tax split bar */
 .split { display: flex; gap: 2px; height: 28px; margin: 8px 0; }

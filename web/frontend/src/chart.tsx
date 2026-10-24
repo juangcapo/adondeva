@@ -1,6 +1,6 @@
 import { useEffect, useState, type ReactNode } from 'react'
 
-const TOKENS = ['series-1', 'series-2', 'series-3', 'grid', 'axis', 'muted', 'surface'] as const
+const TOKENS = ['series-1', 'series-2', 'series-3', 'series-4', 'series-5', 'other', 'grid', 'axis', 'muted', 'surface'] as const
 type Colors = Record<(typeof TOKENS)[number], string>
 
 function readColors(): Colors {

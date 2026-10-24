@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
-import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
+import { CartesianGrid, Cell, Line, LineChart, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
 import { apiUrl, useApi, type Breakdown, type Spending } from '../api.ts'
 import { axisProps, Tip, useColors } from '../chart.tsx'
 import { axisBillions, fmt, pct, pesos, signedPct } from '../format.ts'
@@ -146,6 +146,9 @@ function Serie({ terceros }: { terceros: boolean }) {
 }
 
 const SHOWN = 25
+// A pie reads at a glance only with few slices: the largest five, then everything else as "Otros".
+const SLICES = 5
+const SLICE_COLORS = ['series-1', 'series-2', 'series-3', 'series-4', 'series-5'] as const
 
 function Desglose({ terceros }: { terceros: boolean }) {
   const [params, setParams] = useSearchParams()
@@ -197,7 +200,9 @@ function Desglose({ terceros }: { terceros: boolean }) {
 function DesgloseLista({ data, todos, onTodos, onPick }: {
   data: Breakdown; todos: boolean; onTodos: () => void; onPick: (i: number) => void
 }) {
+  const colors = useColors()
   const deepest = data.nivel === data.niveles.length - 1
+  const color = (i: number) => (i < SLICES ? colors[SLICE_COLORS[i]] : colors.other)
   const max = Math.max(...data.items.map((i) => i.gasto), 1)
   const items = todos ? data.items : data.items.slice(0, SHOWN)
   const ejecutado = (b: number, s: number) => (b ? pct((s / b) * 100, 0) : '—')
@@ -214,15 +219,16 @@ function DesgloseLista({ data, todos, onTodos, onPick }: {
         <div className="stat"><div className="label">Crédito final</div><div className="value">{pesos(data.total.credito)}</div></div>
         <div className="stat"><div className="label">Ejecutado</div><div className="value">{ejecutado(data.total.credito, data.total.gasto)}</div></div>
       </div>
+      <Torta data={data} color={color} onPick={deepest ? undefined : onPick} />
       <h3>Por {NIVELES[data.nivel]} <span className="muted">(nivel {data.nivel + 1} de {data.niveles.length})</span></h3>
       <ol className="bars">
         {items.map((it, i) => (
           <li key={it.nombre}>
             <button className="bar-row" disabled={deepest} onClick={() => onPick(i)}
               title={deepest ? undefined : `Ver por ${NIVELES[data.nivel + 1]}`}>
-              <span className="bar-name">{it.nombre}</span>
+              <span className="bar-name"><span className="swatch" style={{ background: color(i) }} />{it.nombre}</span>
               <span className="bar-value">{pesos(it.gasto)}</span>
-              <span className="bar-track"><span className="bar-fill" style={{ display: 'block', width: `${(it.gasto / max) * 100}%` }} /></span>
+              <span className="bar-track"><span className="bar-fill" style={{ display: 'block', width: `${(it.gasto / max) * 100}%`, background: color(i) }} /></span>
               <span className="bar-meta">
                 {pct(data.total.gasto ? (it.gasto / data.total.gasto) * 100 : null)} del total ·
                 crédito {pesos(it.credito)} · ejecutado {ejecutado(it.credito, it.gasto)}
@@ -239,5 +245,51 @@ function DesgloseLista({ data, todos, onTodos, onPick }: {
         «Gastado» es el gasto comprometido (ejecutado u obligado), no lo efectivamente pagado.
       </p>
     </>
+  )
+}
+
+/** Share of the level's spending: the largest SLICES items plus "Otros". Clicking a named slice drills in. */
+function Torta({ data, color, onPick }: { data: Breakdown; color: (i: number) => string; onPick?: (i: number) => void }) {
+  const colors = useColors()
+  const total = data.total.gasto
+  const spent = data.items.filter((it) => it.gasto > 0)
+  if (spent.length < 2 || total <= 0) return null
+  const named = spent.length <= SLICES + 1 ? spent : spent.slice(0, SLICES)
+  const rest = spent.slice(named.length).reduce((s, it) => s + it.gasto, 0)
+  const slices = [
+    ...named.map((it, i) => ({ nombre: it.nombre, gasto: it.gasto, color: color(i), index: i as number | null })),
+    ...(rest > 0 ? [{ nombre: `Otros (${spent.length - named.length})`, gasto: rest, color: colors.other, index: null }] : []),
+  ]
+  const share = (x: number) => pct((x / total) * 100)
+  const pick = (index: number | null) => onPick && index != null && onPick(index)
+
+  return (
+    <div className="torta">
+      <div style={{ height: 240 }}>
+        <ResponsiveContainer>
+          <PieChart>
+            <Pie data={slices} dataKey="gasto" nameKey="nombre" innerRadius="58%" outerRadius="100%"
+              startAngle={90} endAngle={-270} stroke={colors.surface} strokeWidth={2} isAnimationActive={false}
+              onClick={(_, i) => pick(slices[i].index)} style={{ cursor: onPick ? 'pointer' : undefined }}>
+              {slices.map((s) => <Cell key={s.nombre} fill={s.color} />)}
+            </Pie>
+            <Tooltip content={({ active, payload }) => {
+              const s = active && (payload?.[0]?.payload as (typeof slices)[number] | undefined)
+              if (!s) return null
+              return <Tip title={s.nombre} rows={[{ color: s.color, label: 'del total', value: share(s.gasto) }, { label: 'gastado', value: pesos(s.gasto) }]} />
+            }} />
+          </PieChart>
+        </ResponsiveContainer>
+      </div>
+      <ul className="torta-legend">
+        {slices.map((s) => (
+          <li key={s.nombre}>
+            <span className="swatch" style={{ background: s.color }} />
+            <span>{s.nombre}</span>
+            <span className="pct">{share(s.gasto)}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
   )
 }
