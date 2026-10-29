@@ -32,8 +32,12 @@ jobs:
 
       # Fails the run (and GitHub emails you) when a source can't be read or a build script breaks:
       # usually a page or file layout changed.
+      # The summary also lists files a source page offers that we skip; it shows on the run's page
+      # even when nothing changed and no PR is opened.
       - name: Check sources
-        run: python3 update.py --summary "$RUNNER_TEMP/summary.md"
+        run: |
+          python3 update.py --summary "$RUNNER_TEMP/summary.md"
+          cat "$RUNNER_TEMP/summary.md" >> "$GITHUB_STEP_SUMMARY"
 
       - name: Anything changed?
         id: diff

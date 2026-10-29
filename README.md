@@ -297,7 +297,7 @@ python3 update.py dgi          # one source: dgi, ine or mef
 | `ine` | The CPI workbooks; rebuilds `data/uy/inflation/ine-ipc/` |
 | `mef` | The Rendición de Cuentas files of the years we have, and next year's once MEF publishes them (usually by 30 June) |
 
-gub.uy file URLs change with each upload, so each file is found by its link on the source's page. A file counts as changed when its bytes differ from the local copy. OPP files, the 1961–2010 history and the compiled tax and tariff datasets are not checked.
+gub.uy file URLs change with each upload, so each file is found by its link on the source's page. A file counts as changed when its bytes differ from the local copy. **Only files already in the repo are downloaded** (for MEF, matched by name with the year masked, so next year's equivalents come too). A new file on a source page is listed as skipped and never fetched: MEF also publishes files with personal data, such as `Adscriptos.xlsx` (names, ages and salaries of seconded staff), and anything the updater downloads is pushed to GitHub before review. Check a new file by hand before adding it. OPP files, the 1961–2010 history and the compiled tax and tariff datasets are not checked.
 
 A GitHub Actions workflow (`.github/workflows/update-data.yml`) runs it every Monday. If anything changed, it runs the tests and opens or refreshes a pull request from the `data-update` branch, listing each changed file, its `Last-Modified` date and the coverage before and after. If a source can't be read or a build script fails (usually a page or file layout changed), the run fails and GitHub emails you. Enable *Settings → Actions → General → Allow GitHub Actions to create and approve pull requests* for it to open PRs.
 

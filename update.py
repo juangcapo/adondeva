@@ -10,6 +10,10 @@ Usage:
 Sources: dgi (tax revenue), ine (CPI), mef (Rendición de Cuentas: the years we have, and the next one
 once MEF publishes it, usually by 30 June). OPP retired its open-data portal, so 2011–2024 are final.
 
+Only files we already keep are downloaded. A new file on a source page is listed as skipped and never
+fetched: MEF publishes some files with personal data (Adscriptos.xlsx lists names and salaries), and
+whatever the updater downloads ends up on a branch pushed to GitHub. Add a file by hand after checking it.
+
 Each file is found by its link on the source's page, because gub.uy file URLs change with each upload.
 A file counts as changed when its bytes differ from the local copy. Standard library only.
 Exit status 1 if a source could not be checked or a rebuild failed.
@@ -86,7 +90,8 @@ def page_exists(url):
 
 
 # ---------------------------------------------------------------- sources
-# Each source returns {local path: url} for the files it wants, plus how to rebuild and describe it.
+# Each source's `files` returns ({local path: url} to download, [names on the page it skips]),
+# plus how to rebuild and describe it.
 
 DGI_DIR = UY / "dgi" / "recaudacion"
 DGI_PAGE = "https://www.gub.uy/direccion-general-impositiva/datos-y-estadisticas/estadisticas/recaudacion-anual-mensual-impuesto"
@@ -99,7 +104,7 @@ def dgi_files():
         m = re.match(rf"Descargar: {re.escape(DGI_TITLE)} \(\.(csv|xlsx)\b", label)
         if m:
             files[DGI_DIR / "raw" / f"{DGI_TITLE}.{m.group(1)}"] = url
-    return files
+    return files, []
 
 
 def dgi_coverage():
@@ -114,7 +119,7 @@ INE_FILES = ["IPC gral y variaciones_base 2022.xlsx", "IPC General_Total Pais_Mo
 
 
 def ine_files():
-    return {INE_DIR / "raw" / name: url for name, url in page_links(INE_PAGE) if name in INE_FILES}
+    return {INE_DIR / "raw" / name: url for name, url in page_links(INE_PAGE) if name in INE_FILES}, []
 
 
 def ine_coverage():
@@ -127,17 +132,27 @@ MEF_PAGE = ("https://www.gub.uy/ministerio-economia-finanzas/comunicacion/public
             "rendicion-cuentas-balance-ejecucion-presupuestal-ejercicio-{year}-datos")
 
 
+def mef_kind(name):
+    """A file name with its year masked, so "Metadata RC2025.ods" matches next year's "Metadata RC2026.ods"."""
+    return re.sub(r"(19|20)\d\d", "AAAA", name)
+
+
 def mef_files():
     have = sorted(int(p.name) for p in MEF_DIR.iterdir() if p.name.isdigit())
-    files = {}
+    keep = {mef_kind(p.name) for p in (MEF_DIR / str(have[-1])).iterdir()}
+    files, skipped = {}, []
     for year in [*have, have[-1] + 1]:
         page = MEF_PAGE.format(year=year)
         if year not in have and not page_exists(page):
             continue
         for label, url in page_links(page):
-            if label.startswith("Descargar:"):
+            if not label.startswith("Descargar:"):
+                continue
+            if mef_kind(file_name(url)) in keep:
                 files[MEF_DIR / str(year) / file_name(url)] = url
-    return files
+            else:
+                skipped.append(f"{year}/{file_name(url)}")
+    return files, skipped
 
 
 def mef_coverage():
@@ -164,7 +179,7 @@ def update(key, dry_run):
     """Markdown lines describing what changed in one source; raises if it could not be checked."""
     src = SOURCES[key]
     before = src["coverage"]()
-    wanted = src["files"]()
+    wanted, skipped = src["files"]()
     if not wanted:
         raise RuntimeError(f"no files found on {src['page']} (did the page change?)")
     changed = []
@@ -178,13 +193,14 @@ def update(key, dry_run):
         if not dry_run:
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_bytes(data)
+    notes = [f"- Skipped `{name}`: not a file we keep. Check it by hand before adding it." for name in skipped]
     if not changed:
-        return []
+        return [f"### {src['name']}", "", *notes, ""] if notes else []
     if src["build"] and not dry_run:
         subprocess.run([sys.executable, src["build"].name], cwd=src["build"].parent, check=True, stdout=sys.stderr)
     after = src["coverage"]()
     head = f"### {src['name']}\n\nCoverage: {before}" + (f" → **{after}**" if after != before else " (unchanged)")
-    return [head, "", *changed, ""]
+    return [head, "", *changed, *notes, ""]
 
 
 def main():
