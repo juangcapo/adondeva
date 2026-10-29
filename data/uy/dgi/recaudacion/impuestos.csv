@@ -1,0 +1,39 @@
+sigla,nombre,grupo,desde,hasta,nota
+IRAE,IRAE (rentas de las empresas),renta,2007,2025,
+IMEBA,IMEBA (venta de bienes agropecuarios),consumo,1990,2025,
+IRPF-I,IRPF categoría I (capital),renta,2007,2025,
+IRPF-II,IRPF categoría II (trabajo),renta,2007,2025,
+IRNR,IRNR (no residentes),renta,2007,2025,
+IASS,IASS (jubilaciones y pensiones),renta,2008,2025,
+ISAFI,ISAFI (sociedades financieras de inversión),propiedad,1982,2023,
+IP-PJ,"Patrimonio, personas jurídicas",propiedad,1990,2025,
+IP-AGRO,"Patrimonio, explotaciones agropecuarias",propiedad,1996,2025,
+IP-SOBRETASA,Sobretasa del Impuesto al Patrimonio,propiedad,2013,2025,
+ICOSA,ICOSA (control de sociedades anónimas),propiedad,1990,2025,
+IP-PF,"Patrimonio, personas físicas",propiedad,1990,2025,
+ITP,ITP (transmisiones patrimoniales),propiedad,2000,2025,
+ITP-AD,ITP adicional,propiedad,2006,2007,
+IVA,IVA (valor agregado),consumo,1982,2025,"A partir de 2008 incluye la recaudación por ""IVA Mínimo"" de contribuyentes comprendidos en el lit.E art.52 T.4 T.O. 1996 (Pequeñas empresas)"
+IVA-MIN,IVA mínimo (pequeña empresa),consumo,1991,2025,Hasta julio 2007: IRIC lit. E art.33 T.4 T.O. 1996. Desde julio 2007: IVA Mínimo de contribuyentes comprendidos en el lit. E art. 52 T.4 T.O. 1996.
+IMESI,IMESI (específico interno),consumo,1982,2025,En 1982 la suma de los rubros del IMESI no coincide con el total del impuesto debido a que en ese año varios de los mismos estaban agrupados y no se dispone actualmente de la información desagregada.
+IMEBA-MEVIR,IMEBA adicional MEVIR,consumo,1990,2025,
+IMEBA-INIA,IMEBA adicional INIA,consumo,1990,2025,
+SEGUROS,Ingresos de las compañías de seguros,renta,1990,2025,
+FIS,FIS (Fondo de Inspección Sanitaria),consumo,1990,2025,
+IRIC,IRIC (rentas de industria y comercio),renta,1982,2019,"Derogado por el Art. 1 de la 18.083 del 27-12-2006. Esta estadística recoge la información sobre recaudación con un criterio de caja, por lo que pueden existir valores para fechas posteriores a su derogación, originados en el cobro de obligaciones tributarias generadas durante la vigencia del impuesto y que son canceladas en la fecha registrada en esta serie."
+COFIS,COFIS (financiamiento de la seguridad social),consumo,2001,2011,"Derogado por el Art. 1 de la 18.083 del 27-12-2006. Esta estadística recoge la información sobre recaudación con un criterio de caja, por lo que pueden existir valores para fechas posteriores a su derogación, originados en el cobro de obligaciones tributarias generadas durante la vigencia del impuesto y que son canceladas en la fecha registrada en esta serie."
+IMESSA,IMESSA (servicios de salud),consumo,2001,2017,"Derogado por el Art. 1 de la 18.083 del 27-12-2006. Esta estadística recoge la información sobre recaudación con un criterio de caja, por lo que pueden existir valores para fechas posteriores a su derogación, originados en el cobro de obligaciones tributarias generadas durante la vigencia del impuesto y que son canceladas en la fecha registrada en esta serie."
+COMISIONES,Comisiones,consumo,1991,2017,"Derogado por el Art. 1 de la 18.083 del 27-12-2006. Esta estadística recoge la información sobre recaudación con un criterio de caja, por lo que pueden existir valores para fechas posteriores a su derogación, originados en el cobro de obligaciones tributarias generadas durante la vigencia del impuesto y que son canceladas en la fecha registrada en esta serie."
+VENTAS-FORZADAS,Ventas forzadas,consumo,1994,2010,"Derogado por el Art. 1 de la 18.083 del 27-12-2006. Esta estadística recoge la información sobre recaudación con un criterio de caja, por lo que pueden existir valores para fechas posteriores a su derogación, originados en el cobro de obligaciones tributarias generadas durante la vigencia del impuesto y que son canceladas en la fecha registrada en esta serie."
+TARJETAS,Tarjetas de crédito,consumo,2002,2022,"Derogado por el Art. 1 de la 18.083 del 27-12-2006. Esta estadística recoge la información sobre recaudación con un criterio de caja, por lo que pueden existir valores para fechas posteriores a su derogación, originados en el cobro de obligaciones tributarias generadas durante la vigencia del impuesto y que son canceladas en la fecha registrada en esta serie."
+ITEL,ITEL (telecomunicaciones),consumo,2002,2017,"Derogado por el Art. 1 de la 18.083 del 27-12-2006. Esta estadística recoge la información sobre recaudación con un criterio de caja, por lo que pueden existir valores para fechas posteriores a su derogación, originados en el cobro de obligaciones tributarias generadas durante la vigencia del impuesto y que son canceladas en la fecha registrada en esta serie."
+SORTEOS,Ingresos de organizadores de sorteos,renta,2000,2013,"Derogado por el Art. 1 de la 18.083 del 27-12-2006. Esta estadística recoge la información sobre recaudación con un criterio de caja, por lo que pueden existir valores para fechas posteriores a su derogación, originados en el cobro de obligaciones tributarias generadas durante la vigencia del impuesto y que son canceladas en la fecha registrada en esta serie."
+ICOME,ICOME (compra de moneda extranjera),consumo,1995,2012,
+REMATES,Compraventa en remate público,consumo,1990,2011,"Derogado por el Art. 1 de la 18.083 del 27-12-2006. Esta estadística recoge la información sobre recaudación con un criterio de caja, por lo que pueden existir valores para fechas posteriores a su derogación, originados en el cobro de obligaciones tributarias generadas durante la vigencia del impuesto y que son canceladas en la fecha registrada en esta serie."
+DEPORTISTAS,Cesiones de derechos sobre deportistas,consumo,2001,2012,"Derogado por el Art. 1 de la 18.083 del 27-12-2006. Esta estadística recoge la información sobre recaudación con un criterio de caja, por lo que pueden existir valores para fechas posteriores a su derogación, originados en el cobro de obligaciones tributarias generadas durante la vigencia del impuesto y que son canceladas en la fecha registrada en esta serie."
+IMABA,IMABA (activos bancarios),propiedad,1990,2017,"Derogado por el Art. 1 de la 18.083 del 27-12-2006. Esta estadística recoge la información sobre recaudación con un criterio de caja, por lo que pueden existir valores para fechas posteriores a su derogación, originados en el cobro de obligaciones tributarias generadas durante la vigencia del impuesto y que son canceladas en la fecha registrada en esta serie."
+ICOSIFI,ICOSIFI (control del sistema financiero),otros,2001,2017,"Derogado por el Art. 1 de la 18.083 del 27-12-2006. Esta estadística recoge la información sobre recaudación con un criterio de caja, por lo que pueden existir valores para fechas posteriores a su derogación, originados en el cobro de obligaciones tributarias generadas durante la vigencia del impuesto y que son canceladas en la fecha registrada en esta serie."
+IRA,IRA (rentas agropecuarias),renta,1985,2017,"Derogado por el Art. 1 de la 18.083 del 27-12-2006. Esta estadística recoge la información sobre recaudación con un criterio de caja, por lo que pueden existir valores para fechas posteriores a su derogación, originados en el cobro de obligaciones tributarias generadas durante la vigencia del impuesto y que son canceladas en la fecha registrada en esta serie."
+IMAGRO,IMAGRO (actividades agropecuarias),renta,1982,2010,
+PRIMARIA,Impuesto de Primaria (inmuebles),propiedad,2015,2025,
+AJUSTES,Otros y ajustes,otros,1982,2025,Total de la DGI menos la suma de los impuestos que lista.

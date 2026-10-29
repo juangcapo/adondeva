@@ -27,6 +27,14 @@ export type Spending = {
   anios: { anio: number; fuente: string; nominal: number; real: number }[]
 }
 
+export type Revenue = {
+  base: number
+  grupos: string[]
+  impuestos: { sigla: string; nombre: string; grupo: string; desde: string; hasta: string }[]
+  /** factor turns that year's pesos into pesos of `base`; montos add up to total. */
+  anios: { anio: number; total: number; factor: number; montos: Record<string, number> }[]
+}
+
 export type Breakdown = {
   anio: number
   fuente: string

@@ -15,7 +15,7 @@ def get(url, **params):
 
 def test_sources_cover_every_dataset():
     data = get("/api/sources")
-    assert {d["id"] for d in data["datasets"] if d["cobertura"]} >= {"opp-historico", "opp", "mef", "ine-ipc"}
+    assert {d["id"] for d in data["datasets"] if d["cobertura"]} >= {"opp-historico", "opp", "mef", "ine-ipc", "dgi"}
     assert any(t["sigla"] == "IVA" for t in data["impuestos"])
 
 
@@ -23,6 +23,21 @@ def test_spending_real_equals_nominal_in_base_year():
     data = get("/api/spending", base=2020)
     row = next(r for r in data["anios"] if r["anio"] == 2020)
     assert row["real"] == pytest.approx(row["nominal"])
+
+
+def test_revenue_taxes_add_up_to_dgi_total():
+    data = get("/api/revenue")
+    grupos = {t["sigla"]: t["grupo"] for t in data["impuestos"]}
+    assert set(grupos.values()) <= set(data["grupos"])
+    for year in data["anios"]:
+        assert all(s in grupos for s in year["montos"])
+        assert sum(year["montos"].values()) == pytest.approx(year["total"])
+    last = data["anios"][-1]
+    assert last["anio"] == data["base"] and last["factor"] == pytest.approx(1)
+
+
+def test_revenue_unknown_base_is_400():
+    assert client.get("/api/revenue", params={"base": 1800}).status_code == 400
 
 
 def test_breakdown_drills_one_level_per_selection():

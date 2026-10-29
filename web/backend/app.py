@@ -41,6 +41,11 @@ def ipc():
     return ad.load_ipc()
 
 
+@lru_cache
+def revenue():
+    return ad.load_revenue()
+
+
 @lru_cache(maxsize=2)
 def spending_series(include_fondos_terceros):
     with DATA_LOCK:
@@ -96,6 +101,11 @@ DATASETS = [
      "url": "https://www.gub.uy/instituto-nacional-estadistica/datos-y-estadisticas/estadisticas/series-historicas-ipc-base-octubre-2022100",
      "detalle": "Índice mensual desde julio de 1937 y anual con promedio, diciembre e inflación medida de las dos formas.",
      "advertencias": ["El sitio www5.ine.gub.uy no envía su certificado intermedio."]},
+    {"id": "dgi", "nombre": "Recaudación por impuesto 1982–2025", "organismo": "DGI",
+     "url": "https://www.gub.uy/direccion-general-impositiva/datos-y-estadisticas/estadisticas/recaudacion-anual-mensual-impuesto",
+     "detalle": "Lo que recaudó la DGI cada año, impuesto por impuesto, en pesos corrientes (criterio de caja).",
+     "advertencias": ["Hasta 1989 la DGI detalla solo 5 o 6 impuestos: entre 9% y 16% del total queda en «Otros y ajustes».",
+                      "No incluye aportes a la seguridad social (BPS), aranceles de Aduanas ni tributos departamentales."]},
     {"id": "impuestos", "nombre": "Impuestos, tasas y contribuciones", "organismo": "Compilado por adondeva",
      "url": "https://github.com/juangcapo/adondeva/tree/main/data/uy/taxes",
      "detalle": "Cada impuesto, tasa y contribución de Uruguay con sus tasas, por nivel: nacional, organismos, aduana, seguridad social y departamental.",
@@ -114,6 +124,8 @@ def sources():
         by_source.setdefault(src, []).append(y)
     coverage = {src: {"desde": min(ys), "hasta": max(ys), "anios": len(ys)} for src, ys in by_source.items()}
     coverage["ine-ipc"] = {"desde": min(ipc()), "hasta": max(ipc()), "anios": len(ipc())}
+    years = revenue()[1]
+    coverage["dgi"] = {"desde": min(years), "hasta": max(years), "anios": len(years)}
     with open(ad.TAXES / "catalog.csv", encoding="utf-8") as f:
         catalog = list(csv.DictReader(f))
     return {"datasets": [d | {"cobertura": coverage.get(d["id"])} for d in DATASETS], "impuestos": catalog}
@@ -130,6 +142,22 @@ def spending(base: int | None = None, fondos_terceros: bool = False):
         {"anio": y, "fuente": series[y][1], "nominal": series[y][0],
          "real": series[y][0] * prices[base]["ipc_promedio"] / prices[y]["ipc_promedio"]}
         for y in usable]}
+
+
+@app.get("/api/revenue")
+def revenue_series(base: int | None = None):
+    """DGI collections per year and tax; `factor` turns a year's pesos into pesos of `base`."""
+    (taxes, amounts), prices = revenue(), ipc()
+    usable = sorted(y for y in amounts if y in prices)
+    base = base or usable[-1]
+    if base not in prices:
+        raise HTTPException(400, f"No hay IPC anual para {base}.")
+    return {"base": base, "grupos": ad.REVENUE_GROUPS,
+            "impuestos": [{k: t[k] for k in ("sigla", "nombre", "grupo", "desde", "hasta")} for t in taxes.values()],
+            "anios": [{"anio": y, "total": amounts[y]["TOTAL"],
+                       "factor": prices[base]["ipc_promedio"] / prices[y]["ipc_promedio"],
+                       "montos": {s: x for s, x in amounts[y].items() if s != "TOTAL"}}
+                      for y in usable]}
 
 
 @app.get("/api/breakdown")
