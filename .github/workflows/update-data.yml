@@ -1,0 +1,93 @@
+# Weekly: check the official sources (update.py), and if anything changed, run the tests and open
+# or refresh a pull request from the data-update branch. Run it by hand from the Actions tab too.
+#
+# Needs Settings → Actions → General → "Allow GitHub Actions to create and approve pull requests".
+name: Update data
+
+on:
+  schedule:
+    - cron: "17 9 * * 1" # Mondays 09:17 UTC (06:17 in Uruguay)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: update-data
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    env:
+      BRANCH: data-update
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: web/backend/requirements.txt
+
+      # Fails the run (and GitHub emails you) when a source can't be read or a build script breaks:
+      # usually a page or file layout changed.
+      # The summary also lists files a source page offers that we skip; it shows on the run's page
+      # even when nothing changed and no PR is opened.
+      - name: Check sources
+        run: |
+          python3 update.py --summary "$RUNNER_TEMP/summary.md"
+          cat "$RUNNER_TEMP/summary.md" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Anything changed?
+        id: diff
+        run: |
+          if [ -n "$(git status --porcelain -- data)" ]; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "No changes."
+          fi
+
+      - name: Tests
+        id: tests
+        if: steps.diff.outputs.changed == 'true'
+        continue-on-error: true
+        run: |
+          pip install -q -r web/backend/requirements.txt
+          set -o pipefail
+          python -m pytest -q web/backend 2>&1 | tee "$RUNNER_TEMP/tests.txt"
+
+      - name: Open or update the pull request
+        if: steps.diff.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TESTS: ${{ steps.tests.outcome }}
+          BASE: ${{ github.event.repository.default_branch }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -C "$BRANCH"
+          git add -A data
+          git commit -q -m "Update data from official sources"
+          git push -q -f origin "$BRANCH"
+
+          {
+            cat "$RUNNER_TEMP/summary.md"
+            echo
+            if [ "$TESTS" = success ]; then
+              echo "Tests pass."
+            else
+              echo "**Tests fail.** Check the data before merging:"
+              echo
+              echo '```'
+              tail -n 40 "$RUNNER_TEMP/tests.txt"
+              echo '```'
+            fi
+          } > "$RUNNER_TEMP/body.md"
+
+          if [ "$(gh pr view "$BRANCH" --json state -q .state 2>/dev/null)" = OPEN ]; then
+            gh pr edit "$BRANCH" --body-file "$RUNNER_TEMP/body.md"
+          else
+            gh pr create --head "$BRANCH" --base "$BASE" \
+              --title "Update data from official sources" --body-file "$RUNNER_TEMP/body.md"
+          fi

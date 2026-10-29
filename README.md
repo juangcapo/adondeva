@@ -2,7 +2,7 @@
 
 **adondeva** follows public money: where the state's money comes from and where it goes. It collects official records and turns them into data you can analyze.
 
-The first target is **Uruguay's public finances**: how much the national budget allocated and actually spent, by agency, program and year, and how that compares once inflation is taken out. The repo also covers **Uruguay's taxes and import tariffs**: every tax, fee and contribution with its rates, and the tariff for every product code.
+The first target is **Uruguay's public finances**: how much the national budget allocated and actually spent, by agency, program and year, and how that compares once inflation is taken out, and what each tax has collected every year since 1982. The repo also covers **Uruguay's taxes and import tariffs**: every tax, fee and contribution with its rates, and the tariff for every product code.
 
 ## Purpose
 
@@ -20,6 +20,7 @@ adondeva/
     │   ├── credito-presupuestal/        OPP budget detail, 2011–2024
     │   └── historico/                   OPP executed budget by agency, 1961–2010
     ├── mef/rendicion-cuentas/2025/      MEF Rendición de Cuentas 2025 open data
+    ├── dgi/recaudacion/                 DGI tax revenue by tax, 1982–2025
     ├── inflation/ine-ipc/               INE consumer price index (IPC), 1937–today
     ├── taxes/                           every tax, fee and contribution, with rates
     └── aranceles/                       import tariffs and the postal/courier regime
@@ -27,7 +28,7 @@ adondeva/
 
 ### `data/uy/opp/credito-presupuestal/` — national budget, 2011–2024
 
-Source: [Portal de Transparencia Presupuestaria (OPP)](https://transparenciapresupuestaria.opp.gub.uy/inicio/datos-abiertos).
+Source: [Portal de Transparencia Presupuestaria (OPP)](https://transparenciapresupuestaria.opp.gub.uy/inicio/datos-abiertos). OPP has since retired the portal (as of October 2026 its file URLs return 404), so these files are kept as downloaded and won't be refreshed.
 
 - One CSV per year: `credito_presupuestal_detalle_{year}.csv`. Each row is one combination of agency (*inciso*), executing unit, program, project, funding source and spending item.
 - Amounts: `apertura` (initial budget), `credito` (final budget), `ejecutado` (spent).
@@ -50,6 +51,15 @@ Source: [MEF – Rendición de Cuentas 2025, Datos Abiertos](https://www.gub.uy/
 - `Metadata RC2025.ods` describes every column. The other files cover revenue, science, donations, civil-service headcount and the Tomo I tables.
 - MEF only publishes open data for 2025. Earlier years are PDFs only, so 2011–2024 come from OPP.
 - MEF counts one funding source that OPP leaves out, **"Fondos de Terceros Declarados por Ley"** (9.7 bn in 2025, about 1% of spending). Drop it when comparing with OPP years.
+
+### `data/uy/dgi/recaudacion/` — tax revenue by tax, 1982–2025
+
+Source: [DGI – Recaudación anual y mensual por impuesto](https://www.gub.uy/direccion-general-impositiva/datos-y-estadisticas/estadisticas/recaudacion-anual-mensual-impuesto).
+
+- `recaudacion_anual.csv`: pesos corrientes collected per year and tax (`anio, sigla, monto`), plus DGI's `TOTAL` and an `AJUSTES` row so the taxes add up to it.
+- `impuestos.csv`: each tax's name, group (`renta`, `consumo`, `propiedad`, `otros`, following MEF's revenue classification), first year and last year with collections.
+- Before 1990 DGI details only 5 or 6 taxes, so 9–16% of those years is unassigned (`AJUSTES`).
+- Only taxes DGI collects: no BPS contributions, import duties or departmental taxes. `build_recaudacion.py` rebuilds both CSVs from `raw/`. See the folder's [README](data/uy/dgi/recaudacion/README.md).
 
 ### `data/uy/inflation/ine-ipc/` — consumer price index
 
@@ -91,25 +101,21 @@ python3 adondeva.py COMMAND --help
 | Command | What it does |
 |---|---|
 | `sources` | Which years each data source covers |
-| `inflation` | Yearly inflation from the INE index |
 | `spending` | Total national budget spending per year, nominal and adjusted for inflation |
+| `revenue` | DGI tax revenue per year: total and share by group of taxes, or one tax with `--tax` |
 | `breakdown` | Drill into one year's spending, one level per argument: area, agency, program, item… |
 | `tax` | Tax breakdown for an action (salary, purchase, import, rent) and an amount |
 
-`inflation` and `spending` both take:
+`spending` and `revenue` take:
 
 | Option | Meaning |
 |---|---|
 | `--since YEAR` / `--until YEAR` | Limit the range of years |
 | `--every N` | Only years divisible by N (e.g. `--every 5`) |
 | `--csv` | Print CSV instead of a table |
-
-`spending` also takes:
-
-| Option | Meaning |
-|---|---|
 | `--base YEAR` | Show real values in pesos of this year (default: latest year) |
-| `--include-fondos-terceros` | Keep MEF's "Fondos de Terceros" (makes 2025 not comparable with earlier years) |
+| `--include-fondos-terceros` | `spending` only: keep MEF's "Fondos de Terceros" (makes 2025 not comparable with earlier years) |
+| `--tax SIGLA` | `revenue` only: one tax (`IVA`, `IRPF-II`, `IRAE`…; see `data/uy/dgi/recaudacion/impuestos.csv`) |
 
 ### `sources`
 
@@ -120,14 +126,12 @@ $ python3 adondeva.py sources
              opp  2011  2024     14
              mef  2025  2025      1
 ine-ipc (annual)  1938  2025     88
+   dgi (revenue)  1982  2025     44
 ```
 
-### `inflation` and `spending`
+### `spending`
 
 ```bash
-# Inflation every five years since 1980
-python3 adondeva.py inflation --since 1980 --every 5
-
 # Spending every five years since 1980, in 2025 pesos
 python3 adondeva.py spending --since 1980 --every 5
 
@@ -150,6 +154,25 @@ For each year, `spending` picks the best source available: **MEF** first, then *
 ```
 real = nominal × IPC[base year] / IPC[year]
 ```
+
+### `revenue`
+
+```bash
+# DGI revenue every five years since 1990, in 2025 pesos, with the share of each group
+python3 adondeva.py revenue --since 1990 --every 5
+
+# IVA since 2015
+python3 adondeva.py revenue --tax IVA --since 2015
+```
+
+```
+year  nominal_bn  real_2025_bn  renta  consumo  propiedad  otros
+1990       1.427         203.3   8.2%    78.7%       9.5%   3.6%
+...
+2025     699.960         700.0  35.7%    58.1%       6.0%   0.2%
+```
+
+### Caching
 
 The first run takes about 15–20 seconds while it reads the large files. Results are cached in `.cache/` (not tracked by git) and refresh automatically when a file changes.
 
@@ -242,6 +265,10 @@ Not covered:
 - `importar` leaves out IMESI, customs broker fees and the non-intrusive inspection fee (up to 85 UI). The consular fee rate comes from a secondary source.
 - `alquiler` taxes the gross rent, without deductible expenses.
 
+### Website
+
+`web/` has a website (FastAPI + React, in Spanish) over the same data: spending charts and drill-down, tax revenue history, the tax calculator and sources. See [web/README.md](web/README.md) for how to run it.
+
 ### Adding a command
 
 Write a function in `adondeva.py` and register it with `@command`:
@@ -254,14 +281,34 @@ def by_agency(args):
 
 The function name becomes the command name (`by-agency`, underscores turn into dashes) and appears in `--help` automatically.
 
+## Keeping the data up to date
+
+`update.py` checks the official sources, downloads any file that changed and rebuilds the derived CSVs:
+
+```bash
+python3 update.py              # every source
+python3 update.py --dry-run    # only report what changed
+python3 update.py dgi          # one source: dgi, ine or mef
+```
+
+| Source | What it checks |
+|---|---|
+| `dgi` | The annual revenue series by tax; rebuilds `data/uy/dgi/recaudacion/` |
+| `ine` | The CPI workbooks; rebuilds `data/uy/inflation/ine-ipc/` |
+| `mef` | The Rendición de Cuentas files of the years we have, and next year's once MEF publishes them (usually by 30 June) |
+
+gub.uy file URLs change with each upload, so each file is found by its link on the source's page. A file counts as changed when its bytes differ from the local copy. **Only files already in the repo are downloaded** (for MEF, matched by name with the year masked, so next year's equivalents come too). A new file on a source page is listed as skipped and never fetched: MEF also publishes files with personal data, such as `Adscriptos.xlsx` (names, ages and salaries of seconded staff), and anything the updater downloads is pushed to GitHub before review. Check a new file by hand before adding it. OPP files, the 1961–2010 history and the compiled tax and tariff datasets are not checked.
+
+A GitHub Actions workflow (`.github/workflows/update-data.yml`) runs it every Monday. If anything changed, it runs the tests and opens or refreshes a pull request from the `data-update` branch, listing each changed file, its `Last-Modified` date and the coverage before and after. If a source can't be read or a build script fails (usually a page or file layout changed), the run fails and GitHub emails you. Enable *Settings → Actions → General → Allow GitHub Actions to create and approve pull requests* for it to open PRs.
+
 ## Notes for harvesting
 
 - **Some sites have incomplete certificate setups.** `www5.ine.gub.uy` and `www.bcu.gub.uy` don't send their intermediate certificate, so `curl` refuses to connect. Fetch the missing certificate from the address in the server certificate's AIA field, and pass it with `--cacert`. Never turn off verification.
 - **Files get replaced without notice.** OPP's 2021 file was replaced more than a year after it first appeared. Check `Last-Modified` and keep each version.
-- **The national data catalog is behind.** [catalogodatos.gub.uy](https://catalogodatos.gub.uy) only lists OPP files up to 2021. The newer years exist only on the OPP site.
+- **The national data catalog is behind.** [catalogodatos.gub.uy](https://catalogodatos.gub.uy) only lists OPP files up to 2021. The newer years were only on the OPP site, which is now gone.
 
 ## License
 
-- **Code** (`adondeva.py` and the `build_*.py` scripts): [MIT](LICENSE).
+- **Code** (`adondeva.py`, the `build_*.py` scripts and the website in `web/`): [MIT](LICENSE).
 - **Datasets compiled for this repo** (`data/uy/taxes/` and `data/uy/aranceles/`): [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Reuse them freely, crediting this repo.
 - **Official files** published by OPP, MEF and INE: the [Licencia de Datos Abiertos – Uruguay](https://www.gub.uy/agencia-gobierno-electronico-sociedad-informacion-conocimiento/sites/agencia-gobierno-electronico-sociedad-informacion-conocimiento/files/documentos/publicaciones/licencia_de_datos_abiertos_0.pdf). It requires you to credit the publishing agency (OPP, MEF, INE) and the dataset used.

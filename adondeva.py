@@ -4,8 +4,8 @@
 Usage:
   python3 adondeva.py --help
   python3 adondeva.py sources
-  python3 adondeva.py inflation --since 1980 --every 5
   python3 adondeva.py spending --since 1980 --every 5 --base 2025 [--csv]
+  python3 adondeva.py revenue --since 2000 [--tax IVA] [--base 2025] [--csv]
   python3 adondeva.py breakdown [--year 2024] ["servicios publicos" 1 salarios ...]
   python3 adondeva.py tax sueldo 80000 --hijos 1
   python3 adondeva.py tax compra 1500 [--tasa minima]
@@ -33,6 +33,7 @@ OPP_DETAIL = UY / "opp" / "credito-presupuestal"
 OPP_HIST = UY / "opp" / "historico" / "Ejecucion Presupuestal 1961-2010_PTO NACIONAL.csv"
 MEF_RC = UY / "mef" / "rendicion-cuentas"
 IPC_ANUAL = UY / "inflation" / "ine-ipc" / "ipc_anual.csv"
+DGI_RECAUDACION = UY / "dgi" / "recaudacion"
 TAXES = UY / "taxes"
 ARANCEL = UY / "aranceles" / "arancel.csv"
 ENVIOS = UY / "aranceles" / "regimen-envios" / "build_comparacion.py"
@@ -131,6 +132,23 @@ def load_ipc():
     return out
 
 
+def load_revenue():
+    """(taxes, amounts): {sigla: impuestos.csv row} and {year: {sigla: pesos}} from DGI's series.
+
+    amounts[year]["TOTAL"] is DGI's total; the other siglas, AJUSTES included, add up to it.
+    """
+    with open(DGI_RECAUDACION / "impuestos.csv", encoding="utf-8") as f:
+        taxes = {r["sigla"]: r for r in csv.DictReader(f)}
+    amounts = {}
+    with open(DGI_RECAUDACION / "recaudacion_anual.csv", encoding="utf-8") as f:
+        for r in csv.DictReader(f):
+            amounts.setdefault(int(r["anio"]), {})[r["sigla"]] = float(r["monto"])
+    return taxes, amounts
+
+
+REVENUE_GROUPS = ["renta", "consumo", "propiedad", "otros"]
+
+
 def spending_hist():
     """{year: pesos} executed, 1961–2010. Source values are thousands of current pesos."""
     with open(OPP_HIST, encoding="utf-8-sig") as f:
@@ -212,15 +230,9 @@ def sources(args):
         by_source.setdefault(src, []).append(y)
     rows = [[src, min(ys), max(ys), len(ys)] for src, ys in by_source.items()]
     rows.append(["ine-ipc (annual)", min(ipc), max(ipc), len(ipc)])
+    _, revenue = load_revenue()
+    rows.append(["dgi (revenue)", min(revenue), max(revenue), len(revenue)])
     emit(["source", "from", "to", "years"], rows, False)
-
-
-@command("yearly CPI inflation (INE, Total País)", *YEAR_FILTERS)
-def inflation(args):
-    ipc = load_ipc()
-    rows = [[y, pct(ipc[y]["inflacion_promedio_pct"]), pct(ipc[y]["inflacion_dic_dic_pct"])]
-            for y in filter_years(ipc, args)]
-    emit(["year", "avg_vs_avg", "dec_vs_dec"], rows, args.csv)
 
 
 @command("national budget spending, nominal and inflation-adjusted",
@@ -251,6 +263,43 @@ def spending(args):
     print(f"# billions of pesos; real = pesos of {base} (INE annual average CPI)", file=sys.stderr)
     emit(["year", "source", "nominal_bn", f"real_{base}_bn", "vs_prev_row", "per_year", "vs_first"],
          rows, args.csv)
+
+
+@command("DGI tax revenue per year, by group of taxes or for one tax",
+         *YEAR_FILTERS,
+         arg("--tax", metavar="SIGLA", help="one tax, e.g. IVA, IRPF-II, IRAE (see data/uy/dgi/recaudacion/impuestos.csv)"),
+         arg("--base", type=int, help="express real values in pesos of this year (default: latest)"))
+def revenue(args):
+    taxes, amounts = load_revenue()
+    ipc = load_ipc()
+    usable = [y for y in amounts if y in ipc]
+    base = args.base or max(usable)
+    if base not in ipc:
+        sys.exit(f"No annual CPI for base year {base}.")
+    real = lambda y, x: x * ipc[base]["ipc_promedio"] / ipc[y]["ipc_promedio"]
+    years = filter_years(usable, args)
+    if args.tax:
+        sigla = args.tax.upper()
+        if sigla not in taxes:
+            sys.exit(f"Unknown tax {args.tax!r}. Known: {', '.join(taxes)}")
+        rows = []
+        for y in years:
+            x = amounts[y].get(sigla, 0.0)
+            rows.append([y, f"{x / 1e9:.3f}", f"{real(y, x) / 1e9:.2f}", f"{x / amounts[y]['TOTAL'] * 100:.1f}%"])
+        print(f"# {taxes[sigla]['nombre']}; billions of pesos; real = pesos of {base}", file=sys.stderr)
+        emit(["year", "nominal_bn", f"real_{base}_bn", "share_of_dgi"], rows, args.csv)
+        return
+    rows = []
+    for y in years:
+        by_group = dict.fromkeys(REVENUE_GROUPS, 0.0)
+        for sigla, x in amounts[y].items():
+            if sigla != "TOTAL":
+                by_group[taxes[sigla]["grupo"]] += x
+        total = amounts[y]["TOTAL"]
+        rows.append([y, f"{total / 1e9:.3f}", f"{real(y, total) / 1e9:.1f}",
+                     *(f"{by_group[g] / total * 100:.1f}%" for g in REVENUE_GROUPS)])
+    print(f"# DGI collections; billions of pesos; real = pesos of {base}; shares of the DGI total", file=sys.stderr)
+    emit(["year", "nominal_bn", f"real_{base}_bn", *REVENUE_GROUPS], rows, args.csv)
 
 
 # ---------------------------------------------------------------- spending breakdown
