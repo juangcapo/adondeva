@@ -257,6 +257,6 @@ The function name becomes the command name (`by-agency`, underscores turn into d
 
 ## License
 
-- **Code** (`adondeva.py` and the `build_*.py` scripts): [MIT](LICENSE).
+- **Code** (`adondeva.py`, the `build_*.py` scripts and the website in `web/`): [MIT](LICENSE).
 - **Datasets compiled for this repo** (`data/uy/taxes/` and `data/uy/aranceles/`): [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Reuse them freely, crediting this repo.
 - **Official files** published by OPP, MEF and INE: the [Licencia de Datos Abiertos – Uruguay](https://www.gub.uy/agencia-gobierno-electronico-sociedad-informacion-conocimiento/sites/agencia-gobierno-electronico-sociedad-informacion-conocimiento/files/documentos/publicaciones/licencia_de_datos_abiertos_0.pdf). It requires you to credit the publishing agency (OPP, MEF, INE) and the dataset used.
