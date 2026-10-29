@@ -101,7 +101,7 @@ DATASETS = [
      "url": "https://www.gub.uy/instituto-nacional-estadistica/datos-y-estadisticas/estadisticas/series-historicas-ipc-base-octubre-2022100",
      "detalle": "Índice mensual desde julio de 1937 y anual con promedio, diciembre e inflación medida de las dos formas.",
      "advertencias": ["El sitio www5.ine.gub.uy no envía su certificado intermedio."]},
-    {"id": "dgi", "nombre": "Recaudación por impuesto 1982–2025", "organismo": "DGI",
+    {"id": "dgi", "nombre": "Recaudación por impuesto", "organismo": "DGI",
      "url": "https://www.gub.uy/direccion-general-impositiva/datos-y-estadisticas/estadisticas/recaudacion-anual-mensual-impuesto",
      "detalle": "Lo que recaudó la DGI cada año, impuesto por impuesto, en pesos corrientes (criterio de caja).",
      "advertencias": ["Hasta 1989 la DGI detalla solo 5 o 6 impuestos: entre 9% y 16% del total queda en «Otros y ajustes».",

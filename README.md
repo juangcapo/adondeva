@@ -28,7 +28,7 @@ adondeva/
 
 ### `data/uy/opp/credito-presupuestal/` — national budget, 2011–2024
 
-Source: [Portal de Transparencia Presupuestaria (OPP)](https://transparenciapresupuestaria.opp.gub.uy/inicio/datos-abiertos).
+Source: [Portal de Transparencia Presupuestaria (OPP)](https://transparenciapresupuestaria.opp.gub.uy/inicio/datos-abiertos). OPP has since retired the portal (as of October 2026 its file URLs return 404), so these files are kept as downloaded and won't be refreshed.
 
 - One CSV per year: `credito_presupuestal_detalle_{year}.csv`. Each row is one combination of agency (*inciso*), executing unit, program, project, funding source and spending item.
 - Amounts: `apertura` (initial budget), `credito` (final budget), `ejecutado` (spent).
@@ -281,11 +281,31 @@ def by_agency(args):
 
 The function name becomes the command name (`by-agency`, underscores turn into dashes) and appears in `--help` automatically.
 
+## Keeping the data up to date
+
+`update.py` checks the official sources, downloads any file that changed and rebuilds the derived CSVs:
+
+```bash
+python3 update.py              # every source
+python3 update.py --dry-run    # only report what changed
+python3 update.py dgi          # one source: dgi, ine or mef
+```
+
+| Source | What it checks |
+|---|---|
+| `dgi` | The annual revenue series by tax; rebuilds `data/uy/dgi/recaudacion/` |
+| `ine` | The CPI workbooks; rebuilds `data/uy/inflation/ine-ipc/` |
+| `mef` | The Rendición de Cuentas files of the years we have, and next year's once MEF publishes them (usually by 30 June) |
+
+gub.uy file URLs change with each upload, so each file is found by its link on the source's page. A file counts as changed when its bytes differ from the local copy. OPP files, the 1961–2010 history and the compiled tax and tariff datasets are not checked.
+
+A GitHub Actions workflow (`.github/workflows/update-data.yml`) runs it every Monday. If anything changed, it runs the tests and opens or refreshes a pull request from the `data-update` branch, listing each changed file, its `Last-Modified` date and the coverage before and after. If a source can't be read or a build script fails (usually a page or file layout changed), the run fails and GitHub emails you. Enable *Settings → Actions → General → Allow GitHub Actions to create and approve pull requests* for it to open PRs.
+
 ## Notes for harvesting
 
 - **Some sites have incomplete certificate setups.** `www5.ine.gub.uy` and `www.bcu.gub.uy` don't send their intermediate certificate, so `curl` refuses to connect. Fetch the missing certificate from the address in the server certificate's AIA field, and pass it with `--cacert`. Never turn off verification.
 - **Files get replaced without notice.** OPP's 2021 file was replaced more than a year after it first appeared. Check `Last-Modified` and keep each version.
-- **The national data catalog is behind.** [catalogodatos.gub.uy](https://catalogodatos.gub.uy) only lists OPP files up to 2021. The newer years exist only on the OPP site.
+- **The national data catalog is behind.** [catalogodatos.gub.uy](https://catalogodatos.gub.uy) only lists OPP files up to 2021. The newer years were only on the OPP site, which is now gone.
 
 ## License
 
