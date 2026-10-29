@@ -4,7 +4,6 @@
 Usage:
   python3 adondeva.py --help
   python3 adondeva.py sources
-  python3 adondeva.py inflation --since 1980 --every 5
   python3 adondeva.py spending --since 1980 --every 5 --base 2025 [--csv]
   python3 adondeva.py breakdown [--year 2024] ["servicios publicos" 1 salarios ...]
   python3 adondeva.py tax sueldo 80000 --hijos 1
@@ -213,14 +212,6 @@ def sources(args):
     rows = [[src, min(ys), max(ys), len(ys)] for src, ys in by_source.items()]
     rows.append(["ine-ipc (annual)", min(ipc), max(ipc), len(ipc)])
     emit(["source", "from", "to", "years"], rows, False)
-
-
-@command("yearly CPI inflation (INE, Total País)", *YEAR_FILTERS)
-def inflation(args):
-    ipc = load_ipc()
-    rows = [[y, pct(ipc[y]["inflacion_promedio_pct"]), pct(ipc[y]["inflacion_dic_dic_pct"])]
-            for y in filter_years(ipc, args)]
-    emit(["year", "avg_vs_avg", "dec_vs_dec"], rows, args.csv)
 
 
 @command("national budget spending, nominal and inflation-adjusted",

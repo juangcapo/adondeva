@@ -4,13 +4,11 @@ import { NavLink, Route, Routes } from 'react-router-dom'
 // Each page loads its own code; the chart library only downloads with the pages that draw charts.
 const Gasto = lazy(() => import('./pages/Gasto.tsx'))
 const Impuestos = lazy(() => import('./pages/Impuestos.tsx'))
-const Inflacion = lazy(() => import('./pages/Inflacion.tsx'))
 const Fuentes = lazy(() => import('./pages/Fuentes.tsx'))
 
 const PAGES = [
   { to: '/', label: 'Gasto' },
   { to: '/impuestos', label: 'Impuestos' },
-  { to: '/inflacion', label: 'Inflación' },
   { to: '/fuentes', label: 'Fuentes' },
 ]
 
@@ -30,7 +28,6 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Gasto />} />
             <Route path="/impuestos" element={<Impuestos />} />
-            <Route path="/inflacion" element={<Inflacion />} />
             <Route path="/fuentes" element={<Fuentes />} />
             <Route path="*" element={<p>Esta página no existe.</p>} />
           </Routes>

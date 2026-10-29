@@ -22,8 +22,6 @@ export type Impuesto = {
 
 export type Sources = { datasets: Dataset[]; impuestos: Impuesto[] }
 
-export type InflationYear = { anio: number; promedio: number | null; dic_dic: number | null }
-
 export type Spending = {
   base: number
   anios: { anio: number; fuente: string; nominal: number; real: number }[]

@@ -19,11 +19,6 @@ def test_sources_cover_every_dataset():
     assert any(t["sigla"] == "IVA" for t in data["impuestos"])
 
 
-def test_inflation_is_yearly():
-    years = [r["anio"] for r in get("/api/inflation")]
-    assert years == sorted(years) and years[0] <= 1940
-
-
 def test_spending_real_equals_nominal_in_base_year():
     data = get("/api/spending", base=2020)
     row = next(r for r in data["anios"] if r["anio"] == 2020)

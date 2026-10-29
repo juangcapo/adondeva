@@ -119,12 +119,6 @@ def sources():
     return {"datasets": [d | {"cobertura": coverage.get(d["id"])} for d in DATASETS], "impuestos": catalog}
 
 
-@app.get("/api/inflation")
-def inflation():
-    return [{"anio": y, "promedio": r["inflacion_promedio_pct"], "dic_dic": r["inflacion_dic_dic_pct"]}
-            for y, r in sorted(ipc().items())]
-
-
 @app.get("/api/spending")
 def spending(base: int | None = None, fondos_terceros: bool = False):
     series, prices = spending_series(fondos_terceros), ipc()

@@ -91,23 +91,17 @@ python3 adondeva.py COMMAND --help
 | Command | What it does |
 |---|---|
 | `sources` | Which years each data source covers |
-| `inflation` | Yearly inflation from the INE index |
 | `spending` | Total national budget spending per year, nominal and adjusted for inflation |
 | `breakdown` | Drill into one year's spending, one level per argument: area, agency, program, item… |
 | `tax` | Tax breakdown for an action (salary, purchase, import, rent) and an amount |
 
-`inflation` and `spending` both take:
+`spending` takes:
 
 | Option | Meaning |
 |---|---|
 | `--since YEAR` / `--until YEAR` | Limit the range of years |
 | `--every N` | Only years divisible by N (e.g. `--every 5`) |
 | `--csv` | Print CSV instead of a table |
-
-`spending` also takes:
-
-| Option | Meaning |
-|---|---|
 | `--base YEAR` | Show real values in pesos of this year (default: latest year) |
 | `--include-fondos-terceros` | Keep MEF's "Fondos de Terceros" (makes 2025 not comparable with earlier years) |
 
@@ -122,12 +116,9 @@ $ python3 adondeva.py sources
 ine-ipc (annual)  1938  2025     88
 ```
 
-### `inflation` and `spending`
+### `spending`
 
 ```bash
-# Inflation every five years since 1980
-python3 adondeva.py inflation --since 1980 --every 5
-
 # Spending every five years since 1980, in 2025 pesos
 python3 adondeva.py spending --since 1980 --every 5
 
@@ -244,7 +235,7 @@ Not covered:
 
 ### Website
 
-`web/` has a website (FastAPI + React, in Spanish) over the same data: spending charts and drill-down, the tax calculator, inflation and sources. See [web/README.md](web/README.md) for how to run it.
+`web/` has a website (FastAPI + React, in Spanish) over the same data: spending charts and drill-down, the tax calculator and sources. See [web/README.md](web/README.md) for how to run it.
 
 ### Adding a command
 

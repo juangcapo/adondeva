@@ -1,6 +1,6 @@
 # adondeva web
 
-The same data as `adondeva.py`, as a website in Spanish: spending by year and drill-down, tax calculator, inflation and data sources.
+The same data as `adondeva.py`, as a website in Spanish: spending by year and drill-down, tax calculator and data sources.
 
 - `backend/`: FastAPI. It imports `adondeva.py` and serves the API under `/api` (docs at `/api/docs`) and the built frontend.
 - `frontend/`: React + TypeScript (Vite), charts with Recharts.
@@ -42,7 +42,6 @@ The server reads the large budget files in the background at startup (about 15 s
 | Endpoint | Returns |
 |---|---|
 | `GET /api/sources` | datasets with coverage and caveats, and the tax catalog |
-| `GET /api/inflation` | yearly inflation, average and December to December |
 | `GET /api/spending?base=2025&fondos_terceros=false` | spending per year, nominal and in pesos of `base` |
 | `GET /api/breakdown?year=2024&path=…&path=…` | one level of the drill-down; each `path` selects a value of the previous level |
 | `GET /api/tax/{sueldo,compra,importar,alquiler}?monto=…` | tax breakdown; same options as `adondeva.py tax` |
