@@ -200,9 +200,11 @@ def tax(accion: Literal["sueldo", "compra", "importar", "alquiler"], monto: floa
 
 
 @app.get("/api/ncm")
-def ncm(q: str = Query(min_length=2), limit: int = Query(20, le=100)):
+def ncm(q: str = Query(min_length=2), limit: int = Query(20, ge=1, le=100)):
     """Tariff lines whose code starts with `q` or whose description contains it."""
-    want, digits = ad.fold(q), q.replace(".", "")
+    want, digits = ad.fold(q), q.strip().replace(".", "")
+    if len(want) < 2:
+        raise HTTPException(400, "Escribí al menos 2 caracteres.")
     hits = [r for r in arancel()
             if (digits.isdigit() and r["ncm"].replace(".", "").startswith(digits)) or want in ad.fold(r["descripcion"])]
     return hits[:limit]

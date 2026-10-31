@@ -98,5 +98,6 @@ export function useApi<T>(url: string | null) {
     return () => ctrl.abort()
   }, [url])
 
-  return { data, error, loading }
+  // A request aborted because url turned null never clears `loading`; there is nothing to load then.
+  return { data, error, loading: url !== null && loading }
 }

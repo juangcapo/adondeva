@@ -163,6 +163,7 @@ function Desglose({ terceros }: { terceros: boolean }) {
     p.delete('n')
     next.camino.forEach((n) => p.append('n', n))
     if (next.anio) p.set('anio', String(next.anio))
+    else p.delete('anio')
     setParams(p)
     setTodos(false)
   }
@@ -186,7 +187,7 @@ function Desglose({ terceros }: { terceros: boolean }) {
       </div>
       {error && (
         <p className="error">
-          {error} <button onClick={() => go({ anio, camino: [] })}>Volver al inicio</button>
+          {error} <button onClick={() => go({ anio: anio && data?.anios.includes(anio) ? anio : undefined, camino: [] })}>Volver al inicio</button>
         </p>
       )}
       {data && <DesgloseLista data={data} todos={todos} onTodos={() => setTodos(true)}

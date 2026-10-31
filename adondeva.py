@@ -576,6 +576,7 @@ def tax_importar(amount, args):
         return rows, [("mejor opción: impuesto", best), ("costo total", amount + best), ("% sobre el valor", best / amount * 100)], \
             "USD por envío; cada fila es una opción alternativa (régimen 2026, Decreto 50/026)"
 
+    row = None
     if args.arancel is not None:
         tga, label = args.arancel, "arancel indicado"
     elif args.ncm:
@@ -603,8 +604,7 @@ def tax_importar(amount, args):
         ("importador", f"IVA importación ({args.tasa})", amount + duty, t_iva, (amount + duty) * t_iva / 100),
     ]
     if args.contribuyente:
-        with open(ARANCEL, encoding="utf-8") as f:
-            irae = next((float(r["anticipo_irae_pct"]) for r in csv.DictReader(f) if r["ncm"] == args.ncm and r["anticipo_irae_pct"]), 4.0)
+        irae = float(row["anticipo_irae_pct"]) if row and row["anticipo_irae_pct"] else 4.0
         rows.append(("importador", "anticipo de IRAE (se descuenta del IRAE)", amount, irae, amount * irae / 100))
     tax = sum(r[4] for r in rows)
     return rows, [("total tributos", tax), ("costo puesto en plaza", amount + tax), ("% sobre CIF", tax / amount * 100)], \
@@ -640,6 +640,8 @@ TAX_ACTIONS = {"sueldo": tax_sueldo, "compra": tax_compra, "importar": tax_impor
          arg("--cupo", type=float, default=800, help="importar --envio: cupo de franquicia que queda en el año (USD)"),
          arg("--csv", action="store_true", help="print CSV instead of a table"))
 def tax(args):
+    if args.monto <= 0:
+        sys.exit("el monto tiene que ser mayor que 0")
     rows, totals, unit = TAX_ACTIONS[args.accion](args.monto, args)
     print(f"# {args.accion} {args.monto:,.2f} — {unit}", file=sys.stderr)
     fmt = (lambda x: "" if x is None else f"{x:.2f}") if args.csv else (lambda x: "" if x is None else f"{x:,.2f}")

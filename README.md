@@ -311,4 +311,4 @@ A GitHub Actions workflow (`.github/workflows/update-data.yml`) runs it every Mo
 
 - **Code** (`adondeva.py`, the `build_*.py` scripts and the website in `web/`): [MIT](LICENSE).
 - **Datasets compiled for this repo** (`data/uy/taxes/` and `data/uy/aranceles/`): [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Reuse them freely, crediting this repo.
-- **Official files** published by OPP, MEF and INE: the [Licencia de Datos Abiertos – Uruguay](https://www.gub.uy/agencia-gobierno-electronico-sociedad-informacion-conocimiento/sites/agencia-gobierno-electronico-sociedad-informacion-conocimiento/files/documentos/publicaciones/licencia_de_datos_abiertos_0.pdf). It requires you to credit the publishing agency (OPP, MEF, INE) and the dataset used.
+- **Official files** published by OPP, MEF, INE and DGI: the [Licencia de Datos Abiertos – Uruguay](https://www.gub.uy/agencia-gobierno-electronico-sociedad-informacion-conocimiento/sites/agencia-gobierno-electronico-sociedad-informacion-conocimiento/files/documentos/publicaciones/licencia_de_datos_abiertos_0.pdf). It requires you to credit the publishing agency (OPP, MEF, INE, DGI) and the dataset used.
