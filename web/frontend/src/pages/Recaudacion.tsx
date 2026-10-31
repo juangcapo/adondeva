@@ -83,7 +83,7 @@ function Historia({ data, loading, onBase }: { data: Revenue; loading: boolean; 
   const first = years[0]
   const tenAgo = years.find((y) => y.anio === last.anio - 10)
   const real = (y: Year) => y.total * y.factor
-  const biggest = [...series].sort((a, b) => b.of(last) - a.of(last))[0]
+  const biggest = series.filter((s) => s.key !== 'resto').sort((a, b) => b.of(last) - a.of(last))[0]
 
   return (
     <section className={`card ${loading ? 'loading' : ''}`}>

@@ -1,2 +1,3 @@
 departamento,condicion,base,desde,hasta,unidad_tramo,tasa_pct,monto,unidad_monto,vigencia,confianza,fuente,notas
-,sin datos,,,,,,,,,sin_datos,,sin datos de tasa todavía
+,permiso de importación (servicio permanente y extraordinario),,,,,,escala,por permiso,2026,guia_oficial,https://www.aduanas.gub.uy/innovaportal/v/2772/8/innova.front/tasa-por-servicios-extraordinarios.html,la escala no se publica; la Ley 15.809 deja la tarifa al Poder Ejecutivo
+,"servicios fuera del horario habitual, por hora de funcionario",,,,,,260,N$ por hora (1986),1986,oficial,https://www.impo.com.uy/bases/decretos/305-1986,valor histórico en nuevos pesos
