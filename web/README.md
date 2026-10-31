@@ -31,6 +31,23 @@ Production-like, one process:
 
 The server reads the large budget files in the background at startup (about 15 seconds the first time; then `.cache/` makes it fast).
 
+## Deploy (Fly.io)
+
+The `Dockerfile` at the repo root builds the frontend, installs the backend and reads the large files once,
+so the server starts in seconds. `fly.toml` runs one always-on machine in São Paulo (`gru`) with 512 MB.
+`.github/workflows/deploy.yml` deploys on every push to `main`, so merged data updates go live on their own.
+
+Once, to set it up:
+
+```bash
+fly auth login
+fly apps create adondeva                  # or another name; then change `app` in fly.toml
+fly tokens create deploy -a adondeva      # copy the token
+gh secret set FLY_API_TOKEN               # paste it
+```
+
+By hand: `fly deploy` from the repo root.
+
 ## Tests
 
 ```bash

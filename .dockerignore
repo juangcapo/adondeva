@@ -1,0 +1,10 @@
+.git
+.github
+.venv
+.cache
+.pytest_cache
+**/__pycache__
+**/node_modules
+web/frontend/dist
+# Downloaded originals and norms: the server only reads the derived files.
+**/raw
