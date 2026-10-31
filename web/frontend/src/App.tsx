@@ -37,7 +37,7 @@ export default function App() {
         </Suspense>
       </main>
       <footer>
-        Datos oficiales de OPP, MEF e INE (Licencia de Datos Abiertos – Uruguay) y datasets compilados por{' '}
+        Datos oficiales de OPP, MEF, INE y DGI (Licencia de Datos Abiertos – Uruguay) y datasets compilados por{' '}
         <a href="https://github.com/juangcapo/adondeva">adondeva</a> (CC BY 4.0).
       </footer>
     </div>

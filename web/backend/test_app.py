@@ -66,3 +66,8 @@ def test_tax_importar_without_code_is_400():
 def test_ncm_search_by_code_and_text():
     assert get("/api/ncm", q="8471.30")[0]["ncm"].startswith("8471.30")
     assert get("/api/ncm", q="cafe")
+
+
+def test_ncm_rejects_blank_query_and_bad_limit():
+    assert client.get("/api/ncm", params={"q": "   "}).status_code == 400
+    assert client.get("/api/ncm", params={"q": "8471", "limit": -3}).status_code == 422

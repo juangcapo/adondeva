@@ -69,7 +69,8 @@ async function fetchJson<T>(url: string, signal?: AbortSignal): Promise<T> {
   const body = await r.json().catch(() => null)
   if (!r.ok) {
     const detail = body?.detail
-    throw new Error(typeof detail === 'string' ? detail : `Error ${r.status}`)
+    const msg = typeof detail === 'string' ? detail : Array.isArray(detail) ? detail[0]?.msg : null
+    throw new Error(msg ?? `Error ${r.status}`)
   }
   return body as T
 }
@@ -98,5 +99,6 @@ export function useApi<T>(url: string | null) {
     return () => ctrl.abort()
   }, [url])
 
-  return { data, error, loading }
+  // A request aborted because url turned null never clears `loading`; there is nothing to load then.
+  return { data, error, loading: url !== null && loading }
 }

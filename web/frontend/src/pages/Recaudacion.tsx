@@ -24,7 +24,7 @@ type Serie = { key: string; nombre: string; color: string; of: (y: Year) => numb
 export default function Recaudacion() {
   const [base, setBase] = useState<number | undefined>()
   const { data, error, loading } = useApi<Revenue>(apiUrl('revenue', { base }))
-  const [elegido, setElegido] = useState('IVA')
+  const [elegidos, setElegidos] = useState<string[]>([])
 
   return (
     <>
@@ -39,7 +39,7 @@ export default function Recaudacion() {
       {data && (
         <>
           <Historia data={data} loading={loading} onBase={setBase} />
-          <Impuestos data={data} elegido={elegido} onElegir={setElegido} />
+          <Impuestos data={data} elegidos={elegidos} onElegir={setElegidos} />
         </>
       )}
     </>
@@ -83,7 +83,7 @@ function Historia({ data, loading, onBase }: { data: Revenue; loading: boolean; 
   const first = years[0]
   const tenAgo = years.find((y) => y.anio === last.anio - 10)
   const real = (y: Year) => y.total * y.factor
-  const biggest = [...series].sort((a, b) => b.of(last) - a.of(last))[0]
+  const biggest = series.filter((s) => s.key !== 'resto').sort((a, b) => b.of(last) - a.of(last))[0]
 
   return (
     <section className={`card ${loading ? 'loading' : ''}`}>
@@ -172,13 +172,30 @@ function Historia({ data, loading, onBase }: { data: Revenue; loading: boolean; 
   )
 }
 
-function Impuestos({ data, elegido, onElegir }: { data: Revenue; elegido: string; onElegir: (s: string) => void }) {
+// With nothing picked every tax is drawn, colored by group; the tooltip lists only the largest ones that year.
+const TIP_MAX = 8
+
+function Impuestos({ data, elegidos, onElegir }: { data: Revenue; elegidos: string[]; onElegir: (s: string[]) => void }) {
   const colors = useColors()
   const last = data.anios[data.anios.length - 1]
   const tenAgo = data.anios.find((y) => y.anio === last.anio - 10)
-  const tax = data.impuestos.find((t) => t.sigla === elegido) ?? data.impuestos[0]
-  const serie = data.anios.filter((y) => y.montos[tax.sigla] != null)
-    .map((y) => ({ anio: y.anio, real: (y.montos[tax.sigla] ?? 0) * y.factor, share: ((y.montos[tax.sigla] ?? 0) / y.total) * 100 }))
+  const porSigla = Object.fromEntries(data.impuestos.map((t) => [t.sigla, t]))
+  const grupoColor = (g: string) => {
+    const i = data.grupos.indexOf(g)
+    return g === 'otros' || i < 0 ? colors.other : colors[COLORS[i % COLORS.length]]
+  }
+  const todos = elegidos.length === 0
+  // Picked taxes keep their color by the order they were picked in.
+  const lineas = (todos ? data.impuestos.map((t) => t.sigla) : elegidos).map((sigla, i) => ({
+    sigla, nombre: porSigla[sigla].nombre,
+    color: todos ? grupoColor(porSigla[sigla].grupo) : colors[COLORS[i % COLORS.length]],
+  }))
+  const serie = data.anios.map((y) => ({
+    anio: y.anio,
+    ...Object.fromEntries(lineas.map((l) => [l.sigla, y.montos[l.sigla] == null ? null : y.montos[l.sigla] * y.factor])),
+  }))
+  const toggle = (sigla: string) =>
+    onElegir(elegidos.includes(sigla) ? elegidos.filter((s) => s !== sigla) : [...elegidos, sigla])
   const lista = [...data.impuestos].sort((a, b) =>
     (last.montos[b.sigla] ?? 0) - (last.montos[a.sigla] ?? 0) || Number(b.hasta) - Number(a.hasta))
   // No change for a tax that started in or after the comparison year (its first year is partial),
@@ -189,17 +206,32 @@ function Impuestos({ data, elegido, onElegir }: { data: Revenue; elegido: string
     if (!now || !then || t.sigla === 'AJUSTES' || Number(t.desde) >= tenAgo!.anio) return '—'
     return signedPct(((now * last.factor) / (then * tenAgo!.factor) - 1) * 100)
   }
+  const colorDe = Object.fromEntries(lineas.map((l) => [l.sigla, l.color]))
+  const unico = elegidos.length === 1 ? porSigla[elegidos[0]] : undefined
 
   return (
     <section className="card">
       <div className="card-head">
         <div>
           <h2>Cada impuesto</h2>
-          <div className="muted">Tocá una fila para ver su historia. Montos sin inflación, en pesos de {data.base}.</div>
+          <div className="muted">
+            Tocá filas para ver solo esos impuestos; tocá de nuevo para quitarlos. Montos sin inflación, en pesos
+            de {data.base}.
+          </div>
         </div>
       </div>
-      <h3>{tax.nombre} <span className="muted">· {GRUPOS[tax.grupo]} · {tax.desde}–{tax.hasta}</span></h3>
-      <div style={{ height: 240 }}>
+      {unico ? (
+        <h3>{unico.nombre} <span className="muted">· {GRUPOS[unico.grupo]} · {unico.desde}–{unico.hasta}</span></h3>
+      ) : (
+        <h3>{todos ? 'Todos los impuestos' : `${elegidos.length} impuestos`}</h3>
+      )}
+      <div className="legend">
+        {todos
+          ? data.grupos.map((g) => <span key={g}><span className="swatch" style={{ background: grupoColor(g) }} />{GRUPOS[g] ?? g}</span>)
+          : lineas.map((l) => <span key={l.sigla}><span className="swatch" style={{ background: l.color }} />{l.nombre}</span>)}
+        {!todos && <button className="link" onClick={() => onElegir([])}>Ver todos</button>}
+      </div>
+      <div style={{ height: 280 }}>
         <ResponsiveContainer>
           <LineChart data={serie} margin={{ top: 8, right: 16, bottom: 0, left: 0 }}>
             <CartesianGrid stroke={colors.grid} vertical={false} />
@@ -208,16 +240,27 @@ function Impuestos({ data, elegido, onElegir }: { data: Revenue; elegido: string
             <Tooltip
               cursor={{ stroke: colors.axis }}
               content={({ active, payload }) => {
-                const r = active && (payload?.[0]?.payload as (typeof serie)[number] | undefined)
+                const r = active && (payload?.[0]?.payload as Record<string, number | null> | undefined)
                 if (!r) return null
+                const y = data.anios.find((x) => x.anio === r.anio)!
+                const filas = lineas.filter((l) => r[l.sigla] != null).sort((a, b) => r[b.sigla]! - r[a.sigla]!)
+                const shown = todos ? filas.slice(0, TIP_MAX) : filas
+                const resto = filas.length - shown.length
                 return <Tip title={String(r.anio)} rows={[
-                  { color: colors['series-1'], label: `pesos de ${data.base}`, value: pesos(r.real) },
-                  { label: 'de lo recaudado por la DGI', value: pct(r.share) },
+                  ...shown.map((l) => ({
+                    color: l.color,
+                    label: todos ? l.sigla : `${l.nombre} · ${pct(((y.montos[l.sigla] ?? 0) / y.total) * 100)} del total`,
+                    value: pesos(r[l.sigla]!),
+                  })),
+                  ...(resto > 0 ? [{ label: `y ${resto} más`, value: '' }] : []),
                 ]} />
               }}
             />
-            <Line type="monotone" dataKey="real" stroke={colors['series-1']} strokeWidth={2} dot={false}
-              activeDot={{ r: 5, stroke: colors.surface, strokeWidth: 2 }} isAnimationActive={false} />
+            {lineas.map((l) => (
+              <Line key={l.sigla} type="monotone" dataKey={l.sigla} stroke={l.color} strokeWidth={todos ? 1.25 : 2}
+                strokeOpacity={todos ? 0.8 : 1} dot={false} connectNulls={false}
+                activeDot={todos ? false : { r: 5, stroke: colors.surface, strokeWidth: 2 }} isAnimationActive={false} />
+            ))}
           </LineChart>
         </ResponsiveContainer>
       </div>
@@ -231,16 +274,22 @@ function Impuestos({ data, elegido, onElegir }: { data: Revenue; elegido: string
             </tr>
           </thead>
           <tbody>
-            {lista.map((t) => (
-              <tr key={t.sigla} aria-selected={t.sigla === tax.sigla} onClick={() => onElegir(t.sigla)}>
-                <td><button className="link" onClick={() => onElegir(t.sigla)}>{t.nombre}</button></td>
-                <td>{GRUPO_CORTO[t.grupo]}</td>
-                <td>{t.desde}–{t.hasta}</td>
-                <td className="num">{last.montos[t.sigla] ? pesos(last.montos[t.sigla]) : '—'}</td>
-                <td className="num">{last.montos[t.sigla] ? pct((last.montos[t.sigla] / last.total) * 100) : '—'}</td>
-                {tenAgo && <td className="num">{change(t)}</td>}
-              </tr>
-            ))}
+            {lista.map((t) => {
+              const sel = elegidos.includes(t.sigla)
+              return (
+                <tr key={t.sigla} aria-selected={sel} onClick={() => toggle(t.sigla)}>
+                  <td>
+                    <span className="swatch" style={{ background: sel ? colorDe[t.sigla] : 'transparent', marginRight: 6 }} />
+                    <button className="link" aria-pressed={sel}>{t.nombre}</button>
+                  </td>
+                  <td>{GRUPO_CORTO[t.grupo]}</td>
+                  <td>{t.desde}–{t.hasta}</td>
+                  <td className="num">{last.montos[t.sigla] ? pesos(last.montos[t.sigla]) : '—'}</td>
+                  <td className="num">{last.montos[t.sigla] ? pct((last.montos[t.sigla] / last.total) * 100) : '—'}</td>
+                  {tenAgo && <td className="num">{change(t)}</td>}
+                </tr>
+              )
+            })}
           </tbody>
         </table>
       </div>

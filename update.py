@@ -34,30 +34,55 @@ ROOT = Path(__file__).resolve().parent
 UY = ROOT / "data" / "uy"
 USER_AGENT = "adondeva-updater (+https://github.com/juangcapo/adondeva)"
 
-# Hosts that don't send their intermediate certificate, and where to get it (the AIA URL in
-# the server certificate). Verification stays on; this only completes the chain.
+# Hosts that don't send their intermediate certificate: where to get it (the AIA URL in the
+# server certificate) and its SHA-256. Verification stays on; this only completes the chain.
+# The AIA URL is plain HTTP, so the certificate is used only if its hash matches: otherwise
+# anyone on the network path could swap in their own CA. When Sectigo rotates it, check the new
+# one chains to a trusted root (openssl verify) and update the hash.
 INTERMEDIATES = {
-    "www5.ine.gub.uy": "http://crt.sectigo.com/SectigoPublicServerAuthenticationCADVR36.crt",
+    "www5.ine.gub.uy": ("http://crt.sectigo.com/SectigoPublicServerAuthenticationCADVR36.crt",
+                        "8c54c334b66ba4e426772af4a3f9136c19a1aec729fdb28c535c07a5a4ef22e0"),
 }
 
 
 # ---------------------------------------------------------------- fetching
 
+def https_only(url):
+    if urllib.parse.urlsplit(url).scheme != "https":
+        raise ValueError(f"refusing non-HTTPS URL {url}")
+
+
+def read(req, **kwargs):
+    """(bytes, headers), refusing a redirect away from HTTPS."""
+    with urllib.request.urlopen(req, timeout=120, **kwargs) as r:
+        https_only(r.geturl())
+        return r.read(), r.headers
+
+
+def intermediate_context(host):
+    """An SSL context with the default roots plus the host's pinned intermediate certificate."""
+    url, want = INTERMEDIATES[host]
+    with urllib.request.urlopen(url, timeout=60) as r:
+        der = r.read()
+    if sha256(der) != want:
+        raise ssl.SSLError(f"intermediate certificate for {host} from {url} has SHA-256 {sha256(der)}, "
+                           f"expected {want}; check it and update INTERMEDIATES")
+    ctx = ssl.create_default_context()
+    ctx.load_verify_locations(cadata=der)
+    return ctx
+
+
 def fetch(url):
-    """(bytes, headers) for url; retries once with the host's intermediate certificate if verification fails."""
+    """(bytes, headers) for an HTTPS url; retries once with the host's intermediate certificate if verification fails."""
+    https_only(url)
     req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
     try:
-        with urllib.request.urlopen(req, timeout=120) as r:
-            return r.read(), r.headers
+        return read(req)
     except urllib.error.URLError as e:
         host = urllib.parse.urlsplit(url).hostname
         if not isinstance(e.reason, ssl.SSLCertVerificationError) or host not in INTERMEDIATES:
             raise
-        with urllib.request.urlopen(INTERMEDIATES[host], timeout=60) as r:
-            ctx = ssl.create_default_context()
-            ctx.load_verify_locations(cadata=r.read())
-        with urllib.request.urlopen(req, timeout=120, context=ctx) as r:
-            return r.read(), r.headers
+        return read(req, context=intermediate_context(host))
 
 
 def page_links(url):

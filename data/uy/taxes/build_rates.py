@@ -415,7 +415,6 @@ RATES["Tasa por Servicios Preferenciales"] = [
 RATES["Tasa de Inspección No Intrusiva"] = [
     r("cada DUA o mensaje simplificado", monto=85, unidad_monto="UI máximo por declaración", vigencia="desde 2/10/2024", src="DEC235", notas="exentos envíos aéreos de hasta 20 kg y USD 200"),
 ]
-RATES["Tasa de Servicios Aduaneros / servicios extraordinarios"] = nodata()
 RATES["IVA a la importación"] = [
     r("tasa básica", base="CIF más arancel (y más IMESI según el caso)", tasa=22, vigencia=V26, confianza=SEC, src="COMEX", notas="las guías no coinciden sobre si la base incluye el IMESI"),
     r("tasa mínima", base="ídem", tasa=10, vigencia=V26, confianza=SEC, src="COMEX"),

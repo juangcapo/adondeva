@@ -65,7 +65,8 @@ function Calculadora({ accion }: { accion: (typeof ACCIONES)[number] }) {
   const ready = Number(monto) > 0 && (!general || ncm || arancel !== '')
   const url = useDebounced(ready ? apiUrl(`tax/${id}`, {
     monto,
-    ...(id === 'sueldo' && { hijos, conyuge }),
+    // The API takes whole children; the number input still lets you type 1.5 or -1.
+    ...(id === 'sueldo' && { hijos: Math.max(0, Math.trunc(Number(hijos) || 0)), conyuge }),
     ...(id === 'compra' && { tasa, neto }),
     ...(id === 'importar' && envio && { envio, eeuu, cupo }),
     ...(general && { tasa, mercosur, contribuyente, ...(ncm ? { ncm: ncm.ncm } : { arancel }) }),
@@ -176,8 +177,8 @@ function NcmPicker({ value, onChange }: { value: NcmLine | null; onChange: (v: N
       {data && query.length >= 2 && (
         data.length ? (
           <ul className="ncm-results">
-            {data.map((r) => (
-              <li key={r.ncm}>
+            {data.map((r, i) => (
+              <li key={`${r.ncm}-${i}`}>
                 <button onClick={() => onChange(r)}><strong>{r.ncm}</strong> {r.descripcion}</button>
               </li>
             ))}
