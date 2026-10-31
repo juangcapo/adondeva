@@ -20,6 +20,6 @@ COPY --from=frontend /app/dist web/frontend/dist
 # Read the large budget files once at build time so the server starts in seconds, not ~15 s.
 RUN python -c "import adondeva as ad; ad.spending_series(False); ad.spending_series(True); [ad.detail_mef_year(p) for s, p in ad.detail_sources().values() if s == 'mef']"
 RUN useradd --system app && chown -R app /app/.cache
-USER app
 EXPOSE 8080
-CMD ["uvicorn", "web.backend.app:app", "--host", "0.0.0.0", "--port", "8080", "--proxy-headers", "--forwarded-allow-ips", "*"]
+# Fly mounts the usage-log volume owned by root: hand it to `app`, then drop privileges for the server.
+CMD ["sh", "-c", "mkdir -p /data && chown app /data && exec setpriv --reuid=app --regid=app --init-groups uvicorn web.backend.app:app --host 0.0.0.0 --port 8080 --proxy-headers --forwarded-allow-ips '*'"]

@@ -4,21 +4,29 @@ Run from the repo root:
   .venv/bin/uvicorn web.backend.app:app --reload
 """
 import csv
+import json
+import os
+import secrets
 import sys
 import threading
+import time
 from contextlib import asynccontextmanager
 from functools import lru_cache
 from pathlib import Path
 from types import SimpleNamespace
 from typing import Literal
 
-from fastapi import FastAPI, HTTPException, Query
-from fastapi.responses import FileResponse
+from fastapi import Depends, FastAPI, HTTPException, Query, Request
+from fastapi.responses import FileResponse, JSONResponse, PlainTextResponse
+from fastapi.security import HTTPBasic, HTTPBasicCredentials
 from fastapi.staticfiles import StaticFiles
+from pydantic import BaseModel, Field
 
 REPO = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO))
 import adondeva as ad  # noqa: E402
+
+from . import uso  # noqa: E402
 
 FRONTEND = (REPO / "web" / "frontend" / "dist").resolve()
 
@@ -77,6 +85,147 @@ async def warm_up(_):
 
 
 app = FastAPI(title="adondeva", docs_url="/api/docs", openapi_url="/api/openapi.json", lifespan=warm_up)
+
+
+# ---------------------------------------------------------------- usage log, limits and headers
+
+# API paths that are not queries about the data: the log's own endpoints, health checks and docs.
+NOT_LOGGED = ("/api/hit", "/api/health", "/api/admin", "/api/docs", "/api/openapi.json")
+
+# Per client IP and minute. /api/breakdown re-reads a large file for years out of the cache (~0.5 s of CPU),
+# so it gets a tighter limit than the rest; /api/hit is written to disk.
+LIMITS = {"api": uso.Limiter(300, 60), "/api/breakdown": uso.Limiter(60, 60), "/api/hit": uso.Limiter(120, 60)}
+# Wrong admin passwords: 10 per IP every 15 minutes, then 429 until the window passes.
+ADMIN_FAILURES = uso.Limiter(10, 15 * 60)
+
+# The frontend loads nothing from other sites. Styles stay 'unsafe-inline' for the chart library's inline styles.
+CSP = ("default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; "
+       "connect-src 'self'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'")
+HEADERS = {
+    "X-Content-Type-Options": "nosniff",
+    "X-Frame-Options": "DENY",
+    "Referrer-Policy": "strict-origin-when-cross-origin",
+    "Permissions-Policy": "camera=(), microphone=(), geolocation=(), interest-cohort=()",
+    "Strict-Transport-Security": "max-age=31536000",
+}
+
+
+def secure(response, path):
+    response.headers.update(HEADERS)
+    if not path.startswith("/api/docs"):  # Swagger UI loads its scripts from a CDN
+        response.headers["Content-Security-Policy"] = CSP
+    if path.startswith(("/admin", "/api/admin")):
+        response.headers["Cache-Control"] = "no-store"
+        response.headers["X-Robots-Tag"] = "noindex"
+    return response
+
+
+@app.middleware("http")
+async def guard(request: Request, call_next):
+    """Rate limits, then the request, then the usage log and security headers."""
+    path = request.url.path
+    if path.startswith("/api/") and path != "/api/health":
+        ip = uso.client_ip(request)
+        if not all(lim.allow(ip) for key, lim in LIMITS.items() if key == "api" or key == path):
+            return secure(JSONResponse({"detail": "Demasiadas consultas; probá de nuevo en un minuto."}, 429,
+                                       headers={"Retry-After": "60"}), path)
+    start = time.perf_counter()
+    response = await call_next(request)
+    if path.startswith("/api/") and not path.startswith(NOT_LOGGED):
+        try:
+            uso.record(tipo="api", ruta=path[:200], params=uso.params_json(request.query_params),
+                       estado=response.status_code, ms=round((time.perf_counter() - start) * 1000, 1),
+                       **uso.details(request))
+        except Exception as e:  # the log must never break a request
+            print(f"uso: {e}", flush=True)
+    return secure(response, path)
+
+
+class Hit(BaseModel):
+    """A page view or an interaction the API doesn't see (sent by the frontend)."""
+    tipo: Literal["pagina", "evento"]
+    ruta: str = Field(max_length=300)
+    referrer: str | None = Field(None, max_length=1000)
+    datos: dict | None = None
+
+
+YEAR = range(1900, 2101)
+# The interactions the frontend sends, with the values each field may take; anything else is rejected,
+# so the reports only ever show values the site itself produces.
+EVENTS = {
+    "recaudacion-impuesto": {"sigla": "tax", "accion": {"agregar", "quitar"}},
+    "recaudacion-vista": {"vista": {"grupo", "impuesto"}, "modo": {"real", "nominal", "pct"}, "desde": YEAR},
+    "gasto-vista": {"modo": {"real", "nominal"}, "desde": YEAR},
+}
+
+
+def valid_event(name, datos):
+    spec = EVENTS.get(name)
+    if spec is None or not isinstance(datos, dict) or set(datos) != set(spec):
+        return False
+    for k, allowed in spec.items():
+        v = datos[k]
+        if allowed == "tax":
+            ok = isinstance(v, str) and v in revenue()[0]
+        elif allowed is YEAR:
+            ok = isinstance(v, int) and not isinstance(v, bool) and v in YEAR
+        else:
+            ok = v in allowed
+        if not ok:
+            return False
+    return True
+
+
+@app.post("/api/hit", status_code=204)
+def hit(h: Hit, request: Request):
+    if h.tipo == "pagina":
+        if not h.ruta.startswith("/") or h.ruta.startswith("//") or any(ord(c) < 32 for c in h.ruta) or h.datos:
+            raise HTTPException(422, "Página inválida.")
+        datos = None
+    else:
+        if not valid_event(h.ruta, h.datos):
+            raise HTTPException(422, "Evento desconocido.")
+        datos = json.dumps(h.datos, ensure_ascii=False)
+    uso.record(tipo=h.tipo, ruta=h.ruta, params=datos, referrer=uso.referrer(h.referrer), **uso.details(request))
+
+
+@app.get("/api/health", include_in_schema=False)
+def health():
+    return {"ok": True}
+
+
+# The admin page and its data need ADMIN_PASSWORD (a Fly secret); without it they stay off.
+basic = HTTPBasic(realm="adondeva admin", auto_error=False)
+
+
+def admin(request: Request, creds: HTTPBasicCredentials | None = Depends(basic)):
+    password = os.environ.get("ADMIN_PASSWORD", "")
+    if not password:
+        raise HTTPException(404)
+    ip = uso.client_ip(request)
+    if ADMIN_FAILURES.blocked(ip):
+        raise HTTPException(429, "Demasiados intentos fallidos; probá de nuevo en 15 minutos.")
+    ok = creds and secrets.compare_digest(creds.username.encode(), b"admin") \
+        and secrets.compare_digest(creds.password.encode(), password.encode())
+    if not ok:
+        if creds:  # the browser's first, empty request is not an attempt
+            ADMIN_FAILURES.add(ip)
+        raise HTTPException(401, "Usuario o contraseña incorrectos.", headers={"WWW-Authenticate": 'Basic realm="adondeva admin"'})
+
+
+@app.get("/api/admin/stats", dependencies=[Depends(admin)], include_in_schema=False)
+def admin_stats(dias: int = Query(30, ge=1, le=3650)):
+    out = uso.stats(dias)
+    taxes = revenue()[0]
+    for t in out["impuestos"]:
+        t["nombre"] = taxes[t["sigla"]]["nombre"] if t["sigla"] in taxes else t["sigla"]
+    return out
+
+
+@app.get("/api/admin/export.csv", dependencies=[Depends(admin)], include_in_schema=False)
+def admin_export(dias: int | None = Query(None, ge=1, le=3650)):
+    return PlainTextResponse(uso.export_csv(dias), media_type="text/csv; charset=utf-8",
+                             headers={"Content-Disposition": 'attachment; filename="adondeva-usos.csv"'})
 
 
 # ---------------------------------------------------------------- endpoints
@@ -186,11 +335,11 @@ def breakdown(year: int | None = None, path: list[str] = Query([]), fondos_terce
 
 
 @app.get("/api/tax/{accion}")
-def tax(accion: Literal["sueldo", "compra", "importar", "alquiler"], monto: float = Query(gt=0),
+def tax(accion: Literal["sueldo", "compra", "importar", "alquiler"], monto: float = Query(gt=0, allow_inf_nan=False),
         hijos: int = Query(0, ge=0), conyuge: bool = False,
         tasa: Literal["basica", "minima", "debito", "exento"] = "basica", neto: bool = False,
-        ncm: str | None = None, arancel: float | None = Query(None, ge=0), mercosur: bool = False,
-        contribuyente: bool = False, envio: bool = False, eeuu: bool = False, cupo: float = Query(800, ge=0)):
+        ncm: str | None = None, arancel: float | None = Query(None, ge=0, allow_inf_nan=False), mercosur: bool = False,
+        contribuyente: bool = False, envio: bool = False, eeuu: bool = False, cupo: float = Query(800, ge=0, allow_inf_nan=False)):
     args = SimpleNamespace(hijos=hijos, conyuge=conyuge, tasa=tasa, neto=neto, ncm=ncm, arancel=arancel,
                            mercosur=mercosur, contribuyente=contribuyente, envio=envio, eeuu=eeuu, cupo=cupo)
     rows, totals, unit = bad_request(ad.TAX_ACTIONS[accion], monto, args)
@@ -216,10 +365,12 @@ if FRONTEND.is_dir():
     app.mount("/assets", StaticFiles(directory=FRONTEND / "assets"), name="assets")
 
     @app.get("/{page:path}", include_in_schema=False)
-    def spa(page: str):
+    def spa(page: str, request: Request, creds: HTTPBasicCredentials | None = Depends(basic)):
         """Client-side routes all load index.html; React picks the page."""
         if page.startswith("api/"):
             raise HTTPException(404)
+        if page.strip("/") == "admin":
+            admin(request, creds)  # ask for the password up front, so the page's API calls carry it
         file = (FRONTEND / page).resolve()
         ok = page and file.is_relative_to(FRONTEND) and file.is_file()
         return FileResponse(file if ok else FRONTEND / "index.html")

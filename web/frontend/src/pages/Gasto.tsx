@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { CartesianGrid, Cell, Line, LineChart, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
-import { apiUrl, useApi, type Breakdown, type Spending } from '../api.ts'
+import { apiUrl, useApi, useTrackChange, type Breakdown, type Spending } from '../api.ts'
 import { axisProps, Tip, useColors } from '../chart.tsx'
 import { axisBillions, fmt, pct, pesos, signedPct } from '../format.ts'
 
@@ -43,6 +43,7 @@ function Serie({ terceros }: { terceros: boolean }) {
   const [modo, setModo] = useState<'real' | 'nominal'>('real')
   const [base, setBase] = useState<number | undefined>()
   const [desde, setDesde] = useState(1985)
+  useTrackChange('gasto-vista', { modo, desde })
   const { data, error, loading } = useApi<Spending>(apiUrl('spending', { base, fondos_terceros: terceros }))
 
   const rows = useMemo(() => (data?.anios ?? []).filter((r) => r.anio >= desde), [data, desde])

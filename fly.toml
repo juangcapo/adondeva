@@ -5,6 +5,13 @@ primary_region = "gru" # São Paulo, the closest region to Uruguay
 
 [build]
 
+[env]
+  USO_DB = "/data/uso.db" # usage log, on the volume below so it survives deploys
+
+[mounts]
+  source = "uso"
+  destination = "/data"
+
 [http_service]
   internal_port = 8080
   force_https = true
@@ -15,7 +22,7 @@ primary_region = "gru" # São Paulo, the closest region to Uruguay
 
   [[http_service.checks]]
     method = "GET"
-    path = "/api/sources"
+    path = "/api/health"
     interval = "30s"
     timeout = "5s"
     grace_period = "30s"

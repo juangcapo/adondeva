@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 export type Dataset = {
   id: string
@@ -101,4 +101,27 @@ export function useApi<T>(url: string | null) {
 
   // A request aborted because url turned null never clears `loading`; there is nothing to load then.
   return { data, error, loading: url !== null && loading }
+}
+
+/** Log a page view or an interaction the API doesn't see. Fire and forget: the log never gets in the way. */
+export function track(tipo: 'pagina' | 'evento', ruta: string, extra: { referrer?: string; datos?: Record<string, unknown> } = {}) {
+  try {
+    fetch('/api/hit', {
+      method: 'POST', keepalive: true, headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ tipo, ruta, ...extra }),
+    }).catch(() => {})
+  } catch {
+    // ignore
+  }
+}
+
+/** Log `ruta` with the new values whenever they change after the first render (view toggles the API never sees). */
+export function useTrackChange(ruta: string, datos: Record<string, string | number | boolean>) {
+  const key = JSON.stringify(datos)
+  const prev = useRef(key)
+  useEffect(() => {
+    if (prev.current === key) return
+    prev.current = key
+    track('evento', ruta, { datos: JSON.parse(key) })
+  }, [ruta, key])
 }

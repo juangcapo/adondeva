@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 import { Area, AreaChart, CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
-import { apiUrl, useApi, type Revenue } from '../api.ts'
+import { apiUrl, track, useApi, useTrackChange, type Revenue } from '../api.ts'
 import { axisProps, Tip, useColors } from '../chart.tsx'
 import { axisBillions, fmt, pct, pesos, signedPct } from '../format.ts'
 
@@ -51,6 +51,7 @@ function Historia({ data, loading, onBase }: { data: Revenue; loading: boolean; 
   const [modo, setModo] = useState<Modo>('real')
   const [vista, setVista] = useState<'grupo' | 'impuesto'>('grupo')
   const [desde, setDesde] = useState(1990)
+  useTrackChange('recaudacion-vista', { vista, modo, desde })
   const years = useMemo(() => data.anios.filter((y) => y.anio >= desde), [data, desde])
 
   const series = useMemo<Serie[]>(() => {
@@ -194,8 +195,11 @@ function Impuestos({ data, elegidos, onElegir }: { data: Revenue; elegidos: stri
     anio: y.anio,
     ...Object.fromEntries(lineas.map((l) => [l.sigla, y.montos[l.sigla] == null ? null : y.montos[l.sigla] * y.factor])),
   }))
-  const toggle = (sigla: string) =>
-    onElegir(elegidos.includes(sigla) ? elegidos.filter((s) => s !== sigla) : [...elegidos, sigla])
+  const toggle = (sigla: string) => {
+    const quitar = elegidos.includes(sigla)
+    track('evento', 'recaudacion-impuesto', { datos: { sigla, accion: quitar ? 'quitar' : 'agregar' } })
+    onElegir(quitar ? elegidos.filter((s) => s !== sigla) : [...elegidos, sigla])
+  }
   const lista = [...data.impuestos].sort((a, b) =>
     (last.montos[b.sigla] ?? 0) - (last.montos[a.sigla] ?? 0) || Number(b.hasta) - Number(a.hasta))
   // No change for a tax that started in or after the comparison year (its first year is partial),

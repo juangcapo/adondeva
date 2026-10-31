@@ -46,7 +46,35 @@ fly tokens create deploy -a adondeva      # copy the token
 gh secret set FLY_API_TOKEN               # paste it
 ```
 
+Also once, for the usage log (below):
+
+```bash
+fly volumes create uso -r gru -s 1 -a adondeva
+fly secrets set -a adondeva ADMIN_PASSWORD="$(openssl rand -base64 24)"   # keep it in your password manager
+```
+
 By hand: `fly deploy` from the repo root.
+
+## Usage log
+
+`backend/uso.py` records every page view, API query (with its parameters) and tracked interaction (taxes
+picked in Recaudación, view toggles) in SQLite: `USO_DB`, `.cache/uso.db` by default, `/data/uso.db` on Fly.
+No IP addresses or cookies: a visitor is an HMAC of IP and user agent with a random key that changes every
+day, and the old key is deleted, so people count once per day and can't be traced back or followed across days.
+Referrers keep only site and path. Bots are flagged by user agent and left out of the reports. `/api/hit` only
+accepts the pages and interactions the site sends.
+
+## Security
+
+- Rate limits per IP and minute: 300 API requests, 60 breakdowns, 120 hits (429 beyond). Admin: 10 wrong
+  passwords per IP lock it for 15 minutes.
+- Headers on every response: a strict Content-Security-Policy (nothing from other sites), `nosniff`,
+  `X-Frame-Options: DENY`, HSTS; admin responses are `no-store` and `noindex`.
+- The CSV export prefixes values that start with `= + - @` so spreadsheets don't run them as formulas.
+
+`/admin` shows the reports and downloads the raw rows as CSV. It asks for user `admin` and `ADMIN_PASSWORD`;
+without that variable it is off. To try it locally: `ADMIN_PASSWORD=x .venv/bin/uvicorn web.backend.app:app`.
+In development React runs effects twice, so page views and requests are logged twice; production logs each once.
 
 ## Tests
 
@@ -64,3 +92,6 @@ By hand: `fly deploy` from the repo root.
 | `GET /api/breakdown?year=2024&path=…&path=…` | one level of the drill-down; each `path` selects a value of the previous level |
 | `GET /api/tax/{sueldo,compra,importar,alquiler}?monto=…` | tax breakdown; same options as `adondeva.py tax` |
 | `GET /api/ncm?q=…` | tariff lines by code prefix or description |
+| `POST /api/hit` | log a page view or interaction (`{"tipo": "pagina" \| "evento", "ruta": …, "datos": …}`) |
+| `GET /api/health` | `{"ok": true}`, for the health check; not logged |
+| `GET /api/admin/stats?dias=30`, `/api/admin/export.csv` | usage reports (password) |
