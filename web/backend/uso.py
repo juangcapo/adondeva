@@ -13,6 +13,7 @@ import hashlib
 import hmac
 import io
 import json
+import math
 import os
 import queue
 import re
@@ -27,7 +28,7 @@ from pathlib import Path
 DB = Path(os.environ.get("USO_DB", Path(__file__).resolve().parents[2] / ".cache" / "uso.db"))
 
 COLUMNS = ["ts", "tipo", "ruta", "params", "estado", "ms", "visitante", "referrer", "navegador", "dispositivo",
-           "idioma", "region", "bot"]
+           "idioma", "region", "pais", "bot"]
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS usos (
   id INTEGER PRIMARY KEY,
@@ -43,7 +44,8 @@ CREATE TABLE IF NOT EXISTS usos (
   dispositivo TEXT,
   idioma TEXT,
   region TEXT,               -- Fly edge region that took the request, a rough location
-  bot INTEGER NOT NULL DEFAULT 0
+  bot INTEGER NOT NULL DEFAULT 0,
+  pais TEXT                  -- ISO country code from Cloudflare (CF-IPCountry)
 );
 CREATE INDEX IF NOT EXISTS usos_ts ON usos (ts);
 -- Today's key for the visitor hash; older ones are deleted.
@@ -60,6 +62,8 @@ def connect():
     con = sqlite3.connect(DB, timeout=10)
     con.execute("PRAGMA journal_mode=WAL")
     con.executescript(SCHEMA)
+    if "pais" not in {r[1] for r in con.execute("PRAGMA table_info(usos)")}:  # databases from before Cloudflare
+        con.execute("ALTER TABLE usos ADD COLUMN pais TEXT")
     return con
 
 
@@ -133,11 +137,21 @@ def daily_key():
         return _key["clave"]
 
 
+def from_cloudflare(request):
+    """True when the request came through our Cloudflare zone: a Transform Rule there adds X-Origin-Secret
+    with the value of CF_ORIGIN_SECRET. Only then are Cloudflare's headers (client IP, country) trusted."""
+    secret = os.environ.get("CF_ORIGIN_SECRET", "")
+    return bool(secret) and secrets.compare_digest(request.headers.get("x-origin-secret", "").encode(), secret.encode())
+
+
 # Fly's proxy sets Fly-Client-IP; anywhere else a client could forge it, so it is trusted only on Fly.
 ON_FLY = bool(os.environ.get("FLY_APP_NAME"))
 
 
 def client_ip(request):
+    """The visitor's IP: Cloudflare's when the request came through it (Fly would only see Cloudflare's), else Fly's."""
+    if from_cloudflare(request) and request.headers.get("cf-connecting-ip"):
+        return request.headers["cf-connecting-ip"]
     if ON_FLY and request.headers.get("fly-client-ip"):
         return request.headers["fly-client-ip"]
     return request.client.host if request.client else ""
@@ -150,7 +164,8 @@ def details(request):
     visitor = hmac.new(daily_key(), f"{client_ip(request)}|{ua}".encode(), hashlib.sha256).hexdigest()[:16]
     lang = h.get("accept-language", "").split(",")[0].split(";")[0].strip()[:20]
     return {"visitante": visitor, "navegador": browser(ua), "dispositivo": device(ua), "idioma": lang,
-            "region": h.get("fly-region", "")[:10], "bot": int(not ua or bool(BOT.search(ua)))}
+            "region": h.get("fly-region", "")[:10], "bot": int(not ua or bool(BOT.search(ua))),
+            "pais": h.get("cf-ipcountry", "")[:2].upper() if from_cloudflare(request) else ""}
 
 
 def clip(s, n=300):
@@ -228,7 +243,9 @@ def stats(days):
     t0 = since(days)
 
     def q(sql, *args):
-        return [dict(r) for r in con.execute(sql, (t0, *args))]
+        # Logged values come from visitors: a non-finite number (monto=1e309) would break the JSON response.
+        finite = lambda v: None if isinstance(v, float) and not math.isfinite(v) else v
+        return [{k: finite(v) for k, v in dict(r).items()} for r in con.execute(sql, (t0, *args))]
 
     base = "FROM usos WHERE ts >= ? AND bot = 0"
     top = lambda col, tipo, n=15, extra="": q(
@@ -247,6 +264,7 @@ def stats(days):
         "dispositivos": top("dispositivo", "pagina"),
         "idiomas": top("idioma", "pagina"),
         "regiones": top("region", "pagina"),
+        "paises": top("pais", "pagina", extra="AND pais IS NOT NULL AND pais != ''"),
         "api": top("ruta", "api"),
         "eventos": top("ruta || ' ' || coalesce(params, '')", "evento", 20, "AND ruta != 'recaudacion-impuesto'"),
         "desglose": top("coalesce(json_extract(params, '$.year'), 'último') || ' · ' || "
@@ -254,7 +272,7 @@ def stats(days):
         "calculadora": q(f"SELECT substr(ruta, 10) AS nombre, COUNT(*) AS n, COUNT(DISTINCT visitante) AS visitantes, "
                          f"MIN(CAST(json_extract(params, '$.monto') AS REAL)) AS monto_min, "
                          f"MAX(CAST(json_extract(params, '$.monto') AS REAL)) AS monto_max "
-                         f"{base} AND tipo = 'api' AND ruta LIKE '/api/tax/%' GROUP BY nombre ORDER BY n DESC"),
+                         f"{base} AND tipo = 'api' AND estado = 200 AND ruta LIKE '/api/tax/%' GROUP BY nombre ORDER BY n DESC"),
         # Taxes picked in Recaudación's "Cada impuesto": how many people chose each, the clearest sign of interest.
         "impuestos": q(f"SELECT json_extract(params, '$.sigla') AS sigla, "
                        f"COUNT(DISTINCT CASE WHEN json_extract(params, '$.accion') = 'agregar' THEN visitante END) AS visitantes, "

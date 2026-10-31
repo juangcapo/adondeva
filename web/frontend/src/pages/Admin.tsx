@@ -9,7 +9,7 @@ type Stats = {
   dias: number
   totales: { visitantes: number; paginas: number; consultas: number; eventos: number }
   por_dia: { dia: string; visitantes: number; paginas: number; consultas: number }[]
-  paginas: Fila[]; referrers: Fila[]; navegadores: Fila[]; dispositivos: Fila[]; idiomas: Fila[]; regiones: Fila[]
+  paginas: Fila[]; referrers: Fila[]; navegadores: Fila[]; dispositivos: Fila[]; idiomas: Fila[]; regiones: Fila[]; paises: Fila[]
   api: Fila[]; eventos: Fila[]; desglose: Fila[]; ncm: Fila[]
   impuestos: { sigla: string; nombre: string; visitantes: number; agregado: number; quitado: number }[]
   calculadora: (Fila & { monto_min: number | null; monto_max: number | null })[]
@@ -18,6 +18,17 @@ type Stats = {
 }
 
 const RANGOS = [7, 30, 90, 365]
+const PAIS = new Intl.DisplayNames(['es'], { type: 'region' })
+// Cloudflare's codes: XX unknown, T1 Tor.
+const paisNombre = (code: string | null) => {
+  if (!code || code === 'XX') return 'desconocido'
+  if (code === 'T1') return 'red Tor'
+  try {
+    return `${PAIS.of(code) ?? code} (${code})`
+  } catch {
+    return code
+  }
+}
 
 /** Private usage dashboard: the server asks for the admin password before serving this page. */
 export default function Admin() {
@@ -113,6 +124,8 @@ export default function Admin() {
             <Top titulo="Navegadores" filas={data.navegadores} />
             <Top titulo="Dispositivos" filas={data.dispositivos} />
             <Top titulo="Idiomas" filas={data.idiomas} />
+            <Top titulo="Países" filas={data.paises.map((p) => ({ ...p, nombre: paisNombre(p.nombre) }))}
+              vacio="Sin datos: el país llega solo a través de Cloudflare." />
             <Top titulo="Región de Fly (ubicación aproximada)" filas={data.regiones} />
             <section className="card">
               <h2>Errores</h2>

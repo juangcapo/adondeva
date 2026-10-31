@@ -55,6 +55,29 @@ fly secrets set -a adondeva ADMIN_PASSWORD="$(openssl rand -base64 24)"   # keep
 
 By hand: `fly deploy` from the repo root.
 
+## Cloudflare (adondeva.org)
+
+Cloudflare sits in front of Fly: bot protection, DDoS, cache for `/assets`, and the visitor's country.
+Behind it, Fly only sees Cloudflare's IPs, so the app reads the visitor's IP and country from Cloudflare's
+headers, and only when the request carries `X-Origin-Secret`, a header that a Cloudflare rule adds. Once
+`CF_ORIGIN_SECRET` is set, everything that doesn't come through Cloudflare (adondeva.fly.dev) gets 403,
+except Fly's health check. `CANONICAL_HOST` (fly.toml) redirects www.adondeva.org to adondeva.org.
+
+Once, after the first deploy, in this order:
+
+1. Fly certificates: `fly certs add adondeva.org` and `fly certs add www.adondeva.org`. Each prints the
+   DNS records it needs; `fly ips list` shows the app's IPs.
+2. Cloudflare › DNS: `A @` → the IPv4 and `AAAA @` → the IPv6 from `fly ips list`, `CNAME www` → `adondeva.org`,
+   all **proxied** (orange cloud); plus the `_acme-challenge` CNAMEs that `fly certs add` printed, **DNS only**
+   (grey cloud), so Fly can issue its certificates. `fly certs show adondeva.org` says when they are ready.
+3. Cloudflare › SSL/TLS: mode **Full (strict)**; Edge Certificates › **Always Use HTTPS** on.
+4. Cloudflare › Rules › Transform Rules › Modify Request Header: for all incoming requests, *set static*
+   `X-Origin-Secret` to a random value (`openssl rand -hex 32`).
+5. `fly secrets set -a adondeva CF_ORIGIN_SECRET='<the same value>'`. Do it after step 4: from then on, requests
+   without the header get 403.
+6. Cloudflare › Security › Bots: **Bot Fight Mode** on. Leave Rocket Loader and Email Address Obfuscation off:
+   they inject scripts the Content-Security-Policy blocks.
+
 ## Usage log
 
 `backend/uso.py` records every page view, API query (with its parameters) and tracked interaction (taxes

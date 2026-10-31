@@ -17,7 +17,7 @@ from types import SimpleNamespace
 from typing import Literal
 
 from fastapi import Depends, FastAPI, HTTPException, Query, Request
-from fastapi.responses import FileResponse, JSONResponse, PlainTextResponse
+from fastapi.responses import FileResponse, JSONResponse, PlainTextResponse, RedirectResponse
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
@@ -117,13 +117,25 @@ def secure(response, path):
     if path.startswith(("/admin", "/api/admin")):
         response.headers["Cache-Control"] = "no-store"
         response.headers["X-Robots-Tag"] = "noindex"
+    elif path.startswith("/assets/") and response.status_code == 200:
+        # File names carry a content hash, so browsers and Cloudflare can keep them for good.
+        response.headers["Cache-Control"] = "public, max-age=31536000, immutable"
     return response
 
 
 @app.middleware("http")
 async def guard(request: Request, call_next):
-    """Rate limits, then the request, then the usage log and security headers."""
+    """Origin lock and www redirect, rate limits, then the request, then the usage log and security headers."""
     path = request.url.path
+    # With Cloudflare in front (CF_ORIGIN_SECRET set), only requests through it are served: direct visits to
+    # adondeva.fly.dev would skip its bot protection and could forge the visitor's IP. Fly's health check
+    # reaches the machine directly, so it stays open.
+    if os.environ.get("CF_ORIGIN_SECRET") and path != "/api/health" and not uso.from_cloudflare(request):
+        return secure(PlainTextResponse("Acceso directo no permitido.", 403), path)
+    canonical = os.environ.get("CANONICAL_HOST")
+    if canonical and request.headers.get("host", "").split(":")[0] == f"www.{canonical}":
+        query = f"?{request.url.query}" if request.url.query else ""
+        return secure(RedirectResponse(f"https://{canonical}{path}{query}", 301), path)
     if path.startswith("/api/") and path != "/api/health":
         ip = uso.client_ip(request)
         if not all(lim.allow(ip) for key, lim in LIMITS.items() if key == "api" or key == path):

@@ -174,3 +174,38 @@ def test_rate_limit_and_admin_lockout():
     finally:
         for lim in limiters:
             lim.events.clear()
+
+
+def test_cloudflare_origin_lock_ip_and_country(monkeypatch):
+    monkeypatch.setenv("CF_ORIGIN_SECRET", "s3")
+    via_cf = {"x-origin-secret": "s3", "cf-connecting-ip": "203.0.113.7", "cf-ipcountry": "uy",
+              "user-agent": "Mozilla/5.0 Firefox/130.0"}
+    # Direct requests (adondeva.fly.dev, or a forged Cloudflare header) are refused; the health check is not.
+    assert client.get("/api/sources").status_code == 403
+    assert client.get("/api/sources", headers={**via_cf, "x-origin-secret": "mal"}).status_code == 403
+    assert client.get("/api/health").status_code == 200
+    assert client.get("/api/sources", headers=via_cf).status_code == 200
+
+    client.post("/api/hit", json={"tipo": "pagina", "ruta": "/desde-cloudflare"}, headers=via_cf)
+    uso.flush()
+    rows = list(csv.DictReader(io.StringIO(client.get("/api/admin/export.csv", auth=ADMIN, headers=via_cf).text)))
+    row = next(r for r in rows if r["ruta"] == "/desde-cloudflare")
+    assert row["pais"] == "UY" and row["navegador"] == "Firefox"
+    assert "203.0.113.7" not in str(rows)
+    assert any(p["nombre"] == "UY" for p in client.get("/api/admin/stats", auth=ADMIN, headers=via_cf).json()["paises"])
+
+    # Without the secret, Cloudflare's headers are ignored: they could be forged.
+    monkeypatch.delenv("CF_ORIGIN_SECRET")
+    assert uso.details(type("R", (), {"headers": via_cf, "client": None})())["pais"] == ""
+
+
+def test_www_redirects_to_the_canonical_host(monkeypatch):
+    monkeypatch.setenv("CANONICAL_HOST", "adondeva.org")
+    r = client.get("/recaudacion?x=1", headers={"host": "www.adondeva.org"}, follow_redirects=False)
+    assert r.status_code == 301 and r.headers["location"] == "https://adondeva.org/recaudacion?x=1"
+
+
+def test_admin_stats_survive_non_finite_amounts():
+    client.get("/api/tax/sueldo", params={"monto": "1e309"})
+    uso.flush()
+    assert client.get("/api/admin/stats", auth=ADMIN).status_code == 200
