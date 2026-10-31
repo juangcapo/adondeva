@@ -27,8 +27,6 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-          cache: pip
-          cache-dependency-path: web/backend/requirements.txt
 
       # Fails the run (and GitHub emails you) when a source can't be read or a build script breaks:
       # usually a page or file layout changed.
