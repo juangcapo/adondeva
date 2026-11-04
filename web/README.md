@@ -31,6 +31,74 @@ Production-like, one process:
 
 The server reads the large budget files in the background at startup (about 15 seconds the first time; then `.cache/` makes it fast).
 
+## Deploy (Fly.io)
+
+The `Dockerfile` at the repo root builds the frontend, installs the backend and reads the large files once,
+so the server starts in seconds. `fly.toml` runs one always-on machine in São Paulo (`gru`) with 512 MB.
+`.github/workflows/deploy.yml` deploys on every push to `main`, so merged data updates go live on their own.
+
+Once, to set it up:
+
+```bash
+fly auth login
+fly apps create adondeva                  # or another name; then change `app` in fly.toml
+fly tokens create deploy -a adondeva      # copy the token
+gh secret set FLY_API_TOKEN               # paste it
+```
+
+Also once, for the usage log (below):
+
+```bash
+fly volumes create uso -r gru -s 1 -a adondeva
+fly secrets set -a adondeva ADMIN_PASSWORD="$(openssl rand -base64 24)"   # keep it in your password manager
+```
+
+By hand: `fly deploy` from the repo root.
+
+## Cloudflare (adondeva.org)
+
+Cloudflare sits in front of Fly: bot protection, DDoS, cache for `/assets`, and the visitor's country.
+Behind it, Fly only sees Cloudflare's IPs, so the app reads the visitor's IP and country from Cloudflare's
+headers, and only when the request carries `X-Origin-Secret`, a header that a Cloudflare rule adds. Once
+`CF_ORIGIN_SECRET` is set, everything that doesn't come through Cloudflare (adondeva.fly.dev) gets 403,
+except Fly's health check. `CANONICAL_HOST` (fly.toml) redirects www.adondeva.org to adondeva.org.
+
+Once, after the first deploy, in this order:
+
+1. Fly certificates: `fly certs add adondeva.org` and `fly certs add www.adondeva.org`. Each prints the
+   DNS records it needs; `fly ips list` shows the app's IPs.
+2. Cloudflare › DNS: `A @` → the IPv4 and `AAAA @` → the IPv6 from `fly ips list`, `CNAME www` → `adondeva.org`,
+   all **proxied** (orange cloud); plus the `_acme-challenge` CNAMEs that `fly certs add` printed, **DNS only**
+   (grey cloud), so Fly can issue its certificates. `fly certs show adondeva.org` says when they are ready.
+3. Cloudflare › SSL/TLS: mode **Full (strict)**; Edge Certificates › **Always Use HTTPS** on.
+4. Cloudflare › Rules › Transform Rules › Modify Request Header: for all incoming requests, *set static*
+   `X-Origin-Secret` to a random value (`openssl rand -hex 32`).
+5. `fly secrets set -a adondeva CF_ORIGIN_SECRET='<the same value>'`. Do it after step 4: from then on, requests
+   without the header get 403.
+6. Cloudflare › Security › Bots: **Bot Fight Mode** on. Leave Rocket Loader and Email Address Obfuscation off:
+   they inject scripts the Content-Security-Policy blocks.
+
+## Usage log
+
+`backend/uso.py` records every page view, API query (with its parameters) and tracked interaction (taxes
+picked in Recaudación, view toggles) in SQLite: `USO_DB`, `.cache/uso.db` by default, `/data/uso.db` on Fly.
+No IP addresses or cookies: a visitor is an HMAC of IP and user agent with a random key that changes every
+day, and the old key is deleted, so people count once per day and can't be traced back or followed across days.
+Referrers keep only site and path. Bots are flagged by user agent and left out of the reports. `/api/hit` only
+accepts the pages and interactions the site sends.
+
+## Security
+
+- Rate limits per IP and minute: 300 API requests, 60 breakdowns, 120 hits (429 beyond). Admin: 10 wrong
+  passwords per IP lock it for 15 minutes.
+- Headers on every response: a strict Content-Security-Policy (nothing from other sites), `nosniff`,
+  `X-Frame-Options: DENY`, HSTS; admin responses are `no-store` and `noindex`.
+- The CSV export prefixes values that start with `= + - @` so spreadsheets don't run them as formulas.
+
+`/admin` shows the reports and downloads the raw rows as CSV. It asks for user `admin` and `ADMIN_PASSWORD`;
+without that variable it is off. To try it locally: `ADMIN_PASSWORD=x .venv/bin/uvicorn web.backend.app:app`.
+In development React runs effects twice, so page views and requests are logged twice; production logs each once.
+
 ## Tests
 
 ```bash
@@ -47,3 +115,6 @@ The server reads the large budget files in the background at startup (about 15 s
 | `GET /api/breakdown?year=2024&path=…&path=…` | one level of the drill-down; each `path` selects a value of the previous level |
 | `GET /api/tax/{sueldo,compra,importar,alquiler}?monto=…` | tax breakdown; same options as `adondeva.py tax` |
 | `GET /api/ncm?q=…` | tariff lines by code prefix or description |
+| `POST /api/hit` | log a page view or interaction (`{"tipo": "pagina" \| "evento", "ruta": …, "datos": …}`) |
+| `GET /api/health` | `{"ok": true}`, for the health check; not logged |
+| `GET /api/admin/stats?dias=30`, `/api/admin/export.csv` | usage reports (password) |

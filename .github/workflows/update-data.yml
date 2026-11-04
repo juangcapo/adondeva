@@ -22,9 +22,13 @@ jobs:
     env:
       BRANCH: data-update
     steps:
-      - uses: actions/checkout@v4
+      # Pinned by commit: a moved tag can't change what runs with write access. No stored credentials:
+      # the token is handed only to the push, not to pip or the tests.
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
         with:
           python-version: "3.12"
 
@@ -67,7 +71,8 @@ jobs:
           git switch -C "$BRANCH"
           git add -A data
           git commit -q -m "Update data from official sources"
-          git push -q -f origin "$BRANCH"
+          auth="AUTHORIZATION: basic $(printf 'x-access-token:%s' "$GH_TOKEN" | base64 -w0)"
+          git -c "http.https://github.com/.extraheader=$auth" push -q -f origin "$BRANCH"
 
           {
             cat "$RUNNER_TEMP/summary.md"
