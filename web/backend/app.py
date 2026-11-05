@@ -60,7 +60,9 @@ def spending_series(include_fondos_terceros):
         return ad.spending_series(include_fondos_terceros)
 
 
-@lru_cache(maxsize=4)
+# One year only: each takes ~70 MB as Python objects, and keeping 4 got the 512 MB machine OOM-killed.
+# Changing year re-reads its file (~0.4 s); drilling down within a year stays cached.
+@lru_cache(maxsize=1)
 def detail_rows(year):
     source, path = ad.detail_sources()[year]
     with DATA_LOCK:
