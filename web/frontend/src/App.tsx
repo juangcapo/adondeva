@@ -8,6 +8,7 @@ const Recaudacion = lazy(() => import('./pages/Recaudacion.tsx'))
 const Impuestos = lazy(() => import('./pages/Impuestos.tsx'))
 const Fuentes = lazy(() => import('./pages/Fuentes.tsx'))
 const Admin = lazy(() => import('./pages/Admin.tsx'))
+const Apoyar = lazy(() => import('./pages/Apoyar.tsx'))
 
 /** One page view per route change; the referrer only on arrival, and only from another site. */
 function usePageViews() {
@@ -46,6 +47,7 @@ export default function App() {
             <NavLink key={p.to} to={p.to} end={p.to === '/'}>{p.label}</NavLink>
           ))}
         </nav>
+        <NavLink to="/apoyar" className="apoyar">♥ Apoyá el sitio</NavLink>
       </header>
       <main>
         <Suspense fallback={<p className="muted">Cargando…</p>}>
@@ -54,6 +56,7 @@ export default function App() {
             <Route path="/recaudacion" element={<Recaudacion />} />
             <Route path="/impuestos" element={<Impuestos />} />
             <Route path="/fuentes" element={<Fuentes />} />
+            <Route path="/apoyar" element={<Apoyar />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="*" element={<p>Esta página no existe.</p>} />
           </Routes>
@@ -63,6 +66,7 @@ export default function App() {
         Datos oficiales de OPP, MEF, INE y DGI (Licencia de Datos Abiertos – Uruguay) y datasets compilados por{' '}
         <a href="https://github.com/juangcapo/adondeva">adondeva</a> (CC BY 4.0).
         {' '}Registramos de forma anónima las visitas y consultas, sin cookies ni direcciones IP, para saber cómo se usa el sitio.
+        {' '}¿Te sirve? <NavLink to="/apoyar">Apoyá el sitio</NavLink>.
       </footer>
     </div>
   )
