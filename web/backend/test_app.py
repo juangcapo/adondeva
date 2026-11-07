@@ -9,6 +9,7 @@ from fastapi.testclient import TestClient
 
 # Log to a throwaway database, and turn the admin page on with a known password.
 os.environ["USO_DB"] = os.path.join(tempfile.mkdtemp(), "uso.db")
+os.environ["NOTICIAS_DB"] = os.path.join(tempfile.mkdtemp(), "noticias.db")
 os.environ["ADMIN_PASSWORD"] = "secreta"
 
 from web.backend import uso  # noqa: E402
@@ -209,3 +210,63 @@ def test_admin_stats_survive_non_finite_amounts():
     client.get("/api/tax/sueldo", params={"monto": "1e309"})
     uso.flush()
     assert client.get("/api/admin/stats", auth=ADMIN).status_code == 200
+
+
+LINK = {"tipo": "link", "titulo": "El gasto en seguridad creció", "medio": "La Diaria", "fecha": "2026-11-01",
+        "url": "https://ladiaria.com.uy/nota", "resumen": "Resumen propio de la nota sobre seguridad.",
+        "cita": "Una frase corta", "seccion": "gasto"}
+PROPIA = {"tipo": "propia", "titulo": "Cuánto costó la visita", "fecha": "2026-11-05",
+          "resumen": "Lo que sabemos del gasto público.", "cuerpo": "## Resumen\n\nTexto de la nota."}
+
+
+def test_noticias_crud_and_drafts():
+    r = client.post("/api/admin/noticias", json=LINK, auth=ADMIN)
+    assert r.status_code == 201, r.text
+    link = r.json()
+    assert link["slug"] is None and link["cuerpo"] is None
+    propia = client.post("/api/admin/noticias", json={**PROPIA, "publicada": False}, auth=ADMIN).json()
+    assert propia["slug"] == "cuanto-costo-la-visita"
+
+    publicas = get("/api/noticias")
+    assert [n["id"] for n in publicas] == [link["id"]]  # drafts stay hidden
+    assert "cuerpo" not in publicas[0]
+    assert client.get("/api/noticias/cuanto-costo-la-visita").status_code == 404
+
+    r = client.put(f"/api/admin/noticias/{propia['id']}", json={**PROPIA, "titulo": "Otro título"}, auth=ADMIN)
+    assert r.json()["slug"] == "cuanto-costo-la-visita"  # the address survives a new title
+    assert get("/api/noticias/cuanto-costo-la-visita")["cuerpo"].startswith("## Resumen")
+    assert [n["id"] for n in get("/api/noticias")] == [propia["id"], link["id"]]  # newest first
+
+    assert client.delete(f"/api/admin/noticias/{link['id']}", auth=ADMIN).status_code == 204
+    assert client.delete(f"/api/admin/noticias/{link['id']}", auth=ADMIN).status_code == 404
+    assert client.put("/api/admin/noticias/99999", json=LINK, auth=ADMIN).status_code == 404
+
+
+def test_noticias_validation():
+    for bad in [
+        {**LINK, "url": "javascript:alert(1)"},
+        {**LINK, "url": ""},
+        {**LINK, "medio": " "},
+        {**LINK, "seccion": "otra"},
+        {**LINK, "resumen": "corto"},
+        {**PROPIA, "cuerpo": ""},
+        {**LINK, "tipo": "otro"},
+    ]:
+        assert client.post("/api/admin/noticias", json=bad, auth=ADMIN).status_code == 422, bad
+
+
+def test_noticias_admin_needs_password_and_same_origin():
+    assert client.post("/api/admin/noticias", json=LINK).status_code == 401
+    assert client.get("/api/admin/noticias").status_code == 401
+    evil = {"Origin": "https://evil.example"}
+    assert client.post("/api/admin/noticias", json=LINK, auth=ADMIN, headers=evil).status_code == 403
+    assert client.delete("/api/admin/noticias/1", auth=ADMIN, headers={"Sec-Fetch-Site": "cross-site"}).status_code == 403
+    ok = {"Origin": "http://testserver", "Sec-Fetch-Site": "same-origin"}
+    assert client.post("/api/admin/noticias", json=LINK, auth=ADMIN, headers=ok).status_code == 201
+
+
+def test_donar_and_noticia_events_are_logged():
+    n = client.post("/api/admin/noticias", json=LINK, auth=ADMIN).json()
+    assert client.post("/api/hit", json={"tipo": "evento", "ruta": "donar", "datos": {}}).status_code == 204
+    assert client.post("/api/hit", json={"tipo": "evento", "ruta": "noticia-abrir", "datos": {"id": n["id"]}}).status_code == 204
+    assert client.post("/api/hit", json={"tipo": "evento", "ruta": "noticia-abrir", "datos": {"id": 99999}}).status_code == 422

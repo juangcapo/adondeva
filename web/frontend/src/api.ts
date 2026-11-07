@@ -125,3 +125,44 @@ export function useTrackChange(ruta: string, datos: Record<string, string | numb
     track('evento', ruta, { datos: JSON.parse(key) })
   }, [ruta, key])
 }
+
+export type Seccion = 'gasto' | 'recaudacion' | 'impuestos'
+
+/** The site sections a news item can point to. */
+export const SECCIONES: Record<Seccion, { label: string; to: string }> = {
+  gasto: { label: 'Gasto', to: '/' },
+  recaudacion: { label: 'Recaudación', to: '/recaudacion' },
+  impuestos: { label: 'Impuestos', to: '/impuestos' },
+}
+
+export type Noticia = {
+  id: number
+  tipo: 'link' | 'propia'
+  slug: string | null
+  titulo: string
+  medio: string | null
+  autor: string | null
+  fecha: string
+  url: string | null
+  resumen: string
+  cita: string | null
+  cuerpo?: string | null
+  seccion: Seccion | null
+  publicada: boolean
+}
+
+/** Send JSON to the API (admin writes); throws the server's message on error. */
+export async function sendJson<T>(method: 'POST' | 'PUT' | 'DELETE', url: string, body?: unknown): Promise<T | null> {
+  const r = await fetch(url, {
+    method, headers: body === undefined ? {} : { 'Content-Type': 'application/json' },
+    body: body === undefined ? undefined : JSON.stringify(body),
+  })
+  const data = r.status === 204 ? null : await r.json().catch(() => null)
+  if (!r.ok) {
+    const detail = data?.detail
+    const msg = typeof detail === 'string' ? detail
+      : Array.isArray(detail) ? detail.map((d: { msg?: string }) => d.msg?.replace(/^Value error, /, '')).join(' ') : null
+    throw new Error(msg || `Error ${r.status}`)
+  }
+  return data as T | null
+}

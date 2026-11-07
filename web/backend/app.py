@@ -26,7 +26,7 @@ REPO = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO))
 import adondeva as ad  # noqa: E402
 
-from . import uso  # noqa: E402
+from . import noticias, uso  # noqa: E402
 
 FRONTEND = (REPO / "web" / "frontend" / "dist").resolve()
 
@@ -170,6 +170,8 @@ EVENTS = {
     "recaudacion-impuesto": {"sigla": "tax", "accion": {"agregar", "quitar"}},
     "recaudacion-vista": {"vista": {"grupo", "impuesto"}, "modo": {"real", "nominal", "pct"}, "desde": YEAR},
     "gasto-vista": {"modo": {"real", "nominal"}, "desde": YEAR},
+    "donar": {},
+    "noticia-abrir": {"id": "noticia"},
 }
 
 
@@ -181,6 +183,8 @@ def valid_event(name, datos):
         v = datos[k]
         if allowed == "tax":
             ok = isinstance(v, str) and v in revenue()[0]
+        elif allowed == "noticia":
+            ok = isinstance(v, int) and not isinstance(v, bool) and any(n["id"] == v for n in noticias.listar())
         elif allowed is YEAR:
             ok = isinstance(v, int) and not isinstance(v, bool) and v in YEAR
         else:
@@ -225,6 +229,55 @@ def admin(request: Request, creds: HTTPBasicCredentials | None = Depends(basic))
         if creds:  # the browser's first, empty request is not an attempt
             ADMIN_FAILURES.add(ip)
         raise HTTPException(401, "Usuario o contraseña incorrectos.", headers={"WWW-Authenticate": 'Basic realm="adondeva admin"'})
+
+
+def same_origin(request: Request):
+    """Admin writes only from the site's own pages: the browser sends the saved password with any request,
+    so a page on another site could otherwise make it post or delete (CSRF)."""
+    origin = request.headers.get("origin")
+    site = request.headers.get("sec-fetch-site")
+    if (origin and origin.split("://", 1)[-1] != request.headers.get("host")) or site not in (None, "same-origin", "none"):
+        raise HTTPException(403, "Origen no permitido.")
+
+
+ADMIN_WRITE = [Depends(admin), Depends(same_origin)]
+
+
+@app.get("/api/noticias")
+def noticias_lista():
+    return noticias.listar()
+
+
+@app.get("/api/noticias/{slug}")
+def noticia(slug: str):
+    n = noticias.por_slug(slug)
+    if not n:
+        raise HTTPException(404, "Esta nota no existe.")
+    return n
+
+
+@app.get("/api/admin/noticias", dependencies=[Depends(admin)], include_in_schema=False)
+def admin_noticias():
+    return noticias.listar(todas=True)
+
+
+@app.post("/api/admin/noticias", status_code=201, dependencies=ADMIN_WRITE, include_in_schema=False)
+def admin_noticia_nueva(n: noticias.Noticia):
+    return noticias.guardar(n)
+
+
+@app.put("/api/admin/noticias/{id}", dependencies=ADMIN_WRITE, include_in_schema=False)
+def admin_noticia_editar(id: int, n: noticias.Noticia):
+    saved = noticias.guardar(n, id)
+    if not saved:
+        raise HTTPException(404, "Esa noticia no existe.")
+    return saved
+
+
+@app.delete("/api/admin/noticias/{id}", status_code=204, dependencies=ADMIN_WRITE, include_in_schema=False)
+def admin_noticia_borrar(id: int):
+    if not noticias.borrar(id):
+        raise HTTPException(404, "Esa noticia no existe.")
 
 
 @app.get("/api/admin/stats", dependencies=[Depends(admin)], include_in_schema=False)
@@ -383,7 +436,7 @@ if FRONTEND.is_dir():
         """Client-side routes all load index.html; React picks the page."""
         if page.startswith("api/"):
             raise HTTPException(404)
-        if page.strip("/") == "admin":
+        if page.strip("/").split("/")[0] == "admin":
             admin(request, creds)  # ask for the password up front, so the page's API calls carry it
         file = (FRONTEND / page).resolve()
         ok = page and file.is_relative_to(FRONTEND) and file.is_file()

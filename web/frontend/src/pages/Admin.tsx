@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
+import { Link } from 'react-router-dom'
 import { apiUrl, useApi } from '../api.ts'
 import { axisProps, Tip, useColors } from '../chart.tsx'
 import { fmt } from '../format.ts'
@@ -46,6 +47,7 @@ export default function Admin() {
         </div>
         <a href={apiUrl('admin/export.csv', { dias })}>Descargar CSV ({dias} días)</a>
         <a href={apiUrl('admin/export.csv')}>Descargar todo</a>
+        <Link to="/admin/noticias">Cargar noticias →</Link>
       </div>
       {error && <div className="card error">{error}</div>}
       {!data && !error && <div className="card muted">Cargando…</div>}

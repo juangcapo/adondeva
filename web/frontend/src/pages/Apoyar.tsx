@@ -14,7 +14,7 @@ export default function Apoyar() {
       {MERCADO_PAGO_URL ? (
         <p>
           <a className="button" href={MERCADO_PAGO_URL} target="_blank" rel="noopener noreferrer"
-            onClick={() => track('evento', 'donar')}>
+            onClick={() => track('evento', 'donar', { datos: {} })}>
             Colaborar con Mercado Pago
           </a>
         </p>
