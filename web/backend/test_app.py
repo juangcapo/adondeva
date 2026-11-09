@@ -9,7 +9,7 @@ from fastapi.testclient import TestClient
 
 # Log to a throwaway database, and turn the admin page on with a known password.
 os.environ["USO_DB"] = os.path.join(tempfile.mkdtemp(), "uso.db")
-os.environ["NOTICIAS_DB"] = os.path.join(tempfile.mkdtemp(), "noticias.db")
+os.environ["CONTENIDO_DB"] = os.path.join(tempfile.mkdtemp(), "contenido.db")
 os.environ["ADMIN_PASSWORD"] = "secreta"
 
 from web.backend import uso  # noqa: E402
@@ -270,3 +270,48 @@ def test_donar_and_noticia_events_are_logged():
     assert client.post("/api/hit", json={"tipo": "evento", "ruta": "donar", "datos": {}}).status_code == 204
     assert client.post("/api/hit", json={"tipo": "evento", "ruta": "noticia-abrir", "datos": {"id": n["id"]}}).status_code == 204
     assert client.post("/api/hit", json={"tipo": "evento", "ruta": "noticia-abrir", "datos": {"id": 99999}}).status_code == 422
+
+
+CASO = {"titulo": "Visita del Papa", "fecha": "2026-11-06", "resumen": "Lo que gastó el Estado en la visita.",
+        "items": [
+            {"concepto": "Escenario", "organismo": "Intendencia", "monto": 1000, "moneda": "UYU", "estado": "confirmado",
+             "fuente": "Compra 1/2026", "fuente_url": "https://www.comprasestatales.gub.uy/x"},
+            {"concepto": "Vallas", "organismo": "Intendencia", "monto": 500, "moneda": "UYU", "estado": "confirmado",
+             "fuente_url": "https://www.comprasestatales.gub.uy/y"},
+            {"concepto": "Vuelos", "organismo": "Fuerza Aérea", "monto": 10, "moneda": "USD", "estado": "estimado",
+             "fuente_url": "https://example.com/z"},
+            {"concepto": "Policía", "organismo": "Ministerio del Interior", "monto": 999, "estado": "pedido"},
+        ]}
+
+
+def test_gastos_crud_and_totals():
+    c = client.post("/api/admin/gastos-recientes", json=CASO, auth=ADMIN)
+    assert c.status_code == 201, c.text
+    c = c.json()
+    assert c["slug"] == "visita-del-papa"
+    assert c["totales"] == {"confirmado": {"UYU": 1500}, "estimado": {"USD": 10}, "pendientes": 1}
+    assert c["items"][3]["monto"] is None  # no figure without a source
+    assert "items" not in get("/api/gastos-recientes")[0]
+    assert [i["concepto"] for i in get("/api/gastos-recientes/visita-del-papa")["items"]] == ["Escenario", "Vallas", "Vuelos", "Policía"]
+
+    r = client.put(f"/api/admin/gastos-recientes/{c['id']}", json={**CASO, "titulo": "Otro", "items": CASO["items"][:1],
+                                                          "publicado": False}, auth=ADMIN)
+    assert r.json()["slug"] == "visita-del-papa" and len(r.json()["items"]) == 1
+    assert client.get("/api/gastos-recientes/visita-del-papa").status_code == 404  # draft
+    assert client.delete(f"/api/admin/gastos-recientes/{c['id']}", auth=ADMIN).status_code == 204
+    assert client.get("/api/admin/gastos-recientes", auth=ADMIN).json() == []
+
+
+def test_gastos_validation_and_auth():
+    item = CASO["items"][0]
+    for bad in [
+        {**CASO, "items": [{**item, "monto": None}]},
+        {**CASO, "items": [{**item, "fuente_url": None}]},
+        {**CASO, "items": [{**item, "fuente_url": "javascript:x"}]},
+        {**CASO, "items": [{**item, "monto": -1}]},
+        {**CASO, "items": [{**item, "moneda": "EUR"}]},
+        {**CASO, "items": [{**item, "estado": "inventado"}]},
+    ]:
+        assert client.post("/api/admin/gastos-recientes", json=bad, auth=ADMIN).status_code == 422, bad
+    assert client.post("/api/admin/gastos-recientes", json=CASO).status_code == 401
+    assert client.post("/api/admin/gastos-recientes", json=CASO, auth=ADMIN, headers={"Origin": "https://evil.example"}).status_code == 403

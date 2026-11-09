@@ -24,3 +24,6 @@ export function pesos(x: number) {
 
 /** Short form for chart axes. */
 export const axisBillions = (x: number) => `${fmt(x / 1e9)}`
+
+/** An amount with its currency: "$ 1.234.567" or "US$ 2.700.000". */
+export const money = (x: number, moneda: 'UYU' | 'USD') => `${moneda === 'USD' ? 'US$' : '$'} ${fmt(x)}`

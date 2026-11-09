@@ -5,7 +5,7 @@ its photos (copyright: Ley 9.739, art. 45). Own articles have a body written in 
 that the frontend renders (paragraphs, ## headings, - lists, [text](https://...) links).
 
 Settings (environment):
-  NOTICIAS_DB   SQLite file (default .cache/noticias.db; on Fly, /data/noticias.db on the volume)
+  CONTENIDO_DB   SQLite file shared with gastos.py (default .cache/contenido.db; on Fly, /data/contenido.db on the volume)
 """
 import os
 import re
@@ -17,7 +17,7 @@ from typing import Literal
 
 from pydantic import BaseModel, Field, field_validator, model_validator
 
-DB = Path(os.environ.get("NOTICIAS_DB", Path(__file__).resolve().parents[2] / ".cache" / "noticias.db"))
+DB = Path(os.environ.get("CONTENIDO_DB", Path(__file__).resolve().parents[2] / ".cache" / "contenido.db"))
 
 SECCIONES = ("gasto", "recaudacion", "impuestos")
 FIELDS = ["tipo", "slug", "titulo", "medio", "autor", "fecha", "url", "resumen", "cita", "cuerpo", "seccion", "publicada"]
@@ -55,6 +55,13 @@ def blank_to_none(v):
     return v.strip() or None if isinstance(v, str) else v
 
 
+def http_url(v):
+    """Only web links: no javascript:, data: or other schemes a visitor's browser would run."""
+    if v is not None and (not re.fullmatch(r"https?://[^\s/]+\.[^\s/]+(/\S*)?", v) or any(ord(c) < 32 for c in v)):
+        raise ValueError("El link tiene que empezar con http:// o https://.")
+    return v
+
+
 class Noticia(BaseModel):
     tipo: Literal["link", "propia"]
     titulo: str = Field(min_length=3, max_length=200)
@@ -75,12 +82,7 @@ class Noticia(BaseModel):
     def strip(cls, v):
         return v.strip() if isinstance(v, str) else v
 
-    @field_validator("url")
-    @classmethod
-    def http_url(cls, v):
-        if v is not None and (not re.fullmatch(r"https?://[^\s/]+\.[^\s/]+(/\S*)?", v) or any(ord(c) < 32 for c in v)):
-            raise ValueError("El link tiene que empezar con http:// o https://.")
-        return v
+    _url = field_validator("url")(http_url)
 
     @model_validator(mode="after")
     def by_type(self):

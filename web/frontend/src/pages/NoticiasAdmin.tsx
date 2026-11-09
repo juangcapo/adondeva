@@ -65,7 +65,7 @@ export default function NoticiasAdmin() {
   const propia = form.tipo === 'propia'
   return (
     <>
-      <p><Link to="/admin">← Uso del sitio</Link></p>
+      <p><Link to="/admin">← Uso del sitio</Link> · <Link to="/admin/gastos-recientes">Gastos recientes</Link></p>
       <h1>Noticias</h1>
       <p className="lede">
         Los links a medios llevan un resumen escrito por nosotros y, como mucho, una cita corta.

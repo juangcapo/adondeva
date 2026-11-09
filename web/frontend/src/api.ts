@@ -166,3 +166,39 @@ export async function sendJson<T>(method: 'POST' | 'PUT' | 'DELETE', url: string
   }
   return data as T | null
 }
+
+export type GastoEstado = 'confirmado' | 'estimado' | 'sin_datos' | 'pedido'
+export type Moneda = 'UYU' | 'USD'
+
+export type GastoItem = {
+  id?: number
+  concepto: string
+  organismo: string
+  monto: number | null
+  moneda: Moneda
+  estado: GastoEstado
+  fuente: string | null
+  fuente_url: string | null
+  nota: string | null
+}
+
+export type GastoTotales = { confirmado: Partial<Record<Moneda, number>>; estimado: Partial<Record<Moneda, number>>; pendientes: number }
+
+export type GastoCaso = {
+  id: number
+  slug: string
+  titulo: string
+  fecha: string
+  resumen: string
+  notas: string | null
+  publicado: boolean
+  totales: GastoTotales
+  items?: GastoItem[]
+}
+
+export const ESTADOS: Record<GastoEstado, string> = {
+  confirmado: 'Confirmado',
+  estimado: 'Estimado por la fuente',
+  sin_datos: 'Sin datos',
+  pedido: 'Pedido de información en trámite',
+}

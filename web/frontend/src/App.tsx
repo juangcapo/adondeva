@@ -12,6 +12,9 @@ const Apoyar = lazy(() => import('./pages/Apoyar.tsx'))
 const Noticias = lazy(() => import('./pages/Noticias.tsx'))
 const NotaPropia = lazy(() => import('./pages/Noticias.tsx').then((m) => ({ default: m.NotaPropia })))
 const NoticiasAdmin = lazy(() => import('./pages/NoticiasAdmin.tsx'))
+const GastosRecientes = lazy(() => import('./pages/GastosRecientes.tsx'))
+const GastoCasoPage = lazy(() => import('./pages/GastosRecientes.tsx').then((m) => ({ default: m.GastoCasoPage })))
+const GastosAdmin = lazy(() => import('./pages/GastosAdmin.tsx'))
 
 /** One page view per route change; the referrer only on arrival, and only from another site. */
 function usePageViews() {
@@ -36,7 +39,8 @@ const PAGES = [
   { to: '/', label: 'Gasto' },
   { to: '/recaudacion', label: 'Recaudación' },
   { to: '/impuestos', label: 'Impuestos' },
-  { to: '/noticias', label: 'Noticias' },
+  { to: '/gastos-recientes', label: 'Gastos recientes' },
+  // { to: '/noticias', label: 'Noticias' }, // oculta por ahora; la ruta sigue andando
   { to: '/fuentes', label: 'Fuentes' },
 ]
 
@@ -65,6 +69,9 @@ export default function App() {
             <Route path="/noticias/:slug" element={<NotaPropia />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/admin/noticias" element={<NoticiasAdmin />} />
+            <Route path="/gastos-recientes" element={<GastosRecientes />} />
+            <Route path="/gastos-recientes/:slug" element={<GastoCasoPage />} />
+            <Route path="/admin/gastos-recientes" element={<GastosAdmin />} />
             <Route path="*" element={<p>Esta página no existe.</p>} />
           </Routes>
         </Suspense>

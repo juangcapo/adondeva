@@ -48,6 +48,7 @@ export default function Admin() {
         <a href={apiUrl('admin/export.csv', { dias })}>Descargar CSV ({dias} días)</a>
         <a href={apiUrl('admin/export.csv')}>Descargar todo</a>
         <Link to="/admin/noticias">Cargar noticias →</Link>
+        <Link to="/admin/gastos-recientes">Cargar gastos recientes →</Link>
       </div>
       {error && <div className="card error">{error}</div>}
       {!data && !error && <div className="card muted">Cargando…</div>}

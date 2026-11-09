@@ -26,7 +26,7 @@ REPO = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO))
 import adondeva as ad  # noqa: E402
 
-from . import noticias, uso  # noqa: E402
+from . import gastos, noticias, uso  # noqa: E402
 
 FRONTEND = (REPO / "web" / "frontend" / "dist").resolve()
 
@@ -278,6 +278,43 @@ def admin_noticia_editar(id: int, n: noticias.Noticia):
 def admin_noticia_borrar(id: int):
     if not noticias.borrar(id):
         raise HTTPException(404, "Esa noticia no existe.")
+
+
+@app.get("/api/gastos-recientes")
+def gastos_lista():
+    return gastos.listar()
+
+
+@app.get("/api/gastos-recientes/{slug}")
+def gasto(slug: str):
+    c = gastos.por_slug(slug)
+    if not c:
+        raise HTTPException(404, "Este caso no existe.")
+    return c
+
+
+@app.get("/api/admin/gastos-recientes", dependencies=[Depends(admin)], include_in_schema=False)
+def admin_gastos():
+    return gastos.listar(todos=True)
+
+
+@app.post("/api/admin/gastos-recientes", status_code=201, dependencies=ADMIN_WRITE, include_in_schema=False)
+def admin_gasto_nuevo(c: gastos.Caso):
+    return gastos.guardar(c)
+
+
+@app.put("/api/admin/gastos-recientes/{id}", dependencies=ADMIN_WRITE, include_in_schema=False)
+def admin_gasto_editar(id: int, c: gastos.Caso):
+    saved = gastos.guardar(c, id)
+    if not saved:
+        raise HTTPException(404, "Ese caso no existe.")
+    return saved
+
+
+@app.delete("/api/admin/gastos-recientes/{id}", status_code=204, dependencies=ADMIN_WRITE, include_in_schema=False)
+def admin_gasto_borrar(id: int):
+    if not gastos.borrar(id):
+        raise HTTPException(404, "Ese caso no existe.")
 
 
 @app.get("/api/admin/stats", dependencies=[Depends(admin)], include_in_schema=False)

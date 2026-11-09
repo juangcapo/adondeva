@@ -212,3 +212,9 @@ button.primary:disabled { opacity: 0.6; cursor: default; }
 .admin-lista { list-style: none; margin: 0; padding: 0; }
 .admin-lista li { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 16px; padding: 10px 0; border-top: 1px solid var(--grid); }
 .admin-lista .acciones { display: flex; gap: 14px; }
+
+/* Recent spending */
+fieldset.item { border: 1px solid var(--grid); border-radius: 8px; padding: 10px 14px 12px; display: flex; flex-direction: column; gap: 10px; margin: 0; }
+fieldset.item legend { font-size: 0.85rem; color: var(--ink-2); padding: 0 4px; }
+.estado-confirmado { background: var(--accent); color: #fff; }
+.estado-pedido { border: 1px dashed var(--axis); background: none; }
