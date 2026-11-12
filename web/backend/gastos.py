@@ -32,7 +32,9 @@ CREATE TABLE IF NOT EXISTS gastos_items (
   caso INTEGER NOT NULL REFERENCES gastos_casos (id) ON DELETE CASCADE,
   orden INTEGER NOT NULL,
   concepto TEXT NOT NULL,
-  organismo TEXT NOT NULL,
+  organismo TEXT NOT NULL,          -- the unidad ejecutora that bought it
+  inciso TEXT,                      -- the organismo contratante, as ARCE lists it: "Ministerio de Salud Pública"
+  tipo_contratacion TEXT,           -- as ARCE names it: "Compra Directa", "Licitación Pública"...
   monto REAL,                       -- NULL when unknown
   moneda TEXT NOT NULL,             -- UYU | USD
   estado TEXT NOT NULL,             -- confirmado | estimado (by the source, never ours) | sin_datos | pedido
@@ -43,19 +45,28 @@ CREATE TABLE IF NOT EXISTS gastos_items (
 CREATE INDEX IF NOT EXISTS gastos_items_caso ON gastos_items (caso, orden);
 """
 CASO_FIELDS = ["slug", "titulo", "fecha", "resumen", "notas", "publicado"]
-ITEM_FIELDS = ["concepto", "organismo", "monto", "moneda", "estado", "fuente", "fuente_url", "nota"]
+ITEM_FIELDS = ["concepto", "organismo", "inciso", "tipo_contratacion", "monto", "moneda", "estado", "fuente", "fuente_url",
+               "nota"]
+# What the list page filters by, the way ARCE's search does: organismo contratante, unidad ejecutora, tipo de contratación.
+FILTER_FIELDS = ["inciso", "organismo", "tipo_contratacion"]
 
 
 def connect():
     con = noticias.connect()
     con.execute("PRAGMA foreign_keys = ON")
     con.executescript(SCHEMA)
+    have = {r["name"] for r in con.execute("PRAGMA table_info(gastos_items)")}
+    for col in ("inciso", "tipo_contratacion"):  # added after the first deploy
+        if col not in have:
+            con.execute(f"ALTER TABLE gastos_items ADD COLUMN {col} TEXT")
     return con
 
 
 class Item(BaseModel):
     concepto: str = Field(min_length=2, max_length=200)
     organismo: str = Field(min_length=2, max_length=150)
+    inciso: str | None = Field(None, max_length=150)
+    tipo_contratacion: str | None = Field(None, max_length=100)
     monto: float | None = Field(None, ge=0, allow_inf_nan=False)
     moneda: Literal["UYU", "USD"] = "UYU"
     estado: Literal[ESTADOS]  # type: ignore[valid-type]
@@ -63,7 +74,7 @@ class Item(BaseModel):
     fuente_url: str | None = Field(None, max_length=1000)
     nota: str | None = Field(None, max_length=600)
 
-    _blank = field_validator("fuente", "fuente_url", "nota", mode="before")(noticias.blank_to_none)
+    _blank = field_validator("inciso", "tipo_contratacion", "fuente", "fuente_url", "nota", mode="before")(noticias.blank_to_none)
     _url = field_validator("fuente_url")(noticias.http_url)
 
     @model_validator(mode="after")
@@ -108,6 +119,8 @@ def _caso(con, row, con_items=True):
     d["totales"] = totales(items)
     if con_items:
         d["items"] = items
+    else:  # the list page doesn't need the items, only what to filter them by
+        d["filtros"] = [dict(t) for t in dict.fromkeys(tuple((f, i[f]) for f in FILTER_FIELDS) for i in items)]
     return d
 
 

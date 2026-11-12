@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from 'react'
 import { Link } from 'react-router-dom'
 import { apiUrl, ESTADOS, sendJson, useApi, type GastoCaso, type GastoEstado, type GastoItem } from '../api.ts'
+import { INCISOS, TIPOS_CONTRATACION } from '../arce.ts'
 import { money } from '../format.ts'
 
 type Form = { titulo: string; fecha: string; resumen: string; notas: string; publicado: boolean; items: GastoItem[] }
@@ -8,7 +9,7 @@ type Form = { titulo: string; fecha: string; resumen: string; notas: string; pub
 const hoy = () => new Date().toLocaleDateString('sv-SE')
 const VACIO: Form = { titulo: '', fecha: hoy(), resumen: '', notas: '', publicado: false, items: [] }
 const ITEM: GastoItem = {
-  concepto: '', organismo: '', monto: null, moneda: 'UYU', estado: 'sin_datos', fuente: '', fuente_url: '', nota: '',
+  concepto: '', organismo: '', inciso: '', tipo_contratacion: '', monto: null, moneda: 'UYU', estado: 'sin_datos', fuente: '', fuente_url: '', nota: '',
 }
 const conMonto = (e: GastoEstado) => e === 'confirmado' || e === 'estimado'
 
@@ -103,8 +104,20 @@ export default function GastosAdmin() {
               <label className="field" style={{ flex: '2 1 220px' }}>Concepto
                 <input required minLength={2} maxLength={200} value={it.concepto} onChange={(e) => setItem(n, { concepto: e.target.value })} />
               </label>
-              <label className="field" style={{ flex: '2 1 220px' }}>Organismo
+              <label className="field" style={{ flex: '2 1 220px' }}>Organismo contratante
+                <select value={it.inciso ?? ''} onChange={(e) => setItem(n, { inciso: e.target.value })}>
+                  <option value="">—</option>
+                  {INCISOS.map(([num, nombre]) => <option key={num} value={nombre}>{num} · {nombre}</option>)}
+                </select>
+              </label>
+              <label className="field" style={{ flex: '2 1 220px' }}>Unidad ejecutora
                 <input required minLength={2} maxLength={150} value={it.organismo} onChange={(e) => setItem(n, { organismo: e.target.value })} />
+              </label>
+              <label className="field">Tipo de contratación
+                <select value={it.tipo_contratacion ?? ''} onChange={(e) => setItem(n, { tipo_contratacion: e.target.value })}>
+                  <option value="">—</option>
+                  {TIPOS_CONTRATACION.map((t) => <option key={t} value={t}>{t}</option>)}
+                </select>
               </label>
               <label className="field">Estado
                 <select value={it.estado} onChange={(e) => setItem(n, { estado: e.target.value as GastoEstado })}>

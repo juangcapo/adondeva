@@ -174,6 +174,8 @@ export type GastoItem = {
   id?: number
   concepto: string
   organismo: string
+  inciso: string | null
+  tipo_contratacion: string | null
   monto: number | null
   moneda: Moneda
   estado: GastoEstado
@@ -194,7 +196,11 @@ export type GastoCaso = {
   publicado: boolean
   totales: GastoTotales
   items?: GastoItem[]
+  filtros?: GastoFiltro[]
 }
+
+/** On the list, instead of the items: each distinct organismo contratante, unidad ejecutora and procedure type. */
+export type GastoFiltro = { inciso: string | null; organismo: string; tipo_contratacion: string | null }
 
 export const ESTADOS: Record<GastoEstado, string> = {
   confirmado: 'Confirmado',

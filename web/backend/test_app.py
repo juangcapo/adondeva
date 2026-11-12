@@ -315,3 +315,33 @@ def test_gastos_validation_and_auth():
         assert client.post("/api/admin/gastos-recientes", json=bad, auth=ADMIN).status_code == 422, bad
     assert client.post("/api/admin/gastos-recientes", json=CASO).status_code == 401
     assert client.post("/api/admin/gastos-recientes", json=CASO, auth=ADMIN, headers={"Origin": "https://evil.example"}).status_code == 403
+
+
+def test_gastos_list_has_what_to_filter_by():
+    item = {**CASO["items"][0], "organismo": "Dirección General de Secretaría", "inciso": "Ministerio de Salud Pública",
+            "tipo_contratacion": "Compra Directa"}
+    c = client.post("/api/admin/gastos-recientes", json={**CASO, "items": [item, item, {**item, "inciso": " "}]}, auth=ADMIN).json()
+    try:
+        [listed] = get("/api/gastos-recientes")
+        assert listed["filtros"] == [
+            {"inciso": "Ministerio de Salud Pública", "organismo": "Dirección General de Secretaría", "tipo_contratacion": "Compra Directa"},
+            {"inciso": None, "organismo": "Dirección General de Secretaría", "tipo_contratacion": "Compra Directa"}]
+    finally:
+        client.delete(f"/api/admin/gastos-recientes/{c['id']}", auth=ADMIN)
+
+
+def test_gastos_adds_new_item_columns_to_an_old_database():
+    import sqlite3
+    from web.backend import gastos, noticias
+    old = noticias.DB
+    path = os.path.join(tempfile.mkdtemp(), "viejo.db")
+    con = sqlite3.connect(path)
+    con.executescript(gastos.SCHEMA.replace("  inciso TEXT,", "").replace("  tipo_contratacion TEXT,", ""))
+    con.close()
+    noticias.DB = type(old)(path)
+    try:
+        with gastos.connect() as con:
+            cols = {r["name"] for r in con.execute("PRAGMA table_info(gastos_items)")}
+        assert {"inciso", "tipo_contratacion"} <= cols
+    finally:
+        noticias.DB = old

@@ -218,3 +218,8 @@ fieldset.item { border: 1px solid var(--grid); border-radius: 8px; padding: 10px
 fieldset.item legend { font-size: 0.85rem; color: var(--ink-2); padding: 0 4px; }
 .estado-confirmado { background: var(--accent); color: #fff; }
 .estado-pedido { border: 1px dashed var(--axis); background: none; }
+
+/* Filters on the recent spending list, laid out like ARCE's search */
+.filtros .controls { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px 16px; margin-bottom: 10px; }
+.filtros .field select, .filtros .field input { width: 100%; box-sizing: border-box; min-width: 0; }
+.filtros-pie { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; align-items: baseline; }
